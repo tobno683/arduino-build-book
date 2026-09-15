@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Offline — The Arduino Build Book</title>
+<meta name="theme-color" content="#b4662b">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/style.css">
+<script>(function(){try{var t=localStorage.getItem('ab-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){}}());</script>
+</head>
+<body>
+
+<main class="wrap" style="max-width:660px;padding-top:12vh;padding-bottom:60px">
+  <p class="kicker">No connection</p>
+  <h1 style="font-size:clamp(1.9rem,1.2rem+2.4vw,2.8rem)">This page is not saved yet</h1>
+  <p class="lede">The Build Book works offline, but only for the pages it has already cached. This one has
+  not been opened on this device yet, so there is nothing stored to show you.</p>
+
+  <div class="note tip" style="margin-top:28px">
+    <span class="t">Next time you have signal</span>
+    <p>Open the site and press <strong>Save offline</strong> in the header. That downloads all forty build
+    guides in one go - about 1.5&nbsp;MB - so the whole thing works in a workshop with no wifi.</p>
+  </div>
+
+  <h3 style="margin-top:34px">What should still work</h3>
+  <ul id="cached-list">
+    <li>The home page and the project list</li>
+    <li>The four reference guides, if you have opened them before</li>
+    <li>Any build guide you have already read on this device</li>
+  </ul>
+
+  <div class="btn-row">
+    <a class="btn btn-primary" href="index.html">Try the home page</a>
+    <a class="btn" href="projects.html">Project list</a>
+    <button class="btn" id="retry">Retry this page</button>
+  </div>
+</main>
+
+<script>
+document.getElementById('retry').addEventListener('click', function () {
+  location.reload();
+});
+
+/* If the connection comes back while this page is open, go straight on. */
+window.addEventListener('online', function () {
+  location.reload();
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>All projects — The Arduino Build Book</title>
+<meta name="description" content="Every Arduino project in the book, filterable by theme, difficulty, budget and whether it needs soldering.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+<meta name="theme-color" content="#b4662b">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Build Book">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<script>(function(){try{var t=localStorage.getItem('ab-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){}}());</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<section class="proj-head">
+  <div class="wrap">
+    <div class="crumbs"><a href="index.html">Home</a> / Projects</div>
+    <h1 id="ph-title">Every project</h1>
+    <p class="lede" id="ph-blurb">Filter by theme, by how hard it is, by what it costs, or by whether you need to
+    get the iron out. Every one of them has a full parts list, a 3D model, a wiring table and complete code.</p>
+    <p class="muted" id="ph-learn" style="margin-top:14px"></p>
+  </div>
+</section>
+
+<main class="wrap" id="main" style="padding-top:34px;padding-bottom:70px">
+
+  <div class="toolbar">
+    <div class="field" style="flex:2 1 280px">
+      <label for="q">Search</label>
+      <input id="q" type="search" placeholder="camera, rfid, plant, clock, esp32&hellip;" autocomplete="off">
+    </div>
+    <div class="field">
+      <label for="f-cat">Theme</label>
+      <select id="f-cat"></select>
+    </div>
+    <div class="field">
+      <label for="f-lvl">Level</label>
+      <select id="f-lvl">
+        <option value="">Any</option>
+        <option value="1">Beginner</option>
+        <option value="2">Easy</option>
+        <option value="3">Intermediate</option>
+        <option value="4">Advanced</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="f-cost">Budget</label>
+      <select id="f-cost">
+        <option value="">Any</option>
+        <option value="15">Under $15</option>
+        <option value="30">Under $30</option>
+        <option value="60">Under $60</option>
+      </select>
+    </div>
+    <div class="field" style="flex:0 1 auto">
+      <label for="f-sol">Soldering</label>
+      <select id="f-sol">
+        <option value="">Either</option>
+        <option value="no">None needed</option>
+        <option value="yes">Yes</option>
+      </select>
+    </div>
+  </div>
+
+  <p class="result-count" id="count"></p>
+  <div class="grid grid-3" id="list"></div>
+
+</main>
+
+<script src="assets/data/parts.js"></script>
+<script src="assets/data/categories.js"></script>
+<script src="assets/data/index.js"></script>
+<script src="assets/js/site.js"></script>
+<script>
+(function () {
+  AB.chrome('projects.html');
+  var idx = AB.index || [];
+
+  var q = document.getElementById('q'), fc = document.getElementById('f-cat'),
+      fl = document.getElementById('f-lvl'), fq = document.getElementById('f-cost'),
+      fs = document.getElementById('f-sol');
+
+  fc.innerHTML = '<option value="">All themes</option>' + AB.categories.map(function (c) {
+    return '<option value="' + c.slug + '">' + AB.esc(c.name) + '</option>';
+  }).join('');
+
+  var pre = AB.qs('cat');
+  if (pre && AB.catIndex[pre]) {
+    fc.value = pre;
+    var c = AB.catIndex[pre];
+    document.getElementById('ph-title').textContent = c.name;
+    document.getElementById('ph-blurb').textContent = c.blurb;
+    document.getElementById('ph-learn').innerHTML = '<strong>What you learn here:</strong> ' + AB.esc(c.learn);
+    document.title = c.name + ' — The Arduino Build Book';
+  }
+
+  function apply() {
+    var text = q.value.trim().toLowerCase();
+    var cat = fc.value, lvl = fl.value, cost = fq.value ? +fq.value : 0, sol = fs.value;
+    var out = idx.filter(function (p) {
+      if (cat && p.cat !== cat) return false;
+      if (lvl && p.level !== +lvl) return false;
+      if (cost && p.cost > cost) return false;
+      if (sol === 'no' && p.solder) return false;
+      if (sol === 'yes' && !p.solder) return false;
+      if (text) {
+        var hay = (p.title + ' ' + p.blurb + ' ' + (p.tags || []).join(' ') + ' ' + p.board + ' ' +
+                   (AB.catIndex[p.cat] ? AB.catIndex[p.cat].name : '')).toLowerCase();
+        if (hay.indexOf(text) < 0) return false;
+      }
+      return true;
+    });
+    document.getElementById('count').textContent =
+      out.length + (out.length === 1 ? ' project' : ' projects') +
+      (out.length ? ' · ' + AB.usd(out.reduce(function (a, p) { return a + p.cost; }, 0)) + ' to build them all' : '');
+    document.getElementById('list').innerHTML = out.length
+      ? out.map(function (p) { return AB.projectCard(p, ''); }).join('')
+      : '<div class="empty" style="grid-column:1/-1"><h3>Nothing matches that</h3><p>Try clearing a filter.</p></div>';
+
+    var u = cat ? '?cat=' + cat : location.pathname.split('/').pop();
+    history.replaceState(null, '', u);
+  }
+
+  [q, fc, fl, fq, fs].forEach(function (el) {
+    el.addEventListener('input', apply);
+    el.addEventListener('change', apply);
+  });
+  apply();
+}());
+</script>
+</body>
+</html>

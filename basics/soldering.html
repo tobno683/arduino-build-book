@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to solder — The Arduino Build Book</title>
+<meta name="description" content="A complete soldering course in words: the iron, the temperature, tinning, the three-second joint, headers, wires, what a good joint looks like, and how to undo a bad one.">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../assets/icons/apple-touch-icon.png">
+<meta name="theme-color" content="#b4662b">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Build Book">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/style.css">
+<script>(function(){try{var t=localStorage.getItem('ab-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){}}());</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<section class="proj-head">
+  <div class="wrap">
+    <div class="crumbs"><a href="../index.html">Home</a> / Basics / Soldering</div>
+    <h1>How to solder</h1>
+    <p class="lede">Soldering is not a talent. It is four physical facts and about twenty minutes of practice.
+    Most people who think they are bad at it were given a bad iron and told to "heat the wire and touch the
+    solder to it", which is almost the right instruction and produces almost entirely bad joints.</p>
+    <div class="spec-row">
+      <div class="spec"><span class="k">Reading time</span><span class="v">20 min</span></div>
+      <div class="spec"><span class="k">Practice</span><span class="v">30 joints</span></div>
+      <div class="spec"><span class="k">Kit needed</span><span class="v">~$75</span></div>
+    </div>
+  </div>
+</section>
+
+<main class="wrap" id="main">
+<div class="proj-layout">
+<div class="pbody">
+
+<section id="what">
+  <h2>What soldering actually is</h2>
+  <p>Solder is a metal alloy that melts at around 190&nbsp;&deg;C - low enough that a hand tool can melt it,
+  high enough that it stays solid in a warm room. When you melt it onto two clean, hot metal surfaces, it does
+  not simply glue them: it forms a thin <em>intermetallic</em> layer with each, chemically bonding to both.
+  That bond is the joint. Everything else on this page is in service of getting that bond to form.</p>
+  <p>Three conditions have to be true at the same moment:</p>
+  <ul>
+    <li><strong>Both metals must be hot enough.</strong> Not the solder - the metals. If you melt solder on the
+    iron and wipe it onto a cold pad, it sticks the way candle wax sticks: mechanically, weakly, and it will
+    fail. This is a <em>cold joint</em>, and it is the single most common fault.</li>
+    <li><strong>Both metals must be chemically clean.</strong> Copper grows an oxide skin within hours of being
+    exposed to air, and solder will not bond to oxide. That is what flux is for - it dissolves the oxide at
+    soldering temperature and shields the surface while the joint forms.</li>
+    <li><strong>The solder must be allowed to flow.</strong> Molten solder runs <em>towards heat</em> and wets
+    clean metal by capillary action. Your job is to heat the right things and then get out of the way, not to
+    push solder around like paint.</li>
+  </ul>
+  <div class="note tip"><span class="t">The one sentence version</span>
+  <p>Heat the joint - not the solder - feed solder into the joint until it flows, take the solder away, then
+  take the iron away, then do not move anything for two seconds.</p></div>
+</section>
+
+<section id="kit">
+  <h2>The kit, and what actually matters</h2>
+  <h3>The iron: buy temperature control or do not bother</h3>
+  <p>A fixed-temperature &pound;8 pencil iron has no thermostat. It heats until the heat going in equals the
+  heat leaking out, which might be 250&nbsp;&deg;C in still air and 480&nbsp;&deg;C on a sunny windowsill, and
+  which <em>collapses</em> the moment you touch a piece of metal that can absorb heat. That collapse is why
+  beginners with cheap irons make cold joints and conclude they are clumsy.</p>
+  <p>A temperature-controlled iron measures the tip and pushes power in to hold a set number. Yours does not
+  need to be expensive:</p>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Iron</th><th class="num">Typical</th><th>Why you would pick it</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Pinecil V2</strong></td><td class="num">$35</td><td>USB-C powered, pocket-sized, heats in 10 seconds. Runs off a laptop charger. Excellent first iron.</td></tr>
+      <tr><td><strong>TS101 / TS100</strong></td><td class="num">$45</td><td>Same idea, DC barrel or USB-C. Huge range of tips.</td></tr>
+      <tr><td><strong>Yihua 937D / 8786D</strong></td><td class="num">$40</td><td>Traditional station with a base and a knob. Heavier, cheaper tips, very forgiving.</td></tr>
+      <tr><td><strong>Hakko FX-888D</strong></td><td class="num">$120</td><td>Buy-it-once. If you already know you will keep doing this, skip the others.</td></tr>
+    </tbody>
+  </table></div>
+  <h3>The tip: chisel, not cone</h3>
+  <p>New irons ship with a fine conical tip, which is the worst possible choice for a beginner. A cone touches
+  the work at a single point and moves almost no heat. Use a <strong>2.4&nbsp;mm chisel</strong> (often
+  labelled <code>D24</code> or <code>2.4D</code>) for practically everything on this site: headers, wires,
+  through-hole parts. Its flat face makes contact with both the pad and the pin at once.</p>
+  <p>Keep a 1&nbsp;mm chisel for tight work. You will not need a needle point unless you get into surface-mount.</p>
+
+  <h3>The solder</h3>
+  <p><strong>0.8&nbsp;mm rosin-core</strong> is the right diameter for everything here - 1&nbsp;mm is clumsy on
+  small pads, 0.5&nbsp;mm means feeding it forever. "Rosin core" means the flux is already inside the wire as
+  a hollow channel, which is why you rarely need a separate flux pen for through-hole work.</p>
+  <p>Leaded <strong>60/40</strong> (60&nbsp;% tin, 40&nbsp;% lead) melts at 183-190&nbsp;&deg;C, flows
+  beautifully and is much easier to learn on. Lead-free (<strong>SAC305</strong>) melts around
+  217-220&nbsp;&deg;C, is stiffer, looks duller when correct, and is what you should use if children or
+  pregnancy are anywhere in the picture. Either way: do not eat it, wash your hands afterwards, and open a
+  window.</p>
+
+  <h3>The rest</h3>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Thing</th><th>Why</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Brass wool tip cleaner</strong></td><td>Wipe the tip in it between joints. It scrapes oxide off without the thermal shock of a wet sponge, which cools the tip by 100&nbsp;&deg;C every time you use it.</td></tr>
+      <tr><td><strong>Flux pen or paste</strong></td><td>Not needed for most joints. Indispensable for reworking an old joint, for desoldering, and for anything that will not wet.</td></tr>
+      <tr><td><strong>Flush cutters</strong></td><td>Trimming component legs after soldering. Do not use scissors; you will ruin them and the cut will be ugly.</td></tr>
+      <tr><td><strong>Helping hands or a PCB vice</strong></td><td>You have two hands. A joint needs iron, solder and the workpiece held still. The arithmetic does not work.</td></tr>
+      <tr><td><strong>Desoldering braid</strong></td><td>Copper mesh that sucks molten solder off a pad. This is how you undo mistakes, and you will make mistakes.</td></tr>
+      <tr><td><strong>Safety glasses</strong></td><td>Trimmed component legs fly. Flux occasionally spits. Eyes do not grow back.</td></tr>
+      <tr><td><strong>A fan</strong></td><td>Any small desk fan, placed to pull the smoke <em>sideways past you</em>, not into your face. The smoke is vaporised flux, not lead, and it is an airway irritant.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="setup">
+  <h2>Setting up, before you melt anything</h2>
+  <ol class="steps">
+    <li><h4>Sit down properly</h4>
+      <p>Elbows supported on the desk. A soldering iron held by an unsupported arm wobbles by a couple of
+      millimetres, which on a 2.54&nbsp;mm pitch header is the difference between a joint and a bridge. Rest
+      your forearms and move from the wrist and fingers.</p></li>
+    <li><h4>Set the temperature</h4>
+      <p><strong>340&nbsp;&deg;C</strong> for leaded solder, <strong>370&nbsp;&deg;C</strong> for lead-free.
+      Those are starting points, not laws.</p>
+      <p>The instinct when a joint will not take is to turn the iron down "to be safe". Do the opposite. A
+      hotter iron finishes the joint in two seconds and puts <em>less</em> total heat into the part than a cool
+      iron struggling for ten. Ten seconds at 300&nbsp;&deg;C will lift a pad off a cheap board; three seconds
+      at 370&nbsp;&deg;C will not.</p></li>
+    <li><h4>Tin the tip, always</h4>
+      <p>As soon as the iron reaches temperature, melt a little solder onto the flat face until it is bright
+      and silver. That coating is what carries heat from the tip into the work; a dry, dull, oxidised tip
+      transfers almost nothing and is the second most common reason a beginner "cannot solder".</p>
+      <p>Re-tin between joints. Wipe in brass wool, add a touch of fresh solder, go. And always leave a blob of
+      solder on the tip when you switch off - it protects the tip overnight.</p></li>
+    <li><h4>Hold the iron like a pen</h4>
+      <p>Not like a knife, not like a screwdriver. Pen grip, close to the ferrule, hand braced against the
+      bench.</p></li>
+    <li><h4>Put the iron in the stand every single time</h4>
+      <p>Not on the desk "just for a second". This is the rule that stops the burn. Make it automatic before
+      you make anything else automatic.</p></li>
+  </ol>
+</section>
+
+<section id="joint">
+  <h2>The three-second joint</h2>
+  <p>This is the core motion. Everything else on this page is a variation of it. Practise it on a scrap
+  perfboard with cut resistor legs about thirty times before you touch a project.</p>
+  <ol class="steps">
+    <li><h4>Put the parts together first</h4>
+      <p>Component leg through the hole, header in place, wire laid on the pad. Solder does not hold things in
+      position while you work - gravity, tape or a vice does.</p></li>
+    <li><h4>Touch the tip to BOTH metals at once</h4>
+      <p>Lay the flat face of the chisel so it bridges the pad <em>and</em> the pin. This is the single most
+      important detail on the page. Touching only the pin heats the pin; the pad stays cold; the solder makes a
+      shiny blob around the pin that is attached to nothing.</p>
+      <p>Count <strong>one</strong>.</p></li>
+    <li><h4>Feed solder into the joint, not onto the iron</h4>
+      <p>Touch the solder wire to the far side of the joint, where the pad meets the pin - the opposite side
+      from the iron. If the metals are hot enough it will melt on contact and run <em>towards</em> the tip,
+      flooding the gap. That flow is the sign the joint is working.</p>
+      <p>If you have to touch the solder to the iron to melt it, the joint is not hot enough. Stop, wait
+      another second, try again.</p>
+      <p>Count <strong>two</strong>. Feed roughly 2-3&nbsp;mm of 0.8&nbsp;mm solder for a header pin.</p></li>
+    <li><h4>Solder away first, then the iron</h4>
+      <p>Pull the solder wire back. Leave the iron for about half a second more so the flux finishes working
+      and the surface smooths out. Then lift the iron cleanly, straight up.</p>
+      <p>Count <strong>three</strong>. The whole thing took three seconds.</p></li>
+    <li><h4>Do not move it for two seconds</h4>
+      <p>Solder stays liquid for a moment after the iron leaves. Move the part now and it freezes with a
+      crystalline, crumbly structure - a <em>disturbed joint</em>, dull and grainy and mechanically weak. Just
+      wait. Breathe out.</p></li>
+    <li><h4>Look at it</h4>
+      <p>A good joint is a smooth <strong>concave</strong> fillet - a little volcano hugging the pin and
+      spreading onto the pad, shiny with leaded solder, satin with lead-free. You should still be able to see
+      the shape of the pin inside it.</p></li>
+  </ol>
+
+  <h3>Reading a joint</h3>
+  <div class="table-scroll"><table>
+    <thead><tr><th>What you see</th><th>What went wrong</th><th>Fix</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Smooth concave cone, shiny, pin visible through it</strong></td><td>Nothing. That is the one.</td><td>&mdash;</td></tr>
+      <tr><td><strong>A ball sitting on top of the pad, convex, with a visible edge where it meets the copper</strong></td><td>Cold joint. The pad never got hot; the solder is sitting on it, not bonded to it.</td><td>Add a touch of flux, reheat until the ball collapses and pulls flat. If it will not, wick it off and start again.</td></tr>
+      <tr><td><strong>Dull, grainy, slightly wrinkled</strong></td><td>Disturbed while cooling. (With lead-free, a satin surface is normal - look for wrinkles, not dullness.)</td><td>Reheat for two seconds and hold still.</td></tr>
+      <tr><td><strong>Huge blob swallowing the pin</strong></td><td>Too much solder. Not dangerous, just ugly, and it hides whether the joint underneath is any good.</td><td>Wick some off, or accept it. Use less next time.</td></tr>
+      <tr><td><strong>Pin loose, solder only on one side</strong></td><td>Only one metal was heated.</td><td>Reheat bridging both, feed a little more.</td></tr>
+      <tr><td><strong>Two pins joined by a bridge</strong></td><td>Too much solder, or the tip dragged across.</td><td>See "undoing it" below - this one is easy.</td></tr>
+      <tr><td><strong>Brown crusty residue around the joint</strong></td><td>Burnt flux. Cosmetic, mostly.</td><td>Isopropyl alcohol and an old toothbrush.</td></tr>
+      <tr><td><strong>Copper pad lifted off the board</strong></td><td>Too much heat for too long. This is the real failure mode.</td><td>Repairable by scraping back the trace and soldering a jumper wire, but prevention is a hotter iron and less time.</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="note tip"><span class="t">The tug test</span>
+  <p>When it has cooled, pull the component gently. A good joint does not move at all. Do this on every joint
+  while you are learning - it takes a second and it teaches your hands what "right" felt like.</p></div>
+</section>
+
+<section id="headers">
+  <h2>Pin headers: the job you will do most</h2>
+  <p>Nearly every module you buy arrives with a loose strip of pin header in the bag. Soldering it on is the
+  first real soldering most people do, and it has one trick that makes it easy.</p>
+  <ol class="steps">
+    <li><h4>Break the strip to length</h4>
+      <p>Headers snap on the 2.54&nbsp;mm grid. Count the pins you need, then cut with flush cutters through
+      the <em>plastic between</em> the pin you want and the one you do not - you will sacrifice one pin. Some
+      people score and snap with pliers; cutters are cleaner.</p></li>
+    <li><h4>Get the orientation right - this is the part people get wrong</h4>
+      <p>The long side of the pins goes <strong>through</strong> the board; the plastic spacer sits flat on the
+      component side; the short stubs stick out the back where you solder. For a module that will plug into a
+      breadboard, the pins point <em>down</em>, away from the components. Hold the module the way it will be
+      used and check twice. Unsoldering eight pins to flip a header is an unpleasant half hour.</p></li>
+    <li><h4>Use the breadboard as a jig</h4>
+      <p>Push the header into a breadboard, pins down. Drop the module onto the protruding pins. The breadboard
+      now holds everything square and at the right height, for free. This is the trick.</p></li>
+    <li><h4>Tack the two end pins only</h4>
+      <p>Solder pin 1 and the last pin. Then <em>look from the side</em>: is the plastic flat against the board,
+      is the module square? If not, reheat one tack joint and nudge it straight. Two joints are easy to redo.
+      Ten are not.</p></li>
+    <li><h4>Then run the rest</h4>
+      <p>Three seconds each, working along the row. Wipe and re-tin the tip every four or five joints.</p>
+      <p>If you are doing a long row, alternate ends rather than going straight along - it spreads the heat and
+      stops the plastic softening and sagging.</p></li>
+    <li><h4>Inspect along the row at a low angle</h4>
+      <p>Hold the board up so light rakes across the joints. Bridges and cold balls are obvious from the side
+      and nearly invisible from directly above.</p></li>
+  </ol>
+  <div class="note warn"><span class="t">Melted header plastic</span>
+  <p>If the black plastic starts to soften and the pins go crooked, you are spending too long on each pin.
+  Turn the iron <em>up</em> by 20&nbsp;&deg;C and move faster. Counter-intuitive, completely true.</p></div>
+</section>
+
+<section id="wires">
+  <h2>Wires: splices, pads and heat-shrink</h2>
+  <h3>Tin the wire first</h3>
+  <p>Strip 4-5&nbsp;mm. Twist the strands tight between finger and thumb in the direction they are already
+  laid. Hold the iron under the bare strands and feed solder in from above until the bundle turns silver and
+  goes stiff. That is <em>tinning</em>, and it does three jobs: it stops strands splaying, it removes the
+  oxide, and it means the actual joint takes one second instead of five.</p>
+  <div class="note"><span class="t">Do not tin a wire that goes into a screw terminal</span>
+  <p>Solder creeps under pressure. A tinned wire clamped in a screw terminal slowly flattens, the screw loosens,
+  and months later you have an intermittent connection or a hot spot. Bare twisted strands, or a crimped
+  ferrule, for anything that gets clamped.</p></div>
+
+  <h3>Joining two wires (the lineman's splice)</h3>
+  <ol class="steps">
+    <li><h4>Heat-shrink on first</h4>
+      <p>Cut 20&nbsp;mm of tubing and slide it onto one wire, well away from where you will be working. Every
+      person who has ever soldered has finished a perfect joint and then found the heat-shrink still sitting on
+      the bench. Do it first, every time.</p></li>
+    <li><h4>Strip 8&nbsp;mm on each and tin both</h4>
+      <p>Longer than you think, because the splice uses it up.</p></li>
+    <li><h4>Cross them and wrap</h4>
+      <p>Lay the two tinned ends across each other in an X, then twist each end around the opposite wire two or
+      three turns. You want a joint that holds together mechanically <em>before</em> any solder is added. A
+      straight butt joint held only by solder will snap.</p></li>
+    <li><h4>Heat and feed</h4>
+      <p>Iron underneath the splice, solder fed from on top. The solder should wick through the whole twist and
+      leave it looking like one piece of silver wire, not a lump. Two or three seconds.</p></li>
+    <li><h4>Slide the tubing over and shrink it</h4>
+      <p>A hot-air gun, a lighter held well below the flame, or the <em>side</em> of the soldering iron barrel
+      rolled against it. Never the tip.</p></li>
+  </ol>
+
+  <h3>Soldering a wire to a pad or a hole</h3>
+  <p>Tin the wire. Tin the pad - touch the iron to the pad and feed a small amount of solder onto it, then
+  remove both. Now hold the tinned wire against the tinned pad and touch the iron to the joint for one second:
+  the two pools merge instantly. This two-step method is much easier than trying to hold a wire, an iron and a
+  solder reel against a pad at the same moment.</p>
+</section>
+
+<section id="undo">
+  <h2>Undoing it</h2>
+  <p>Every build involves at least one thing going in backwards. Desoldering is a normal part of the craft,
+  not an admission of failure.</p>
+
+  <h3>A bridge between two pins</h3>
+  <p>The easiest fix there is. Wipe the tip clean, add a <em>tiny</em> amount of fresh solder to it (the flux in
+  it is what does the work), then drag the flat of the tip across the bridge perpendicular to the pins and lift
+  away. Surface tension pulls the excess onto the tip. If it will not go, add flux and try again.</p>
+
+  <h3>Getting solder out of a hole</h3>
+  <p>Lay desoldering braid over the joint, press the iron down on top of the braid, and wait. You will see the
+  braid darken as it fills - that is the solder wicking up into it by capillary action. Lift the braid and the
+  iron <em>together</em>; if you let the braid cool onto the pad you will glue it there and tear the pad off
+  when you pull. Snip off the used section and repeat with fresh braid.</p>
+  <p>A solder sucker is faster on through-holes: heat the joint until molten, bring the nozzle down over it,
+  hit the trigger. Braid is better for flat pads and for cleaning up afterwards.</p>
+
+  <h3>Removing a multi-pin part</h3>
+  <p>This is the genuinely hard case, because all the pins must be liquid at once and they are not. Options,
+  in order of preference:</p>
+  <ul>
+    <li><strong>Cut the part off first.</strong> If you do not need to keep it, snip each leg with flush
+    cutters, remove the body, then remove the legs one at a time. Twenty times easier.</li>
+    <li><strong>Add more solder.</strong> Counter-intuitive but effective: flooding all the pins with a big
+    blob of fresh leaded solder keeps them molten together long enough to pull the part.</li>
+    <li><strong>Braid every pin, then work the part loose</strong> while gently heating each hole in turn.</li>
+  </ul>
+  <div class="note danger"><span class="t">If you lift a pad</span>
+  <p>The copper ring comes away from the board and the connection is gone. Do not throw the board out. Scrape
+  1&nbsp;mm of green solder mask off the trace that led to that pad with a craft knife until bare copper
+  shows, tin it, and solder a thin wire from there to the component leg. It is ugly and it works perfectly.</p></div>
+</section>
+
+<section id="safety">
+  <h2>Not burning yourself or the house</h2>
+  <ul>
+    <li>The tip is at 340&nbsp;&deg;C and looks exactly the same as it does at room temperature. Assume it is
+    always hot.</li>
+    <li>If you burn yourself: cold running water for ten minutes. Not ice, not butter, not a plaster
+    immediately. Most soldering burns are small and shallow; a burn that blisters badly or is larger than a
+    coin should be seen by a doctor.</li>
+    <li>Never catch a falling iron. Let it fall and step back. This is worth rehearsing in your head, because
+    the reflex to grab is strong.</li>
+    <li>Do not solder anything connected to mains power, or anything plugged into a wall, ever. Unplug it,
+    and if it has big capacitors in it, wait.</li>
+    <li>Ventilate. Flux smoke is a respiratory irritant, and repeated exposure sensitises some people
+    permanently.</li>
+    <li>Wash your hands before eating, especially with leaded solder. That is genuinely the whole of the lead
+    precaution for hand soldering - the fumes are flux, not lead, because lead does not vaporise at these
+    temperatures.</li>
+    <li>Keep the solder reel away from the tip. A reel that touches a hot iron unrolls itself into a hot mess.</li>
+  </ul>
+</section>
+
+<section id="practice">
+  <h2>A half hour of practice that is worth a year of guessing</h2>
+  <p>Buy two 5&times;7&nbsp;cm perfboards and a bag of resistors you do not care about. Then:</p>
+  <ol class="steps">
+    <li><h4>Thirty solo joints</h4>
+      <p>Push resistor legs through random holes and solder each one. Do not rush. After each, look at it and
+      name it: good, cold, disturbed, too much. Naming them is what builds the eye.</p></li>
+    <li><h4>Ten joints upside down</h4>
+      <p>Turn the board so you are working towards yourself, or at an awkward angle. Real projects are never
+      conveniently oriented.</p></li>
+    <li><h4>A full 8-pin header</h4>
+      <p>Using the breadboard jig. Time yourself. Under a minute for eight joints is a perfectly normal target
+      once it clicks.</p></li>
+    <li><h4>Deliberately make three bridges, then clear them</h4>
+      <p>Getting comfortable with fixing mistakes removes most of the fear, and the fear is what makes people
+      hover and overheat things.</p></li>
+    <li><h4>Deliberately make a cold joint</h4>
+      <p>Touch the solder to the iron and wipe it onto a cold pad. Look at it closely - the convex ball with
+      the sharp edge where it meets the copper. Now you will recognise it instantly for the rest of your life.</p></li>
+  </ol>
+  <div class="btn-row">
+    <a class="btn btn-primary" href="../projects.html?cat=display">Find a project to solder</a>
+    <a class="btn" href="electronics.html">Next: enough electronics &rarr;</a>
+  </div>
+</section>
+
+</div>
+<aside class="toc"><div class="t">On this page</div><ol></ol></aside>
+</div>
+</main>
+
+<script src="../assets/data/parts.js"></script>
+<script src="../assets/data/categories.js"></script>
+<script src="../assets/js/site.js"></script>
+<script>AB.chrome('soldering.html'); AB.autoToc();</script>
+</body>
+</html>

@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your first sketch — The Arduino Build Book</title>
+<meta name="description" content="Install the IDE, pick the board and port, upload Blink, read a sensor, and understand every error message you are going to hit.">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../assets/icons/apple-touch-icon.png">
+<meta name="theme-color" content="#b4662b">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Build Book">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/style.css">
+<script>(function(){try{var t=localStorage.getItem('ab-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){}}());</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<section class="proj-head">
+  <div class="wrap">
+    <div class="crumbs"><a href="../index.html">Home</a> / Basics / Programming</div>
+    <h1>Your first sketch</h1>
+    <p class="lede">Arduino code is C++ with two functions you must write and a large library of helpers. If
+    you have written any JavaScript, Python or Java, you already know 80&nbsp;% of the syntax. This page covers
+    the other 20&nbsp;% and every error message you are about to meet.</p>
+  </div>
+</section>
+
+<main class="wrap" id="main">
+<div class="proj-layout">
+<div class="pbody">
+
+<section id="install">
+  <h2>Getting the IDE working</h2>
+  <ol class="steps">
+    <li><h4>Install the Arduino IDE</h4>
+      <p>Get version 2.x from <a href="https://www.arduino.cc/en/software" target="_blank" rel="noopener">arduino.cc</a>.
+      It has autocomplete, a proper debugger and a sane library manager. (The old 1.8 IDE still works and is
+      lighter if your machine is slow.)</p></li>
+    <li><h4>Plug the board in and look for the port</h4>
+      <p><strong>Tools &rarr; Port</strong>. Note what is listed, unplug the board, look again. The entry that
+      disappeared is your board. Windows shows <code>COM3</code>-ish, macOS
+      <code>/dev/cu.usbmodem&hellip;</code>, Linux <code>/dev/ttyUSB0</code> or <code>/dev/ttyACM0</code>.</p></li>
+    <li><h4>If no port appears</h4>
+      <p>Almost always one of three things:</p>
+      <ul>
+        <li><strong>A charge-only USB cable.</strong> Astonishingly common. Try another cable first - it costs
+        ten seconds and solves this more often than anything else.</li>
+        <li><strong>Missing CH340 driver.</strong> Nearly every clone uses a CH340 or CH341 USB chip. Search
+        "CH340 driver" plus your OS, install, replug.</li>
+        <li><strong>Linux permissions.</strong> <code>sudo usermod -a -G dialout $USER</code>, then log out and
+        back in.</li>
+      </ul></li>
+    <li><h4>Select the board</h4>
+      <p><strong>Tools &rarr; Board</strong> &rarr; Arduino Uno (or Nano). For an old Nano clone you may also
+      need <strong>Tools &rarr; Processor &rarr; ATmega328P (Old Bootloader)</strong> - if uploads fail with a
+      timeout, try the other option before you conclude anything is broken.</p>
+      <p>For ESP32 or ESP8266 you first add a board package: <strong>File &rarr; Preferences &rarr; Additional
+      Board Manager URLs</strong>, paste the ESP32 URL, then <strong>Tools &rarr; Board &rarr; Boards
+      Manager</strong> and install "esp32".</p></li>
+    <li><h4>Upload Blink</h4>
+      <p><strong>File &rarr; Examples &rarr; 01.Basics &rarr; Blink</strong>, then the arrow button. The
+      built-in LED starts flashing once a second. You have now proved the toolchain, the cable, the driver, the
+      port and the bootloader all work - which means every problem after this is yours, and that is progress.</p></li>
+  </ol>
+</section>
+
+<section id="shape">
+  <h2>The shape of a sketch</h2>
+  <p>Every Arduino program has exactly two required functions.</p>
+  <div class="code" id="skel"></div>
+  <p>There is no <code>main()</code>. The framework supplies one; it calls <code>setup()</code> once and then
+  <code>loop()</code> over and over, for as long as there is power. There is no operating system, no scheduler
+  and nothing else running. If your <code>loop()</code> takes a second, your program does nothing else for
+  that second.</p>
+</section>
+
+<section id="io">
+  <h2>The handful of functions that do everything</h2>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Call</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>pinMode(pin, INPUT|OUTPUT|INPUT_PULLUP)</code></td><td>Decides whether a pin drives or listens. Goes in <code>setup()</code>.</td></tr>
+      <tr><td><code>digitalWrite(pin, HIGH|LOW)</code></td><td>Puts 5&nbsp;V or 0&nbsp;V on an output pin.</td></tr>
+      <tr><td><code>digitalRead(pin)</code></td><td>Returns <code>HIGH</code> or <code>LOW</code>.</td></tr>
+      <tr><td><code>analogRead(A0)</code></td><td>0-1023, proportional to the voltage on an analog pin.</td></tr>
+      <tr><td><code>analogWrite(pin, 0..255)</code></td><td>PWM. Only on pins marked with a tilde.</td></tr>
+      <tr><td><code>delay(ms)</code></td><td>Stops everything for that long. Useful in <code>setup()</code>, a trap in <code>loop()</code>.</td></tr>
+      <tr><td><code>millis()</code></td><td>Milliseconds since power-on, as an <code>unsigned long</code>. The basis of all real timing.</td></tr>
+      <tr><td><code>map(v, a, b, c, d)</code></td><td>Rescales a number from one range to another. <code>map(raw, 0, 1023, 0, 100)</code>.</td></tr>
+      <tr><td><code>constrain(v, lo, hi)</code></td><td>Clamps. Pair it with <code>map()</code>, which happily returns out-of-range values.</td></tr>
+      <tr><td><code>Serial.begin(9600)</code> / <code>Serial.println(x)</code></td><td>Your debugger, your logger and your only window into what the chip thinks.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="serial">
+  <h2>Serial: the only debugging you get</h2>
+  <p>There is no console, no breakpoint by default and no way to see a variable. <code>Serial.println()</code>
+  is how you find out what is happening, and learning to sprinkle it liberally is the single biggest
+  productivity gain available to a beginner.</p>
+  <div class="code" id="serialcode"></div>
+  <p>Open <strong>Tools &rarr; Serial Monitor</strong> and set the baud rate in the bottom-right corner to
+  match the number in <code>Serial.begin()</code>. Mismatched baud is why you get pages of
+  <code>&#8226;&#65533;&#8226;&#65533;</code> - it is not a crash, it is the wrong speed.</p>
+  <div class="note tip"><span class="t">Serial Plotter</span>
+  <p><strong>Tools &rarr; Serial Plotter</strong> graphs any numbers you print, live. Print several
+  space-separated values on one line and you get several traces. For anything involving a sensor that wobbles
+  - accelerometers, light sensors, moisture probes - this turns an invisible problem into an obvious one.</p></div>
+</section>
+
+<section id="millis">
+  <h2>Why delay() ruins everything, and what to use instead</h2>
+  <p><code>delay(1000)</code> does not mean "wait a second before the next line". It means "do absolutely
+  nothing for a second". No button gets read, no sensor gets sampled, no display updates. One
+  <code>delay()</code> is fine. The moment you want two things happening at different rates, it falls apart.</p>
+  <p>The standard fix is to look at the clock instead of stopping it:</p>
+  <div class="code" id="milliscode"></div>
+  <p>The subtraction <code>millis() - lastBlink</code> is deliberate, not stylistic. <code>millis()</code>
+  overflows back to zero after about 49 days; written this way the arithmetic still comes out right through
+  the rollover, because it is unsigned. Written as <code>millis() &gt; lastBlink + interval</code> it breaks
+  once, mysteriously, seven weeks in.</p>
+</section>
+
+<section id="debounce">
+  <h2>Buttons bounce</h2>
+  <p>A mechanical switch does not close cleanly. The contacts chatter for a few milliseconds, and a chip
+  running at 16&nbsp;MHz sees one press as five or ten. Your counter jumps by four, your menu skips three
+  items, and you conclude the button is faulty.</p>
+  <div class="code" id="debouncecode"></div>
+</section>
+
+<section id="types">
+  <h2>Types actually matter here</h2>
+  <p>On a desktop you can ignore integer sizes. On a chip with 2&nbsp;KB of RAM you cannot.</p>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Type</th><th class="num">Bytes</th><th>Range</th><th>Use it for</th></tr></thead>
+    <tbody>
+      <tr><td><code>bool</code></td><td class="num">1</td><td>true / false</td><td>Flags</td></tr>
+      <tr><td><code>byte</code> / <code>uint8_t</code></td><td class="num">1</td><td>0 to 255</td><td>Pin numbers, brightness, small counters</td></tr>
+      <tr><td><code>int</code></td><td class="num">2</td><td>&minus;32,768 to 32,767</td><td>The default. Note it is only 2 bytes on an Uno, 4 on an ESP32.</td></tr>
+      <tr><td><code>unsigned int</code></td><td class="num">2</td><td>0 to 65,535</td><td>Counts that cannot go negative</td></tr>
+      <tr><td><code>long</code></td><td class="num">4</td><td>&plusmn;2.1 billion</td><td>Big numbers</td></tr>
+      <tr><td><code>unsigned long</code></td><td class="num">4</td><td>0 to 4.29 billion</td><td><strong>Anything holding millis()</strong>. Always.</td></tr>
+      <tr><td><code>float</code></td><td class="num">4</td><td>~7 digits of precision</td><td>Sensor readings. Slow on an Uno - there is no floating-point hardware.</td></tr>
+      <tr><td><code>char[]</code></td><td class="num">n+1</td><td>&mdash;</td><td>Text, when you care about memory</td></tr>
+      <tr><td><code>String</code></td><td class="num">varies</td><td>&mdash;</td><td>Convenient, and it fragments the heap. Avoid in long-running Uno sketches.</td></tr>
+    </tbody>
+  </table></div>
+  <div class="note warn"><span class="t">The two classic overflow bugs</span>
+  <p><code>int x = 60 * 1000;</code> gives you &minus;5536, because both operands are <code>int</code> and the
+  multiplication happens in 16 bits before it is assigned. Write <code>60UL * 1000UL</code>.</p>
+  <p><code>int start = millis();</code> throws away the top half of the number and your timing becomes
+  nonsense after 32 seconds. Use <code>unsigned long</code>.</p></div>
+</section>
+
+<section id="memory">
+  <h2>Memory, and the crash with no error message</h2>
+  <p>An Uno has 32&nbsp;KB of flash for your program, 2&nbsp;KB of SRAM for variables, and 1&nbsp;KB of EEPROM
+  that survives power-off. Flash you will rarely fill. <strong>SRAM you will.</strong></p>
+  <p>The IDE tells you after every compile: <em>"Global variables use 1,204 bytes (58%) of dynamic memory"</em>.
+  Under 70&nbsp;% is comfortable. Over 85&nbsp;% and you will get the signature symptom of running out: the
+  sketch compiles, uploads, runs for a while, then restarts or prints garbage, with no error anywhere.</p>
+  <p>Three fixes, in order of effectiveness:</p>
+  <ul>
+    <li><code>Serial.println(F("text"))</code> keeps the string in flash instead of copying it into RAM at
+    boot. Every literal string in a sketch costs RAM without this. It is free to use and the single biggest win.</li>
+    <li>Use <code>byte</code> instead of <code>int</code> where the value fits, especially in arrays.</li>
+    <li>Stop using <code>String</code>. Concatenating them repeatedly fragments the small heap until an
+    allocation fails silently.</li>
+  </ul>
+</section>
+
+<section id="errors">
+  <h2>Every error message you are going to hit</h2>
+  <div class="table-scroll"><table>
+    <thead><tr><th style="width:38%">Message</th><th>What it actually means</th></tr></thead>
+    <tbody>
+      <tr><td><code>'x' was not declared in this scope</code></td><td>Typo, wrong capitalisation (<code>digitalwrite</code> is not <code>digitalWrite</code>), a missing <code>#include</code>, or you declared the variable inside a different pair of braces.</td></tr>
+      <tr><td><code>expected ';' before '}' token</code></td><td>Missing semicolon - and it is on the line <em>above</em> the one reported, almost every time.</td></tr>
+      <tr><td><code>expected declaration before '}' token</code></td><td>One closing brace too many, or one opening brace too few. Use Ctrl-T to auto-format; the indentation will show you where.</td></tr>
+      <tr><td><code>No such file or directory: DHT.h</code></td><td>Library not installed. Sketch &rarr; Include Library &rarr; Manage Libraries.</td></tr>
+      <tr><td><code>avrdude: stk500_recv(): programmer is not responding</code></td><td>Wrong port, wrong board, wrong processor variant, or something is connected to pins 0 and 1. Unplug everything from 0 and 1 and try again - that fixes it surprisingly often.</td></tr>
+      <tr><td><code>avrdude: ser_open(): can't open device</code></td><td>The Serial Monitor of another window has the port. Close it. Or the board came unplugged.</td></tr>
+      <tr><td><code>A fatal error occurred: Failed to connect to ESP32</code></td><td>Hold the BOOT button while the upload starts. Some boards need it every time; some need a 10&nbsp;&micro;F capacitor between EN and GND.</td></tr>
+      <tr><td><code>Sketch too big</code></td><td>Genuinely out of flash. Usually a big graphics library or a font.</td></tr>
+      <tr><td><code>Low memory available, stability problems may occur</code></td><td>A warning, not an error, and it is right. See the memory section above.</td></tr>
+      <tr><td>It compiles and uploads, then nothing happens</td><td>Not a code problem. Check power, check wiring, add <code>Serial.println("setup ran")</code> as the first line of <code>setup()</code>.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="libraries">
+  <h2>Libraries</h2>
+  <p>A library is somebody else's code that knows how to talk to a specific chip. Using one is not cheating;
+  writing your own DHT22 pulse decoder is a fine afternoon and a terrible use of your first week.</p>
+  <ul>
+    <li><strong>Installing:</strong> Sketch &rarr; Include Library &rarr; Manage Libraries, search, Install.
+    Say yes when it offers dependencies.</li>
+    <li><strong>From a ZIP:</strong> Sketch &rarr; Include Library &rarr; Add .ZIP Library. For GitHub
+    libraries that are not in the manager, download the repository as a ZIP and use this.</li>
+    <li><strong>Finding out how to use one:</strong> File &rarr; Examples, scroll down past the built-ins to
+    the section named after your library. The examples are written by whoever wrote the library and are
+    usually the best documentation that exists.</li>
+    <li><strong>Two libraries with the same name:</strong> real and annoying, particularly for DHT and for
+    OLED drivers. If a sketch will not compile against a library you just installed, check you have the one
+    the project actually names.</li>
+  </ul>
+</section>
+
+<section id="next">
+  <h2>Now build something</h2>
+  <p>Reading more of this will not help. The next thing to do is put a sensor on a breadboard and print its
+  readings to the Serial Monitor.</p>
+  <div class="btn-row">
+    <a class="btn btn-primary" href="../project.html?p=desk-weather-station">Build the desk weather station</a>
+    <a class="btn" href="../projects.html">Or pick something else</a>
+    <a class="btn" href="glossary.html">Glossary</a>
+  </div>
+</section>
+
+</div>
+<aside class="toc"><div class="t">On this page</div><ol></ol></aside>
+</div>
+</main>
+
+<script src="../assets/data/parts.js"></script>
+<script src="../assets/data/categories.js"></script>
+<script src="../assets/js/site.js"></script>
+<script>
+(function () {
+  AB.chrome('programming.html');
+
+  function put(id, name, code) {
+    document.getElementById(id).outerHTML = AB.codeBlock({ name: name, code: code });
+  }
+
+  put('skel', 'the_shape.ino',
+`// Anything out here is global: it exists for the whole life of the program.
+const int LED_PIN = 13;
+
+void setup() {
+  // Runs ONCE, when the board powers up or is reset.
+  // Pin modes, Serial.begin(), sensor.begin() - all the one-off setup.
+  pinMode(LED_PIN, OUTPUT);
+}
+
+void loop() {
+  // Runs over and over, forever, as fast as it can.
+  // On an Uno with nothing in it, about 100,000 times a second.
+  digitalWrite(LED_PIN, HIGH);
+  delay(500);
+  digitalWrite(LED_PIN, LOW);
+  delay(500);
+}`);
+
+  put('serialcode', 'serial_debugging.ino',
+`void setup() {
+  Serial.begin(9600);          // must match the Serial Monitor's baud setting
+  Serial.println(F("Starting up"));
+}
+
+void loop() {
+  int raw = analogRead(A0);
+  float volts = raw * 5.0 / 1023.0;
+
+  Serial.print(F("raw="));     // print() stays on the line
+  Serial.print(raw);
+  Serial.print(F("  volts="));
+  Serial.println(volts, 2);    // println() ends it; 2 = decimal places
+
+  delay(250);
+}`);
+
+  put('milliscode', 'without_delay.ino',
+`const unsigned long BLINK_EVERY = 500;   // ms
+const unsigned long READ_EVERY  = 2000;
+
+unsigned long lastBlink = 0;
+unsigned long lastRead  = 0;
+bool ledOn = false;
+
+void setup() {
+  pinMode(LED_BUILTIN, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  unsigned long now = millis();
+
+  // job one: blink twice a second
+  if (now - lastBlink >= BLINK_EVERY) {
+    lastBlink = now;
+    ledOn = !ledOn;
+    digitalWrite(LED_BUILTIN, ledOn ? HIGH : LOW);
+  }
+
+  // job two: read a sensor every two seconds
+  if (now - lastRead >= READ_EVERY) {
+    lastRead = now;
+    Serial.println(analogRead(A0));
+  }
+
+  // job three: check a button on EVERY pass, which is the point
+  if (digitalRead(2) == LOW) {
+    Serial.println(F("button"));
+  }
+}`);
+
+  put('debouncecode', 'debounce.ino',
+`const byte BUTTON = 2;          // wired straight to GND, no resistor
+const unsigned long DEBOUNCE = 30;
+
+bool lastStable = HIGH;
+bool lastReading = HIGH;
+unsigned long lastChange = 0;
+int pressCount = 0;
+
+void setup() {
+  pinMode(BUTTON, INPUT_PULLUP);   // idle HIGH, pressed LOW
+  Serial.begin(9600);
+}
+
+void loop() {
+  bool reading = digitalRead(BUTTON);
+
+  // the instant it looks different, restart the clock
+  if (reading != lastReading) {
+    lastChange = millis();
+    lastReading = reading;
+  }
+
+  // only believe it once it has held still for DEBOUNCE ms
+  if (millis() - lastChange > DEBOUNCE && reading != lastStable) {
+    lastStable = reading;
+    if (lastStable == LOW) {       // LOW means pressed
+      pressCount++;
+      Serial.print(F("press #"));
+      Serial.println(pressCount);
+    }
+  }
+}`);
+
+  AB.bindCopy(document);
+  AB.autoToc();
+}());
+</script>
+</body>
+</html>

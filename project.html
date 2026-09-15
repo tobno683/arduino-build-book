@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Project — The Arduino Build Book</title>
+<meta name="description" content="A complete Arduino build guide: parts and prices, a 3D model, a wiring table, soldering instructions and the full sketch.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+<meta name="theme-color" content="#b4662b">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Build Book">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<script>(function(){try{var t=localStorage.getItem('ab-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){}}());</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<main id="proj">
+  <div class="wrap"><div class="empty" id="loading">Loading the build&hellip;</div></div>
+</main>
+
+<script src="assets/data/parts.js"></script>
+<script src="assets/data/categories.js"></script>
+<script src="assets/data/index.js"></script>
+<script src="assets/js/site.js"></script>
+<script src="assets/js/build3d.js"></script>
+<script src="assets/js/parts3d.js"></script>
+<script src="assets/js/project.js"></script>
+<script>
+(function () {
+  AB.chrome('project.html');
+
+  /* Only one project file is fetched, and only if the slug is one we know
+     about - never build a script src out of raw query-string text. */
+  var slug = AB.qs('p');
+  var known = (AB.index || []).some(function (p) { return p.slug === slug; });
+
+  if (!known || !/^[a-z0-9-]+$/.test(slug)) {
+    AB.renderProject();
+    return;
+  }
+  var s = document.createElement('script');
+  s.src = 'assets/data/projects/' + slug + '.js';
+  s.onload = function () { AB.renderProject(); };
+  s.onerror = function () {
+    document.getElementById('proj').innerHTML =
+      '<div class="wrap"><div class="empty"><h2>That build did not load</h2>' +
+      '<p>The data file for this project is missing. Try the <a href="projects.html">project list</a>.</p></div></div>';
+  };
+  document.head.appendChild(s);
+}());
+</script>
+</body>
+</html>

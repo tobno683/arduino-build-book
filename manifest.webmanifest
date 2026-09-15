@@ -1,0 +1,71 @@
+{
+  "name": "The Arduino Build Book",
+  "short_name": "Build Book",
+  "description": "Arduino build guides with the whole build written down: what to buy and what it costs, a 3D model you can spin, a wiring table that matches it pin for pin, how to solder it, and code you can copy.",
+  "id": "./",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "any",
+  "background_color": "#f7f5f0",
+  "theme_color": "#b4662b",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": ["education", "diy", "productivity", "reference"],
+  "icons": [
+    {
+      "src": "assets/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icons/icon-maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "assets/icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "assets/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "All projects",
+      "short_name": "Projects",
+      "description": "Browse every build, filterable by theme, level and budget",
+      "url": "./projects.html",
+      "icons": [{ "src": "assets/icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "How to solder",
+      "short_name": "Soldering",
+      "description": "The soldering course, from the iron to the three-second joint",
+      "url": "./basics/soldering.html",
+      "icons": [{ "src": "assets/icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "What to buy",
+      "short_name": "Shopping",
+      "description": "Every part on the site, priced, with supplier links",
+      "url": "./basics/tools.html",
+      "icons": [{ "src": "assets/icons/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}

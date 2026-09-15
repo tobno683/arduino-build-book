@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Glossary — The Arduino Build Book</title>
+<meta name="description" content="Every term this site uses as if you already knew it, explained: ADC, back-EMF, decoupling, MISO, PWM, pull-ups, SRAM and the rest.">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../assets/icons/apple-touch-icon.png">
+<meta name="theme-color" content="#b4662b">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Build Book">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/style.css">
+<script>(function(){try{var t=localStorage.getItem('ab-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){}}());</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<section class="proj-head">
+  <div class="wrap">
+    <div class="crumbs"><a href="../index.html">Home</a> / Basics / Glossary</div>
+    <h1>Glossary</h1>
+    <p class="lede">Every term this site - and every forum post you are about to read - uses as if you already
+    knew it.</p>
+  </div>
+</section>
+
+<main class="wrap" id="main" style="padding-bottom:70px">
+  <div class="toolbar">
+    <div class="field" style="flex:2 1 300px">
+      <label for="gq">Search</label>
+      <input id="gq" type="search" placeholder="pull-up, MISO, brownout, flux&hellip;" autocomplete="off">
+    </div>
+  </div>
+  <p class="result-count" id="gcount"></p>
+  <div id="glist"></div>
+</main>
+
+<script src="../assets/data/parts.js"></script>
+<script src="../assets/data/categories.js"></script>
+<script src="../assets/data/glossary.js"></script>
+<script src="../assets/js/site.js"></script>
+<script>
+(function () {
+  AB.chrome('glossary.html');
+  var input = document.getElementById('gq');
+
+  function render() {
+    var q = input.value.trim().toLowerCase();
+    var list = AB.glossary.filter(function (g) {
+      if (!q) return true;
+      return (g.t + ' ' + (g.k || '') + ' ' + g.d).toLowerCase().indexOf(q) > -1;
+    }).sort(function (a, b) { return a.t.toLowerCase().localeCompare(b.t.toLowerCase()); });
+
+    document.getElementById('gcount').textContent = list.length + ' terms';
+
+    var letters = {}, out = '';
+    list.forEach(function (g) {
+      var L = g.t[0].toUpperCase();
+      if (!letters[L]) { letters[L] = 1; out += '<h2 style="margin:34px 0 10px">' + L + '</h2>'; }
+      out += '<div class="card" style="margin-bottom:12px"><h3 style="margin-bottom:6px">' + AB.esc(g.t) + '</h3>' +
+             '<p>' + g.d + '</p></div>';
+    });
+    document.getElementById('glist').innerHTML = out ||
+      '<div class="empty"><h3>No term matches that</h3><p>Try a shorter search.</p></div>';
+  }
+  input.addEventListener('input', render);
+  render();
+}());
+</script>
+</body>
+</html>

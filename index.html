@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Arduino Build Book</title>
+<meta name="description" content="Arduino projects with the whole build written down: what to buy and what it costs, how to wire it, how to solder it, and code you can copy. Plus a 3D view of every build.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+<meta name="theme-color" content="#b4662b">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Build Book">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<script>(function(){try{var t=localStorage.getItem('ab-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){}}());</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<section class="hero">
+  <div class="wrap">
+    <p class="kicker">Build guides that do not skip the boring parts</p>
+    <h1>The Arduino Build Book</h1>
+    <p class="lede">Every project here is written out end to end: the exact parts and what they cost, a 3D model of the
+    finished build you can spin around, a wiring table that matches it pin for pin, how to make each solder joint in
+    plain words, and the full sketch with a copy button. No "and then connect the sensor" hand-waving.</p>
+    <div class="hero-stats" id="stats"></div>
+    <div class="btn-row">
+      <a class="btn btn-primary" href="projects.html">Browse every project</a>
+      <a class="btn" href="basics/tools.html">I own nothing yet</a>
+      <a class="btn" href="basics/soldering.html">Teach me to solder</a>
+    </div>
+  </div>
+</section>
+
+<main class="wrap" id="main">
+
+  <section class="section">
+    <div class="sec-head"><h2>Never done this before?</h2><span class="count">Start here</span></div>
+    <p class="sec-sub">Four pages, in order. About an hour of reading and one shopping trip, and you will be able to
+    build anything in the catalogue.</p>
+    <div class="grid grid-4">
+      <a class="card" href="basics/tools.html"><h3>1. What to buy</h3><p>The $60 starter pile, the $200 pile, and what
+      you can safely skip. Which suppliers to trust and what a "kit" really gets you.</p></a>
+      <a class="card" href="basics/soldering.html"><h3>2. How to solder</h3><p>Temperature, tinning, the three-second
+      rule, what a good joint looks like, and how to undo a bad one. Written for people who have never held an iron.</p></a>
+      <a class="card" href="basics/electronics.html"><h3>3. Enough electronics</h3><p>Volts, amps, ohms, pull-ups,
+      why your LED needs a resistor, and why the servo browns out your board. The minimum that stops things dying.</p></a>
+      <a class="card" href="basics/programming.html"><h3>4. Your first sketch</h3><p>Install the IDE, pick the right
+      board and port, upload Blink, then read a sensor. Every error message you will hit, and what it means.</p></a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="sec-head"><h2>Projects by theme</h2><span class="count" id="cat-count"></span></div>
+    <p class="sec-sub">Ten shelves. Pick the one you would actually use in your house, not the one that sounds
+    most impressive - the finished thing on the shelf is what keeps you going.</p>
+    <div class="grid grid-3" id="cats"></div>
+  </section>
+
+  <section class="section">
+    <div class="sec-head"><h2>Good places to start</h2><span class="count">No soldering needed</span></div>
+    <p class="sec-sub">These four need nothing but a breadboard and jumper wires. If your iron has not arrived yet,
+    build one of these tonight.</p>
+    <div class="grid grid-3" id="easy"></div>
+  </section>
+
+  <section class="section">
+    <div class="sec-head"><h2>The ones worth the effort</h2><span class="count">Weekend builds</span></div>
+    <div class="grid grid-3" id="feature"></div>
+    <div class="btn-row"><a class="btn" href="projects.html">See all projects &rarr;</a></div>
+  </section>
+
+  <section class="section">
+    <div class="sec-head"><h2>How every guide is laid out</h2></div>
+    <div class="grid grid-2">
+      <div class="card">
+        <h3>The price is a real breakdown</h3>
+        <p>Every part is a line item with a unit price, a quantity and links to several suppliers - the cheap slow one
+        and the expensive fast one. Shared stock you buy once (resistor kits, jumper wires) is counted separately so a
+        project's headline price is what that project actually adds to your shelf.</p>
+      </div>
+      <div class="card">
+        <h3>The 3D view and the wiring table cannot disagree</h3>
+        <p>Both are generated from one list of connections. Every board in the model is at its real size with its real
+        pin positions, so when a wire goes to D9 in the picture, it goes to the ninth pin along in reality. Drag to
+        orbit, hit Explode to lift the parts apart, turn pin labels on and off.</p>
+      </div>
+      <div class="card">
+        <h3>Soldering is explained in words, joint by joint</h3>
+        <p>Not "solder the header". Which side the plastic goes, which pin to tack first, how long to hold the iron,
+        what the joint should look like when it is right, and what it looks like when it is cold and needs redoing.</p>
+      </div>
+      <div class="card">
+        <h3>The code is complete and copyable</h3>
+        <p>No fragments, no "..." where the interesting bit was. Each sketch compiles as printed, has its libraries
+        listed with install instructions, and is commented so you can see which line to change. One button copies
+        the whole thing.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script src="assets/data/parts.js"></script>
+<script src="assets/data/categories.js"></script>
+<script src="assets/data/index.js"></script>
+<script src="assets/js/site.js"></script>
+<script>
+(function () {
+  AB.chrome('index.html');
+
+  var idx = AB.index || [];
+  var totalCost = idx.reduce(function (a, p) { return a + p.cost; }, 0);
+  document.getElementById('stats').innerHTML = [
+    [idx.length, 'Projects'],
+    [AB.categories.length, 'Themes'],
+    [AB.parts.length, 'Parts priced'],
+    [idx.filter(function (p) { return !p.solder; }).length, 'No soldering'],
+    ['$' + Math.round(totalCost / (idx.length || 1)), 'Average build']
+  ].map(function (s) {
+    return '<div class="stat"><span class="stat-num">' + s[0] + '</span><span class="stat-label">' + s[1] + '</span></div>';
+  }).join('');
+
+  document.getElementById('cat-count').textContent = AB.categories.length + ' themes';
+  document.getElementById('cats').innerHTML = AB.categories.map(function (c) {
+    var n = idx.filter(function (p) { return p.cat === c.slug; }).length;
+    return '<a class="card cat-card" href="projects.html?cat=' + c.slug + '">' +
+      '<span class="cat-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" ' +
+      'stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">' + c.icon + '</svg></span>' +
+      '<h3>' + AB.esc(c.name) + '</h3><p>' + AB.esc(c.blurb) + '</p>' +
+      '<span class="n">' + n + ' project' + (n === 1 ? '' : 's') + ' &middot; ' + AB.esc(c.learn.split(',')[0]) + '</span></a>';
+  }).join('');
+
+  function cards(host, list) {
+    document.getElementById(host).innerHTML = list.map(function (p) { return AB.projectCard(p, ''); }).join('');
+  }
+
+  /* There is one featured build per theme, and only six slots. Shuffle so
+     that every theme gets its turn on the front page rather than the same
+     six alphabetically-first categories every time. */
+  function shuffled(list) {
+    var a = list.slice();
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var t = a[i]; a[i] = a[j]; a[j] = t;
+    }
+    return a;
+  }
+
+  cards('easy', shuffled(idx.filter(function (p) { return !p.solder && p.level <= 2; })).slice(0, 6));
+  cards('feature', shuffled(idx.filter(function (p) { return p.feature; })).slice(0, 6));
+}());
+</script>
+</body>
+</html>

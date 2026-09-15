@@ -1,0 +1,5 @@
+# Store everything with LF in the repository; check out native.
+* text=auto eol=lf
+
+# Binary - never touch these.
+*.png binary

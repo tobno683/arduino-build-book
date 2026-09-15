@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What to buy — The Arduino Build Book</title>
+<meta name="description" content="The honest shopping guide: a $60 starting pile, a $200 pile, which suppliers to use, what the kits really contain and what you can safely skip.">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../assets/icons/apple-touch-icon.png">
+<meta name="theme-color" content="#b4662b">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Build Book">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/style.css">
+<script>(function(){try{var t=localStorage.getItem('ab-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){}}());</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<section class="proj-head">
+  <div class="wrap">
+    <div class="crumbs"><a href="../index.html">Home</a> / Basics / Tools &amp; buying</div>
+    <h1>What to buy</h1>
+    <p class="lede">You do not need much, and the expensive-looking things are mostly not the things worth
+    paying for. Here is what to buy first, what to buy when you get serious, where to buy it, and the
+    specific traps in the listings.</p>
+  </div>
+</section>
+
+<main class="wrap" id="main">
+<div class="proj-layout">
+<div class="pbody">
+
+<section id="piles">
+  <h2>Three piles</h2>
+  <p>Work down these in order. Pile one gets you through every no-soldering project on this site. Pile two
+  unlocks everything else. Pile three is for when you know you are keeping the hobby.</p>
+
+  <h3 id="h-pile1">Pile one: the start</h3>
+  <p>Buy this and you can build tonight.</p>
+  <div id="pile1"></div>
+
+  <h3 id="h-pile2">Pile two: the soldering kit</h3>
+  <p>Add this when a project needs a header attached - which is most of the good ones.</p>
+  <div id="pile2"></div>
+
+  <h3 id="h-pile3">Pile three: when you are hooked</h3>
+  <p>None of this is needed to start. All of it makes the fifth project easier than the first.</p>
+  <div id="pile3"></div>
+</section>
+
+<section id="suppliers">
+  <h2>Where to buy, honestly</h2>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Supplier</th><th>Price</th><th>Wait</th><th>What you are really buying</th></tr></thead>
+    <tbody>
+      <tr><td><strong>AliExpress</strong></td><td>1&times;</td><td>2-5 weeks</td>
+        <td>The cheapest possible version of everything. The parts usually work. The listing photo is often not
+        the part you get, the datasheet is a JPEG of another datasheet, and "DHT22" sometimes arrives as a
+        DHT11 in a DHT22 case. Buy commodity things here: jumper wires, resistors, breadboards, headers,
+        enclosures, LEDs, generic modules you already know how to test.</td></tr>
+      <tr><td><strong>Amazon</strong></td><td>2-3&times;</td><td>1-2 days</td>
+        <td>The same Chinese modules, marked up, in a box tomorrow. The quality lottery is identical - the seller
+        is often the same factory - but returns actually work. Good for "I want to build this weekend".</td></tr>
+      <tr><td><strong>Adafruit / SparkFun / Pimoroni</strong></td><td>3-5&times;</td><td>Days</td>
+        <td>A part that is genuinely what it says, a schematic, a library that is maintained, a tutorial, and a
+        forum where someone answers. For your <em>first</em> use of any unfamiliar sensor this is worth every
+        cent, because when it does not work you will know the fault is yours.</td></tr>
+      <tr><td><strong>DigiKey / Mouser</strong></td><td>Varies</td><td>Days</td>
+        <td>Real component distributors. Not module shops - you go here for the actual chip, the exact
+        resistor tolerance, the connector with the right part number, and a real datasheet. Shipping often
+        costs more than your order until you hit their free threshold.</td></tr>
+    </tbody>
+  </table></div>
+  <div class="note tip"><span class="t">The strategy that works</span>
+  <p>Buy the <em>board</em> cheap and the <em>sensor</em> good, at least the first time. An Uno clone is
+  electrically identical to an official one for $20 less. A $1 BME280 that is secretly a BMP280 will cost you
+  a whole evening.</p></div>
+</section>
+
+<section id="kits">
+  <h2>Should you buy a starter kit?</h2>
+  <p>The $35 "Arduino Super Starter Kit" boxes are genuinely good value <em>if</em> you treat them as a bag of
+  passives rather than a curriculum. What you actually get:</p>
+  <ul>
+    <li><strong>Worth having:</strong> the breadboard, the jumper wires, a big resistor assortment, LEDs,
+    buttons, a potentiometer, a servo, an ultrasonic sensor, an IR remote, a battery clip. Buying those
+    separately costs about the same.</li>
+    <li><strong>Usually disappointing:</strong> the DHT11 (buy a DHT22), the 1602 LCD without an I2C backpack
+    (six wasted pins), the tiny 170-point breadboard, the "9V battery" that powers a servo for four minutes.</li>
+    <li><strong>The booklet:</strong> a list of 15 sketches with no explanation of why anything works. Fine as
+    a checklist, useless as a teacher.</li>
+  </ul>
+  <p>Verdict: buy one if you own nothing, skip the branded "official" kit at three times the price, and do not
+  expect it to contain the specific sensor for the project you actually want to build.</p>
+</section>
+
+<section id="traps">
+  <h2>The listing traps, by part</h2>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Part</th><th>What to check before you click buy</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Arduino Uno clone</strong></td><td>CH340 USB chip needs a driver installed; the FTDI-based ones can hit counterfeit-chip problems with some drivers. Either is fine - just know which you have.</td></tr>
+      <tr><td><strong>OLED display</strong></td><td>I2C (4 pins) or SPI (7 pins)? 0.96&nbsp;inch is SSD1306, 1.3&nbsp;inch is usually SH1106, and they need different libraries. Pin order varies between GND-VCC-SCL-SDA and VCC-GND-SCL-SDA.</td></tr>
+      <tr><td><strong>BME280</strong></td><td>Under $2 it is a BMP280 - pressure and temperature but no humidity. Also comes in 4-pin (I2C only) and 6-pin (I2C or SPI) variants.</td></tr>
+      <tr><td><strong>WS2812B strip</strong></td><td>5&nbsp;V or 12&nbsp;V (these projects assume 5&nbsp;V). 30/60/144 LEDs per metre. IP30 bare, IP65 sleeved, IP67 filled. All four choices matter.</td></tr>
+      <tr><td><strong>Relay module</strong></td><td>Look for the little optocoupler chips and a jumper marked JD-VCC. Without opto-isolation, a motor's back-EMF can reset or kill your board.</td></tr>
+      <tr><td><strong>TP4056 charger</strong></td><td>Only buy the version with the protection IC - two extra chips near the USB socket. The plain one will over-discharge and destroy your cell.</td></tr>
+      <tr><td><strong>Soil moisture sensor</strong></td><td>Capacitive only. The two-pronged resistive ones corrode away in weeks and read nonsense long before that.</td></tr>
+      <tr><td><strong>Buzzer</strong></td><td>"Passive" plays whatever tone you generate; "active" plays one fixed beep and ignores your melody.</td></tr>
+      <tr><td><strong>MOSFET</strong></td><td>Must be <em>logic level</em> (IRLZ44N, not IRF540) to switch fully from a 5&nbsp;V pin. The wrong one gets hot and half-works.</td></tr>
+      <tr><td><strong>nRF24L01</strong></td><td>Buy the plain one plus a 10&nbsp;&micro;F capacitor, or the version with the socket adapter. Without a capacitor on its supply it resets randomly.</td></tr>
+      <tr><td><strong>ESP32-CAM</strong></td><td>Get the bundle with the MB programmer shield. Without it you need an FTDI adapter and a jumper on IO0 every time you upload.</td></tr>
+      <tr><td><strong>Jumper wires</strong></td><td>Get all three genders (M-M, M-F, F-F). The 10&nbsp;cm ones are too short for anything real; 20&nbsp;cm is the useful length.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="skip">
+  <h2>What you can skip</h2>
+  <ul>
+    <li><strong>A hot air rework station</strong> - only for surface-mount. Nothing on this site needs it.</li>
+    <li><strong>An oscilloscope</strong> - genuinely useful eventually, useless before you know what you are
+    looking for. A $25 multimeter answers 95&nbsp;% of beginner questions.</li>
+    <li><strong>A bench power supply</strong> - a phone charger and a USB meter cover most of it. Buy one when
+    you are debugging something that keeps browning out.</li>
+    <li><strong>A 3D printer</strong> - lovely, not required. Project boxes and cardboard work.</li>
+    <li><strong>"Sensor kits" with 37 modules</strong> - about eight of them are useful and you will never
+    identify the rest.</li>
+    <li><strong>Expensive solder</strong> - any 0.8&nbsp;mm rosin-core from a reputable brand is fine.</li>
+  </ul>
+</section>
+
+<section id="part-index">
+  <h2>Every part this site uses, priced</h2>
+  <p>The full catalogue behind every bill of materials on the site. Search it, sort it in your head, and use
+  it to sanity-check a listing before you buy.</p>
+  <div class="toolbar" style="margin-top:20px">
+    <div class="field" style="flex:2 1 260px">
+      <label for="pq">Search</label>
+      <input id="pq" type="search" placeholder="oled, relay, stepper, 18650&hellip;" autocomplete="off">
+    </div>
+    <div class="field"><label for="pcat">Group</label><select id="pcat"></select></div>
+  </div>
+  <div id="parts-table"></div>
+</section>
+
+</div>
+<aside class="toc"><div class="t">On this page</div><ol></ol></aside>
+</div>
+</main>
+
+<script src="../assets/data/parts.js"></script>
+<script src="../assets/data/categories.js"></script>
+<script src="../assets/js/site.js"></script>
+<script>
+(function () {
+  AB.chrome('tools.html');
+
+  /* Headings quote a price, so derive it from the catalogue rather than
+     typing a number that goes stale the next time a part is repriced. */
+  function pile(host, heading, label, ids, blurbs) {
+    var total = ids.reduce(function (t, id) {
+      var p = AB.partIndex[id];
+      return t + (p ? p.price : 0);
+    }, 0);
+    document.getElementById(host).innerHTML = table(ids, blurbs);
+    document.getElementById(heading).textContent =
+      label.replace('$$', '$' + Math.round(total / 5) * 5);
+  }
+
+  function table(ids, blurbs) {
+    var total = 0;
+    var rows = ids.map(function (id) {
+      var p = AB.partIndex[id];
+      if (!p) return '';
+      total += p.price;
+      var links = (p.buy || []).map(function (s) {
+        return '<a href="' + AB.suppliers[s].url + encodeURIComponent(p.q) + '" target="_blank" rel="noopener">' +
+               AB.suppliers[s].name + '</a>';
+      }).join(' &middot; ');
+      return '<tr><td><strong>' + AB.esc(p.name) + '</strong>' +
+        ((blurbs && blurbs[id]) ? '<br><small class="muted">' + blurbs[id] + '</small>' :
+          (p.note ? '<br><small class="muted">' + AB.esc(p.note) + '</small>' : '')) +
+        '</td><td class="num">' + AB.usd(p.price) + '</td><td><small>' + links + '</small></td></tr>';
+    }).join('');
+    return '<div class="table-scroll"><table><thead><tr><th>Part</th><th class="num">Typical</th><th>Where</th></tr></thead>' +
+      '<tbody>' + rows + '</tbody><tfoot><tr><td><strong>Pile total</strong></td>' +
+      '<td class="num"><strong>' + AB.usd(total) + '</strong></td>' +
+      '<td><small class="muted">' + AB.eur(total) + '</small></td></tr></tfoot></table></div>';
+  }
+
+  pile('pile1', 'h-pile1', 'Pile one: the $$ start',
+    ['uno', 'usb-cable', 'bb-830', 'jumpers', 'res-kit', 'led5', 'button', 'dmm'],
+    {
+      led5: 'Buy an assortment pack, not one. You will use them as debugging indicators forever.',
+      button: 'A bag of 20. They cost nothing and every project wants one.',
+      dmm: 'The one non-obvious item on this list, and the one that will save you the most hours.'
+    });
+
+  pile('pile2', 'h-pile2', 'Pile two: the $$ soldering kit',
+    ['iron', 'solder', 'sponge', 'cutters', 'strippers', 'helping', 'wick', 'perfboard', 'headers', 'headers-f', 'glasses'],
+    {
+      iron: 'Temperature-controlled. This is the item where spending more genuinely changes the outcome.',
+      perfboard: 'Buy ten. They are the practice material and the final home for half your projects.'
+    });
+
+  pile('pile3', 'h-pile3', 'Pile three: the $$ that makes it easy',
+    ['hookup', 'heatshrink', 'flux', 'sucker', 'fan-fume', 'standoffs', 'box-abs', 'dupont-kit', 'cap-kit', 'buck'],
+    {
+      hookup: 'Solid core, six colours. Once you have it you will wonder how you managed.',
+      buck: 'Keep two in the drawer. Half of all power problems are solved by one.'
+    });
+
+  /* --- the full searchable catalogue ---------------------------------- */
+  var cats = [];
+  AB.parts.forEach(function (p) { if (cats.indexOf(p.cat) < 0) cats.push(p.cat); });
+  var sel = document.getElementById('pcat');
+  sel.innerHTML = '<option value="">All groups</option>' + cats.sort().map(function (c) {
+    return '<option value="' + c + '">' + c + '</option>';
+  }).join('');
+
+  function render() {
+    var q = document.getElementById('pq').value.trim().toLowerCase(), cat = sel.value;
+    var list = AB.parts.filter(function (p) {
+      if (cat && p.cat !== cat) return false;
+      if (q && (p.name + ' ' + p.q + ' ' + (p.note || '')).toLowerCase().indexOf(q) < 0) return false;
+      return true;
+    });
+    document.getElementById('parts-table').innerHTML =
+      '<p class="result-count">' + list.length + ' parts</p>' +
+      '<div class="table-scroll"><table><thead><tr><th>Part</th><th>Group</th>' +
+      '<th class="num">Typical</th><th class="num">Range</th><th>Where</th></tr></thead><tbody>' +
+      list.map(function (p) {
+        var links = (p.buy || []).map(function (s) {
+          return '<a href="' + AB.suppliers[s].url + encodeURIComponent(p.q) + '" target="_blank" rel="noopener">' +
+                 AB.suppliers[s].name + '</a>';
+        }).join(' &middot; ');
+        return '<tr><td><strong>' + AB.esc(p.name) + '</strong>' +
+          (p.note ? '<br><small class="muted">' + AB.esc(p.note) + '</small>' : '') +
+          '</td><td><span class="chip">' + p.cat + '</span></td>' +
+          '<td class="num">' + AB.usd(p.price) + '<br><small class="muted">' + AB.eur(p.price) + '</small></td>' +
+          '<td class="num"><small class="muted">' + AB.usd(p.lo) + ' - ' + AB.usd(p.hi) + '</small></td>' +
+          '<td><small>' + links + '</small></td></tr>';
+      }).join('') + '</tbody></table></div>';
+  }
+  document.getElementById('pq').addEventListener('input', render);
+  sel.addEventListener('change', render);
+  render();
+
+  AB.autoToc();
+}());
+</script>
+</body>
+</html>

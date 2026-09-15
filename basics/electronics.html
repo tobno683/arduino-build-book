@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Enough electronics — The Arduino Build Book</title>
+<meta name="description" content="The minimum electronics that stops you destroying things: Ohm's law, LED resistors, pull-ups, pin current limits, 3.3 V vs 5 V, decoupling, flyback diodes and power budgets.">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../assets/icons/apple-touch-icon.png">
+<meta name="theme-color" content="#b4662b">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Build Book">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/style.css">
+<script>(function(){try{var t=localStorage.getItem('ab-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){}}());</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<section class="proj-head">
+  <div class="wrap">
+    <div class="crumbs"><a href="../index.html">Home</a> / Basics / Electronics</div>
+    <h1>Enough electronics</h1>
+    <p class="lede">Not a course. This is the specific set of facts that, if you do not know them, will cost
+    you a dead board, a burnt sensor or an evening of confusion. Everything here comes up in the projects.</p>
+  </div>
+</section>
+
+<main class="wrap" id="main">
+<div class="proj-layout">
+<div class="pbody">
+
+<section id="vir">
+  <h2>Volts, amps, ohms, watts</h2>
+  <p>The plumbing analogy is imperfect but it gets you a long way:</p>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Quantity</th><th>Plumbing</th><th>What it means here</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Voltage (V)</strong></td><td>Pressure</td><td>The push. A 5&nbsp;V supply pushes twice as hard as 2.5&nbsp;V. Measured <em>between two points</em> - "5 volts" always means 5 volts relative to something, normally ground.</td></tr>
+      <tr><td><strong>Current (A)</strong></td><td>Flow rate</td><td>How much is actually moving. A device <em>draws</em> current; a supply does not push it in. This is the single most useful correction to most people's mental model.</td></tr>
+      <tr><td><strong>Resistance (&Omega;)</strong></td><td>Pipe narrowness</td><td>How hard it is to get current through.</td></tr>
+      <tr><td><strong>Power (W)</strong></td><td>Total energy per second</td><td>Volts &times; amps. What turns into heat.</td></tr>
+    </tbody>
+  </table></div>
+  <p>Ohm's law is the whole of it: <strong>V = I &times; R</strong>. Rearranged, <strong>I = V / R</strong> and
+  <strong>R = V / I</strong>. Almost every calculation in this hobby is one of those three.</p>
+  <div class="note tip"><span class="t">The thing that trips everybody</span>
+  <p>A 5&nbsp;V 2&nbsp;A supply does not force 2&nbsp;A into your Arduino. It <em>offers up to</em> 2&nbsp;A at
+  5&nbsp;V. An Arduino that wants 50&nbsp;mA takes 50&nbsp;mA. Buying a bigger supply never hurts the device;
+  buying too small a one makes the voltage sag, and sagging voltage is what causes mysterious resets.</p></div>
+</section>
+
+<section id="led">
+  <h2>Why an LED needs a resistor</h2>
+  <p>An LED is not a resistor. It has a <em>forward voltage</em> - a threshold below which almost no current
+  flows, and above which current rises almost vertically. Connect a red LED (about 2&nbsp;V forward) straight
+  across 5&nbsp;V and Ohm's law says the current is limited only by the LED's own tiny internal resistance and
+  the wiring. It will briefly be very bright, then be nothing.</p>
+  <p>The series resistor takes up the difference. With a 5&nbsp;V supply and a 2&nbsp;V LED, the resistor has
+  3&nbsp;V across it, and you choose its value to set the current:</p>
+  <p style="font-family:var(--mono);font-size:1.05rem;text-align:center;margin:22px 0">
+    R = (V<sub>supply</sub> &minus; V<sub>LED</sub>) / I<sub>desired</sub></p>
+
+  <div class="card" style="margin:22px 0">
+    <h3 style="margin-top:0">Resistor calculator</h3>
+    <div class="toolbar" style="box-shadow:none;border:0;padding:0;background:none;margin-bottom:12px">
+      <div class="field"><label for="vs">Supply V</label><input id="vs" type="number" value="5" step="0.1" min="1" max="24"></div>
+      <div class="field"><label for="vf">LED colour</label>
+        <select id="vf">
+          <option value="2.0">Red (2.0 V)</option>
+          <option value="2.1">Yellow (2.1 V)</option>
+          <option value="2.2">Green (2.2 V)</option>
+          <option value="3.2">Blue (3.2 V)</option>
+          <option value="3.2">White (3.2 V)</option>
+        </select>
+      </div>
+      <div class="field"><label for="ma">Current mA</label><input id="ma" type="number" value="10" step="1" min="1" max="30"></div>
+    </div>
+    <p id="ledout" style="margin:0;font-size:1.02rem"></p>
+  </div>
+
+  <p>Any resistor at or above the calculated value is safe; higher just means dimmer. In practice
+  <strong>220&nbsp;&Omega;</strong> is the default for a 5&nbsp;V indicator LED and
+  <strong>330&nbsp;&Omega;</strong> or <strong>1&nbsp;k&Omega;</strong> if it is annoyingly bright. Modern LEDs
+  are perfectly visible at 2&nbsp;mA; the traditional 20&nbsp;mA figure comes from an era of dim parts.</p>
+  <p>The long leg is the anode (+), the short leg the cathode (&minus;), and there is a flat spot on the rim on
+  the cathode side for when the legs have been trimmed. The resistor can go on either side - it limits the
+  current in the loop and the loop does not care where the restriction is.</p>
+</section>
+
+<section id="pins">
+  <h2>What an Arduino pin can and cannot do</h2>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Limit</th><th>Uno / Nano (ATmega328P)</th><th>ESP32</th></tr></thead>
+    <tbody>
+      <tr><td>Logic voltage</td><td>5&nbsp;V</td><td>3.3&nbsp;V - and its pins are <strong>not</strong> 5&nbsp;V tolerant</td></tr>
+      <tr><td>Per-pin current, absolute max</td><td>40&nbsp;mA</td><td>40&nbsp;mA</td></tr>
+      <tr><td>Per-pin, what you should design for</td><td>20&nbsp;mA</td><td>12&nbsp;mA</td></tr>
+      <tr><td>Total across all pins</td><td>200&nbsp;mA</td><td>~200&nbsp;mA</td></tr>
+      <tr><td>What the 5&nbsp;V pin can give (USB powered)</td><td>~450&nbsp;mA</td><td>n/a</td></tr>
+      <tr><td>What the 3.3&nbsp;V pin can give</td><td><strong>50&nbsp;mA</strong> - tiny, and a classic trap</td><td>~600&nbsp;mA</td></tr>
+    </tbody>
+  </table></div>
+  <p>Practical consequences:</p>
+  <ul>
+    <li><strong>One LED per pin is fine. A motor is not.</strong> Anything with a coil or a heater needs a
+    transistor, a MOSFET or a relay, driven <em>by</em> the pin, powered from elsewhere.</li>
+    <li><strong>A servo is not fine either</strong>, despite everybody doing it. An SG90 stalls at about
+    700&nbsp;mA. It works on the 5&nbsp;V pin right up until it does not, and the symptom is the board
+    resetting whenever the servo moves.</li>
+    <li><strong>The Uno's 3.3&nbsp;V pin is almost useless for powering things.</strong> An ESP-01 wants
+    300&nbsp;mA in bursts. It will brown out. Use a separate regulator.</li>
+    <li><strong>A WS2812 LED at full white draws 60&nbsp;mA.</strong> Thirty of them is 1.8&nbsp;A. Do the sum
+    before you plug the strip into the board.</li>
+  </ul>
+</section>
+
+<section id="pullups">
+  <h2>Pull-ups, pull-downs, and floating pins</h2>
+  <p>An input pin that is not connected to anything does not read <code>LOW</code>. It reads whatever stray
+  electromagnetic noise is nearby - your hand, the mains wiring in the wall, the motor next to it. That is a
+  <em>floating</em> pin, and it produces the classic beginner symptom: a button that seems to press itself.</p>
+  <p>A button connects two things. When it is open, one side of it is connected to nothing. So you add a
+  resistor that gently holds the pin at a known level when the button is not doing anything:</p>
+  <ul>
+    <li><strong>Pull-up:</strong> resistor from the pin to 5&nbsp;V, button from the pin to ground. Idle reads
+    <code>HIGH</code>; pressed reads <code>LOW</code>.</li>
+    <li><strong>Pull-down:</strong> resistor from the pin to ground, button from the pin to 5&nbsp;V. Idle reads
+    <code>LOW</code>; pressed reads <code>HIGH</code>.</li>
+  </ul>
+  <p>10&nbsp;k&Omega; is the standard value: strong enough to beat the noise, weak enough that pressing the
+  button does not waste much current.</p>
+  <div class="note tip"><span class="t">You usually do not need the resistor at all</span>
+  <p>Every Arduino pin has a pull-up resistor built into the chip. <code>pinMode(2, INPUT_PULLUP)</code> switches
+  it on. Then you wire the button from pin 2 straight to ground, with no resistor anywhere, and read a pressed
+  button as <code>LOW</code>. Every button in this book is wired that way.</p>
+  </div>
+  <p>I2C is the other place pull-ups appear: the bus needs one resistor from <code>SDA</code> to 3.3/5&nbsp;V
+  and one from <code>SCL</code>. Almost every breakout module has a pair fitted already, which is why you can
+  usually ignore this - until you chain six modules together and the accumulated pull-ups get too strong and
+  the bus stops working.</p>
+</section>
+
+<section id="divider">
+  <h2>Voltage dividers, and reading things safely</h2>
+  <p>Two resistors in series across a voltage; the point between them sits at a predictable fraction:</p>
+  <p style="font-family:var(--mono);text-align:center;margin:18px 0">
+    V<sub>out</sub> = V<sub>in</sub> &times; R2 / (R1 + R2)</p>
+  <p>Uses you will actually hit:</p>
+  <ul>
+    <li><strong>Measuring a battery.</strong> A 12&nbsp;V battery into an analog pin destroys it. Two
+    100&nbsp;k&Omega; resistors halve it to 6&nbsp;V - still too much for a 5&nbsp;V board, so use
+    100&nbsp;k&Omega; and 33&nbsp;k&Omega; to get 3&nbsp;V, and multiply back up in software.</li>
+    <li><strong>Reading a sensor that outputs 5&nbsp;V into a 3.3&nbsp;V ESP32.</strong> 1&nbsp;k&Omega; and
+    2&nbsp;k&Omega; gives 3.3&nbsp;V. Fine for slow signals; too slow for SPI.</li>
+    <li><strong>Any resistive sensor</strong> - LDR, thermistor, potentiometer - is one half of a divider, and
+    the fixed resistor you add is the other half.</li>
+  </ul>
+  <div class="note warn"><span class="t">A divider is not a level shifter</span>
+  <p>It works for a signal going <em>into</em> a lower-voltage chip, slowly. It does not work in the other
+  direction, it does not work at SPI speeds, and it cannot supply current. For bidirectional or fast signals
+  use a proper level-shifter module - they cost about a dollar.</p></div>
+</section>
+
+<section id="33v">
+  <h2>3.3 V versus 5 V, and what actually dies</h2>
+  <p>An Uno runs its logic at 5&nbsp;V. An ESP32, an ESP8266, a Raspberry Pi Pico and most modern sensors run
+  at 3.3&nbsp;V. Mixing them has two separate questions, and people conflate them constantly:</p>
+  <ol>
+    <li><strong>Power.</strong> Many 3.3&nbsp;V modules have a regulator on the breakout board and a pin marked
+    <code>VIN</code> or <code>VCC</code> that happily takes 5&nbsp;V. Check for a three-pin regulator and a
+    <code>3V3</code> label on the board.</li>
+    <li><strong>Signals.</strong> Separate issue. Feeding a 5&nbsp;V logic high into a 3.3&nbsp;V input pin
+    pushes current through its internal protection diodes. Sometimes it survives for years. Sometimes it dies
+    in a minute. The RC522 RFID reader is the famous casualty.</li>
+  </ol>
+  <p>Going the other way is usually free: a 3.3&nbsp;V high is above the ~3&nbsp;V an ATmega needs to read a
+  <code>HIGH</code>, so a 3.3&nbsp;V sensor talking to an Uno generally just works.</p>
+</section>
+
+<section id="decoupling">
+  <h2>Decoupling capacitors, and why things reset randomly</h2>
+  <p>When a chip switches, it grabs a gulp of current in a few nanoseconds. The wire from the regulator has
+  inductance, so it cannot supply that instantly, and the local voltage dips. Dip far enough and the chip
+  resets - or reads garbage, or the display corrupts.</p>
+  <p>A capacitor placed right next to the chip is a tiny local reservoir that supplies the gulp:</p>
+  <ul>
+    <li><strong>100&nbsp;nF ceramic</strong> across VCC and GND, as close to the chip as physically possible.
+    Handles the fast, small gulps. Modules have these fitted already.</li>
+    <li><strong>10-100&nbsp;&micro;F electrolytic</strong> near anything that switches hard - motors, relays,
+    Wi-Fi radios. Handles the slower, bigger sags.</li>
+    <li><strong>470-1000&nbsp;&micro;F</strong> across the supply of an LED strip, right at the input end.
+    The FastLED documentation insists on this and it is right.</li>
+  </ul>
+  <p>The nRF24L01 radio is the notorious example: without a 10&nbsp;&micro;F capacitor soldered across its VCC
+  and GND it works for thirty seconds and then behaves like a faulty module. Thousands of them have been thrown
+  away for want of a five-cent part.</p>
+</section>
+
+<section id="inductive">
+  <h2>Motors, relays, and the spike that kills transistors</h2>
+  <p>Anything with a coil in it - a motor, a relay, a solenoid, a buzzer - stores energy in a magnetic field
+  while current flows. Cut the current suddenly and the field collapses, and the coil generates a voltage spike
+  in the opposite direction, which can be hundreds of volts for a microsecond. That spike is what destroys the
+  transistor that just switched off, and what resets your Arduino across the bench.</p>
+  <p>The fix is a <strong>flyback diode</strong>: a 1N4007 wired <em>backwards</em> across the coil - cathode
+  (the striped end) to the positive side. In normal operation it does nothing. At the moment of switch-off it
+  gives the collapsing field a harmless loop to dump into.</p>
+  <p>Relay <em>modules</em> have this diode fitted on the board. A bare relay does not. Motors always want one,
+  and a motor driver board like an L298N has them internally.</p>
+  <div class="note warn"><span class="t">And give motors their own supply</span>
+  <p>Motor current through the same wires that feed your board is the other half of the problem. Separate
+  supplies, with the two grounds tied together - the ground connection is what lets the signals be understood
+  by both. Common ground, separate power. Say it until it is reflex.</p></div>
+</section>
+
+<section id="buses">
+  <h2>The three ways chips talk</h2>
+  <div class="table-scroll"><table>
+    <thead><tr><th></th><th>I2C</th><th>SPI</th><th>UART / Serial</th></tr></thead>
+    <tbody>
+      <tr><td>Wires</td><td>2 (SDA, SCL) shared by everything</td><td>4 (MOSI, MISO, SCK) shared + 1 CS per device</td><td>2 (TX, RX) per device</td></tr>
+      <tr><td>Speed</td><td>100-400&nbsp;kHz</td><td>Megahertz</td><td>9600 - 115200 baud, typically</td></tr>
+      <tr><td>Addressing</td><td>Each device has an address, e.g. 0x3C</td><td>A chip-select line per device</td><td>Point to point only</td></tr>
+      <tr><td>Uno pins</td><td>A4 = SDA, A5 = SCL (fixed)</td><td>11 = MOSI, 12 = MISO, 13 = SCK</td><td>0 = RX, 1 = TX (shared with USB)</td></tr>
+      <tr><td>Good for</td><td>Sensors, small screens, RTCs - anything slow with many devices</td><td>Displays, SD cards, radios - anything fast</td><td>GPS, MP3 players, Bluetooth modules</td></tr>
+      <tr><td>The gotcha</td><td>Two devices with the same address cannot share a bus</td><td>Forgetting CS, or that MISO/MOSI are not swapped like TX/RX</td><td>TX goes to RX. Pins 0/1 on an Uno fight the USB port - use SoftwareSerial</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="adcpwm">
+  <h2>Analog in, "analog" out</h2>
+  <p><strong>analogRead()</strong> runs a 10-bit converter: it returns 0-1023 where 0 is 0&nbsp;V and 1023 is
+  the reference voltage (5&nbsp;V by default on an Uno). So volts = <code>reading * 5.0 / 1023.0</code>. It
+  takes about 100&nbsp;&micro;s, so roughly 10,000 readings a second is the ceiling. An ESP32 gives 12 bits
+  (0-4095) and its converter is noticeably non-linear near the ends of its range.</p>
+  <p><strong>analogWrite()</strong> does not produce an analog voltage at all. It produces PWM - a square wave
+  switching between 0&nbsp;V and 5&nbsp;V at about 490&nbsp;Hz, where the number 0-255 sets what fraction of
+  each cycle is spent high. An LED averages it and looks dim. A motor averages it and turns slowly. A
+  multimeter averages it and lies to you convincingly. A speaker does <em>not</em> average it, which is why
+  PWM audio sounds harsh.</p>
+  <p>Only certain pins can do it - on an Uno, the ones marked with a tilde: 3, 5, 6, 9, 10, 11.</p>
+</section>
+
+<section id="budget">
+  <h2>Working out whether your power supply is big enough</h2>
+  <p>Add up the worst case, not the typical case, then add 30&nbsp;%.</p>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Thing</th><th class="num">Idle</th><th class="num">Worst case</th></tr></thead>
+    <tbody>
+      <tr><td>Arduino Uno, doing nothing much</td><td class="num">45 mA</td><td class="num">50 mA</td></tr>
+      <tr><td>Arduino Nano</td><td class="num">19 mA</td><td class="num">25 mA</td></tr>
+      <tr><td>ESP32, Wi-Fi connected and idle</td><td class="num">80 mA</td><td class="num"><strong>500 mA</strong> in transmit bursts</td></tr>
+      <tr><td>ESP32-CAM streaming</td><td class="num">180 mA</td><td class="num">310 mA</td></tr>
+      <tr><td>SSD1306 OLED, everything lit</td><td class="num">8 mA</td><td class="num">27 mA</td></tr>
+      <tr><td>SG90 servo</td><td class="num">10 mA</td><td class="num"><strong>700 mA</strong> stalled</td></tr>
+      <tr><td>28BYJ-48 stepper</td><td class="num">&mdash;</td><td class="num">240 mA</td></tr>
+      <tr><td>One WS2812B LED, full white</td><td class="num">1 mA</td><td class="num">60 mA</td></tr>
+      <tr><td>Relay module, coil energised</td><td class="num">0</td><td class="num">75 mA</td></tr>
+      <tr><td>RC522 RFID reader</td><td class="num">13 mA</td><td class="num">26 mA</td></tr>
+      <tr><td>Micro SD card, writing</td><td class="num">1 mA</td><td class="num">100 mA</td></tr>
+    </tbody>
+  </table></div>
+  <p>The ESP32 row is why so many ESP32 projects are unreliable on a laptop USB port: the average is modest but
+  the transmit bursts are brutal, and a marginal supply drops out at exactly the moment the radio fires. If an
+  ESP32 project resets whenever it tries to connect to Wi-Fi, that is your answer nine times out of ten.</p>
+  <div class="btn-row">
+    <a class="btn btn-primary" href="programming.html">Next: your first sketch &rarr;</a>
+    <a class="btn" href="glossary.html">Glossary</a>
+  </div>
+</section>
+
+</div>
+<aside class="toc"><div class="t">On this page</div><ol></ol></aside>
+</div>
+</main>
+
+<script src="../assets/data/parts.js"></script>
+<script src="../assets/data/categories.js"></script>
+<script src="../assets/js/site.js"></script>
+<script>
+(function () {
+  AB.chrome('electronics.html');
+
+  var E96 = [100,110,120,130,150,160,180,200,220,240,270,300,330,360,390,430,470,510,560,620,680,750,820,910,
+             1000,1100,1200,1500,1800,2200,2700,3300,3900,4700,5600,6800,8200,10000];
+  function calc() {
+    var vs = parseFloat(document.getElementById('vs').value) || 5;
+    var vf = parseFloat(document.getElementById('vf').value) || 2;
+    var ma = parseFloat(document.getElementById('ma').value) || 10;
+    var out = document.getElementById('ledout');
+    if (vf >= vs) {
+      out.innerHTML = '<strong>That will not light.</strong> The LED needs more than ' + vf +
+        '&nbsp;V across it and you only have ' + vs + '&nbsp;V. Pick a lower-voltage colour or a higher supply.';
+      return;
+    }
+    var r = (vs - vf) / (ma / 1000);
+    var pick = E96.filter(function (v) { return v >= r; })[0] || Math.ceil(r);
+    var actual = (vs - vf) / pick * 1000;
+    var watts = (vs - vf) * actual / 1000;
+    out.innerHTML = 'You need at least <strong>' + r.toFixed(0) + '&nbsp;&Omega;</strong>. ' +
+      'The nearest standard value upwards is <strong>' + (pick >= 1000 ? (pick / 1000) + '&nbsp;k' : pick + '&nbsp;') +
+      '&Omega;</strong>, which gives <strong>' + actual.toFixed(1) + '&nbsp;mA</strong> ' +
+      'and burns ' + watts.toFixed(3) + '&nbsp;W in the resistor - a standard 1/4&nbsp;W part is ' +
+      (watts > 0.25 ? '<strong>not enough; use a bigger one</strong>' : 'fine') + '.';
+  }
+  ['vs', 'vf', 'ma'].forEach(function (id) {
+    document.getElementById(id).addEventListener('input', calc);
+    document.getElementById(id).addEventListener('change', calc);
+  });
+  calc();
+
+  AB.autoToc();
+}());
+</script>
+</body>
+</html>
