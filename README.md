@@ -9,13 +9,33 @@ script regenerates a summary index.
 
 **40 projects across 10 themes. 150 parts priced. 5 reference pages.**
 
+**Live: <https://tobno683.github.io/arduino-build-book/>**
+
 ## Run it
 
 ```bash
-node tools/serve.js
+node tools/serve.js        # preview on http://localhost:5178
+node tools/build-index.js  # regenerate the index + service worker list, and validate
+node tools/check-pwa.js    # validate the manifest, icons and worker
+node tools/make-icons.js   # re-render the PNG icon set (only if the artwork changes)
 ```
 
-Then open <http://localhost:5178>. Or just open `index.html` — everything works from a `file://` URL too.
+Or just open `index.html` — everything works from a `file://` URL too, apart from the
+service worker, which browsers only allow over HTTPS or on localhost.
+
+## Install it
+
+It is a progressive web app. On the live site, your browser will offer to install it; on
+desktop Chrome the button is in the header, on iOS it is Share → Add to Home Screen.
+
+Once installed, press **Save offline** in the header and it downloads all forty guides —
+about 1.1 MB — so the whole book works in a workshop with no signal. That is the point:
+this is a reference you read next to a soldering iron, which is exactly where the wifi is
+worst.
+
+The shell is precached on install; individual guides are cached as you open them, or all
+at once via that button. The cache version is a hash of the file contents, so it is
+replaced exactly when something changes and not on every build.
 
 ## Pages
 

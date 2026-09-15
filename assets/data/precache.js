@@ -6,7 +6,7 @@
    listed file, so the cache is replaced exactly when the content changes.
    ========================================================================== */
 self.AB_PRECACHE = {
-  version: "bcd9143e18fe",
+  version: "86e127c67271",
   core: [
     "./",
     "./index.html",

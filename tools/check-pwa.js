@@ -182,12 +182,21 @@ if (!fail.length) ok.push(`all ${pages.length} pages link the manifest at the ri
 
 /* --- 6. registration path logic ----------------------------------------- */
 const site = read('assets/js/site.js');
-if (!site.includes("AB.root() + 'sw.js'")) {
+if (!site.includes("root + 'sw.js'")) {
   fail.push('site.js does not register the worker relative to the site root');
 } else {
-  ok.push('service worker is registered via AB.root(), so /basics/ pages resolve correctly');
+  ok.push('service worker is registered relative to the root, so /basics/ pages resolve correctly');
 }
 if (site.includes("register('/sw.js'")) fail.push('site.js registers an absolute /sw.js - breaks on a project subpath');
+
+/* AB.root() is '' at the top level. Passing that as the scope resolves to
+   the current document rather than the directory, so the worker would only
+   ever control index.html. There has to be a './' fallback. */
+if (!/AB\.root\(\)\s*\|\|\s*'\.\/'/.test(site)) {
+  fail.push("site.js must fall back to './' for scope - an empty scope only covers the one page");
+} else {
+  ok.push("scope falls back to './', so the worker covers the whole site");
+}
 
 /* --- report ------------------------------------------------------------- */
 console.log('');

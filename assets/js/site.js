@@ -268,7 +268,12 @@ AB.pwa = {
     if (location.protocol !== 'https:' && location.hostname !== 'localhost' &&
         location.hostname !== '127.0.0.1') return;
 
-    navigator.serviceWorker.register(AB.root() + 'sw.js', { scope: AB.root() })
+    // AB.root() is '' at the top level and '../' under /basics/. An empty
+    // scope would resolve to the current *document* (index.html), so the
+    // worker would control only that one page - hence the './' fallback.
+    var root = AB.root() || './';
+
+    navigator.serviceWorker.register(root + 'sw.js', { scope: root })
       .then(function (reg) {
         // A worker sitting in "waiting" means a newer version is ready but
         // an old page is still open. Offer the reload rather than forcing it.
