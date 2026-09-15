@@ -11,13 +11,44 @@
 window.AB = window.AB || {};
 
 AB.suppliers = {
+  /* --- international ---------------------------------------------------- */
   adafruit:  { name: 'Adafruit',   url: 'https://www.adafruit.com/?q=',                       kind: 'Western, documented, fair' },
   sparkfun:  { name: 'SparkFun',   url: 'https://www.sparkfun.com/search/results?term=',      kind: 'Western, documented, fair' },
   pimoroni:  { name: 'Pimoroni',   url: 'https://shop.pimoroni.com/search?q=',                kind: 'UK/EU shipping' },
   digikey:   { name: 'DigiKey',    url: 'https://www.digikey.com/en/products/result?keywords=', kind: 'Real datasheets, real parts' },
   mouser:    { name: 'Mouser',     url: 'https://www.mouser.com/c/?q=',                       kind: 'Real datasheets, real parts' },
   amazon:    { name: 'Amazon',     url: 'https://www.amazon.com/s?k=',                        kind: 'Fast, mixed quality' },
-  ali:       { name: 'AliExpress', url: 'https://www.aliexpress.com/wholesale?SearchText=',   kind: 'Cheapest, 2-5 week wait' }
+  ali:       { name: 'AliExpress', url: 'https://www.aliexpress.com/wholesale?SearchText=',   kind: 'Cheapest, 2-5 week wait' },
+
+  /* --- Sweden -----------------------------------------------------------
+     Search URLs verified against each site rather than guessed - several
+     of the obvious-looking ones (electrokit.com/en/search, elfa.se) are
+     404s or redirects. */
+  electrokit: { name: 'Electrokit', url: 'https://www.electrokit.com/search.php?keyword=',    kind: 'Swedish hobby shop, stocks almost everything here' },
+  kjell:      { name: 'Kjell & Co', url: 'https://www.kjell.com/se/sok?query=',               kind: 'Swedish high street, collect the same day' },
+  rsse:       { name: 'RS Sverige', url: 'https://se.rs-online.com/web/c/?searchTerm=',       kind: 'Swedish distributor, real datasheets' },
+  amazonse:   { name: 'Amazon.se',  url: 'https://www.amazon.se/s?k=',                        kind: 'Fast, mixed quality' }
+};
+
+/* Where the reader is buying from. `extra` suppliers are offered on every
+   part in addition to its own list; `swap` replaces an international
+   supplier with its local arm. Stored in localStorage, so it is chosen
+   once and then forgotten about. */
+AB.regions = {
+  intl: {
+    name: 'International',
+    extra: [],
+    swap: {}
+  },
+  se: {
+    name: 'Sweden',
+    extra: ['electrokit', 'kjell'],
+    swap: { amazon: 'amazonse', digikey: 'rsse', mouser: 'rsse' },
+    note: 'Electrokit in Malmö carries almost every part in this book. Prices include ' +
+          '25 % moms and run roughly two to three times the AliExpress figures below - ' +
+          'you are paying for next-day delivery, a real returns policy and the part being ' +
+          'what the listing says.'
+  }
 };
 
 /* Exchange rate used for the secondary currency column. Edit in one place. */

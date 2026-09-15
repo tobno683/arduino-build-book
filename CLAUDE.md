@@ -69,6 +69,16 @@ House conventions:
   was a bug — three projects used the `18650` id labelled as AA holders, which corrupted analysis and was
   dishonest in the BOM.
 - **`feature: true` — exactly one per theme.** The home page shuffles and shows six, so all ten get airtime.
+- **Supplier links are search URLs, never product URLs.** That is what makes it honest to offer a shop
+  for every part: the link means "look for it here", not "this is in stock here". It also means links
+  never rot.
+- **Regions live in `AB.regions`** (`assets/data/parts.js`). A region can `swap` an international supplier
+  for its local arm (amazon → amazon.se) and add `extra` local shops to every part. `AB.buyLinks()` in
+  site.js is the single implementation, used by both the project BOM and the tools catalogue. Default is
+  auto-detected from `navigator.language` and then remembered in localStorage.
+- **Verify a new supplier's search URL in a browser before adding it.** Several obvious-looking ones are
+  wrong: `electrokit.com/en/search?query=` 404s (the real one is `search.php?keyword=`), `elfa.se`
+  redirects to RS, and `lawicel-shop.se/search` 404s.
 - **Safety sections are not boilerplate.** Anything with mains, lithium cells, or that goes on a road gets a
   real one. Check consistency: if one lithium project warns about charging below 0 °C, they all should.
 

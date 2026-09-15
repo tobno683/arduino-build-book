@@ -211,6 +211,80 @@ AB.bindCopy = function (root) {
   });
 };
 
+/* --- where to buy --------------------------------------------------------
+   One implementation, used by the BOM table on every project page and by
+   the catalogue on the tools page, so the two cannot drift apart.
+
+   Every link is a plain search URL, which is why offering a shop for a part
+   is honest: it means "look for it here", not "this is in stock here".
+   ------------------------------------------------------------------------ */
+AB.region = {
+  get: function () {
+    var r;
+    try { r = localStorage.getItem('ab-region'); } catch (e) {}
+    if (r && AB.regions[r]) return r;
+    // A Swedish browser almost certainly wants the Swedish shops.
+    var lang = (navigator.language || '').toLowerCase();
+    if (lang.indexOf('sv') === 0) return 'se';
+    return 'intl';
+  },
+  set: function (r) {
+    if (!AB.regions[r]) return;
+    try { localStorage.setItem('ab-region', r); } catch (e) {}
+    document.dispatchEvent(new CustomEvent('ab-region-change', { detail: r }));
+  }
+};
+
+/* The supplier ids to offer for one part, in the current region. */
+AB.suppliersFor = function (part) {
+  var region = AB.regions[AB.region.get()] || AB.regions.intl;
+  var swap = region.swap || {};
+  var out = [];
+
+  (part.buy || []).forEach(function (id) {
+    var mapped = swap[id] || id;
+    if (AB.suppliers[mapped] && out.indexOf(mapped) < 0) out.push(mapped);
+  });
+
+  // Local shops go first - they are the ones a reader here can actually
+  // get by Tuesday. Prepend as a block so the declared order survives;
+  // unshifting one at a time would reverse them.
+  var local = (region.extra || []).filter(function (id) {
+    return AB.suppliers[id] && out.indexOf(id) < 0;
+  });
+
+  return local.concat(out);
+};
+
+AB.buyLinks = function (part, query) {
+  var q = encodeURIComponent(query || part.q);
+  return AB.suppliersFor(part).map(function (id) {
+    var s = AB.suppliers[id];
+    return '<a href="' + s.url + q + '" target="_blank" rel="noopener noreferrer">' +
+           AB.esc(s.name) + '</a>';
+  }).join(' &middot; ');
+};
+
+/* A small "shipping to" control. Pass a container id; it re-renders
+   whatever depends on it by firing ab-region-change. */
+AB.regionPicker = function (label) {
+  var cur = AB.region.get();
+  var opts = Object.keys(AB.regions).map(function (r) {
+    return '<option value="' + r + '"' + (r === cur ? ' selected' : '') + '>' +
+           AB.esc(AB.regions[r].name) + '</option>';
+  }).join('');
+  return '<div class="field region-picker">' +
+    '<label for="ab-region-sel">' + AB.esc(label || 'Shipping to') + '</label>' +
+    '<select id="ab-region-sel">' + opts + '</select></div>';
+};
+
+AB.bindRegionPicker = function (root) {
+  var sel = (root || document).querySelector('#ab-region-sel');
+  if (!sel || sel._bound) return;
+  sel._bound = true;
+  sel.addEventListener('change', function () { AB.region.set(sel.value); });
+};
+
 /* --- project card ------------------------------------------------------- */
 AB.projectCard = function (p, r) {
   r = r || AB.root();

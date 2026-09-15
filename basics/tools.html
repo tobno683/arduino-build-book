@@ -76,6 +76,44 @@
         costs more than your order until you hit their free threshold.</td></tr>
     </tbody>
   </table></div>
+
+  <h3 id="sweden">If you are buying in Sweden</h3>
+  <p>Set <strong>Shipping to &rarr; Sweden</strong> anywhere on the site and every parts table swaps to
+  these, so you stop translating part names into Swedish search boxes.</p>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Supplier</th><th>Price</th><th>Wait</th><th>What you are really buying</th></tr></thead>
+    <tbody>
+      <tr><td><strong><a href="https://www.electrokit.com/" target="_blank" rel="noopener noreferrer">Electrokit</a></strong></td>
+        <td>2-3&times;</td><td>1-3 days</td>
+        <td>The one to know. A Malm&ouml; shop that carries almost every part in this book - boards, sensors,
+        WS2812 strip, the lot - with Swedish-language product pages and stock counts you can trust. A DHT22 is
+        99&nbsp;SEK against the roughly 35&nbsp;SEK you would pay AliExpress, and that is the whole trade:
+        it arrives this week and it is the right part.</td></tr>
+      <tr><td><strong><a href="https://www.kjell.com/se" target="_blank" rel="noopener noreferrer">Kjell &amp; Company</a></strong></td>
+        <td>3-5&times;</td><td>Same day</td>
+        <td>Around a hundred stores, so you can have a breadboard, jumper wires, a soldering iron or a
+        multimeter in your hand this afternoon. The component range is shallow - do not expect a specific
+        sensor - but for tools and the boring things that stop a build at 9&nbsp;pm on a Sunday it is
+        unbeatable.</td></tr>
+      <tr><td><strong><a href="https://se.rs-online.com/" target="_blank" rel="noopener noreferrer">RS Sverige</a></strong></td>
+        <td>Varies</td><td>Next day</td>
+        <td>The professional distributor, and where Elfa Distrelec ended up. This is the DigiKey equivalent:
+        you come here for an exact part number, a tolerance, a connector and a real datasheet, not for a
+        module on a breakout board. Watch the delivery charge on small orders.</td></tr>
+      <tr><td><strong><a href="https://www.amazon.se/" target="_blank" rel="noopener noreferrer">Amazon.se</a></strong></td>
+        <td>2-3&times;</td><td>1-2 days</td>
+        <td>The same Chinese modules as AliExpress, marked up, tomorrow. Quality is the same lottery because
+        it is often the same factory - but returns actually work.</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="note"><span class="t">A note on prices on this site</span>
+  <p>Every figure in the tables is a typical <strong>USD</strong> street price, because that is the only
+  currency the whole hobby quotes in. Swedish prices include 25&nbsp;% moms and land roughly two to three
+  times higher. A project listed here at $25 is realistically 600-700&nbsp;SEK from Electrokit, or close to
+  the listed price if you are willing to wait three weeks for AliExpress.</p></div>
+
+  <div id="region-note"></div>
   <div class="note tip"><span class="t">The strategy that works</span>
   <p>Buy the <em>board</em> cheap and the <em>sensor</em> good, at least the first time. An Uno clone is
   electrically identical to an official one for $20 less. A $1 BME280 that is secretly a BMP280 will cost you
@@ -145,6 +183,7 @@
       <input id="pq" type="search" placeholder="oled, relay, stepper, 18650&hellip;" autocomplete="off">
     </div>
     <div class="field"><label for="pcat">Group</label><select id="pcat"></select></div>
+    <div id="region-slot"></div>
   </div>
   <div id="parts-table"></div>
 </section>
@@ -179,10 +218,7 @@
       var p = AB.partIndex[id];
       if (!p) return '';
       total += p.price;
-      var links = (p.buy || []).map(function (s) {
-        return '<a href="' + AB.suppliers[s].url + encodeURIComponent(p.q) + '" target="_blank" rel="noopener">' +
-               AB.suppliers[s].name + '</a>';
-      }).join(' &middot; ');
+      var links = AB.buyLinks(p);
       return '<tr><td><strong>' + AB.esc(p.name) + '</strong>' +
         ((blurbs && blurbs[id]) ? '<br><small class="muted">' + blurbs[id] + '</small>' :
           (p.note ? '<br><small class="muted">' + AB.esc(p.note) + '</small>' : '')) +
@@ -194,6 +230,7 @@
       '<td><small class="muted">' + AB.eur(total) + '</small></td></tr></tfoot></table></div>';
   }
 
+  function buildPiles() {
   pile('pile1', 'h-pile1', 'Pile one: the $$ start',
     ['uno', 'usb-cable', 'bb-830', 'jumpers', 'res-kit', 'led5', 'button', 'dmm'],
     {
@@ -215,6 +252,19 @@
       hookup: 'Solid core, six colours. Once you have it you will wonder how you managed.',
       buck: 'Keep two in the drawer. Half of all power problems are solved by one.'
     });
+  }
+  buildPiles();
+
+  /* A short honest note about buying in the selected region. */
+  function showRegionNote() {
+    var region = AB.regions[AB.region.get()] || AB.regions.intl;
+    var slot = document.getElementById('region-note');
+    if (!slot) return;
+    slot.innerHTML = region.note
+      ? '<div class="note tip"><span class="t">Buying in ' + AB.esc(region.name) + '</span><p>' +
+        region.note + '</p></div>'
+      : '';
+  }
 
   /* --- the full searchable catalogue ---------------------------------- */
   var cats = [];
@@ -236,10 +286,7 @@
       '<div class="table-scroll"><table><thead><tr><th>Part</th><th>Group</th>' +
       '<th class="num">Typical</th><th class="num">Range</th><th>Where</th></tr></thead><tbody>' +
       list.map(function (p) {
-        var links = (p.buy || []).map(function (s) {
-          return '<a href="' + AB.suppliers[s].url + encodeURIComponent(p.q) + '" target="_blank" rel="noopener">' +
-                 AB.suppliers[s].name + '</a>';
-        }).join(' &middot; ');
+        var links = AB.buyLinks(p);
         return '<tr><td><strong>' + AB.esc(p.name) + '</strong>' +
           (p.note ? '<br><small class="muted">' + AB.esc(p.note) + '</small>' : '') +
           '</td><td><span class="chip">' + p.cat + '</span></td>' +
@@ -250,6 +297,19 @@
   }
   document.getElementById('pq').addEventListener('input', render);
   sel.addEventListener('change', render);
+
+  document.getElementById('region-slot').innerHTML = AB.regionPicker('Shipping to');
+  AB.bindRegionPicker(document);
+  document.addEventListener('ab-region-change', function () {
+    buildPiles();
+    render();
+    document.getElementById('region-slot').innerHTML = AB.regionPicker('Shipping to');
+    document.getElementById('ab-region-sel')._bound = false;
+    AB.bindRegionPicker(document);
+    showRegionNote();
+  });
+
+  showRegionNote();
   render();
 
   AB.autoToc();

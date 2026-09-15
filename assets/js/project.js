@@ -37,11 +37,7 @@ AB.addProject = function (p) { AB.projects.push(p); };
       if (!part) { console.warn('BOM: unknown part "' + line.id + '" in ' + p.slug); return; }
       var qty = line.qty || 1, sum = part.price * qty;
       if (line.own) owned += sum; else total += sum;
-      var links = (part.buy || []).map(function (s) {
-        var sup = AB.suppliers[s];
-        return '<a href="' + sup.url + encodeURIComponent(line.q || part.q) + '" target="_blank" rel="noopener">' +
-               sup.name + '</a>';
-      }).join(' &middot; ');
+      var links = AB.buyLinks(part, line.q || part.q);
       rows += '<tr>' +
         '<td><strong>' + AB.esc(line.as || part.name) + '</strong>' +
           (line.note ? '<br><small class="muted">' + line.note + '</small>' : '') +
@@ -62,15 +58,19 @@ AB.addProject = function (p) { AB.projects.push(p); };
         '<td class="num">' + AB.usd(owned) + '</td><td></td></tr>';
     }
 
-    return '<div class="table-scroll"><table>' +
+    var region = AB.regions[AB.region.get()] || AB.regions.intl;
+
+    return '<div class="bom-head">' + AB.regionPicker('Shipping to') + '</div>' +
+      '<div class="table-scroll"><table>' +
       '<thead><tr><th>Part</th><th class="num">Qty</th><th class="num">Unit</th><th class="num">Line</th><th>Where</th></tr></thead>' +
       '<tbody>' + rows + '</tbody><tfoot>' + foot + '</tfoot></table></div>' +
       (p.bomNote || '') +
+      (region.note ? note('tip', 'Buying in ' + region.name, '<p>' + region.note + '</p>') : '') +
       note('tip', 'Reading this table',
-        '<p>Unit prices are typical 2026 street prices. The cheap column is AliExpress and a three-week wait; ' +
-        'Adafruit and SparkFun cost two to four times more and come with documentation, support and parts that ' +
-        'are what the listing says they are. For your first build, paying the premium on the <em>sensor</em> and ' +
-        'saving on the board is usually the right trade.</p>');
+        '<p>Unit prices are typical 2026 street prices in USD. The cheap end is AliExpress and a three-week ' +
+        'wait; a documented Western or local shop costs two to four times more and comes with support, a ' +
+        'returns policy and parts that are what the listing says they are. For your first build, paying that ' +
+        'premium on the <em>sensor</em> and saving on the board is usually the right trade.</p>');
   }
 
   /* --- tools ------------------------------------------------------------ */
@@ -243,7 +243,19 @@ AB.addProject = function (p) { AB.projects.push(p); };
       '</div>' + toc + '</div></div>';
 
     AB.bindCopy(host);
+    AB.bindRegionPicker(host);
     if (p.build) AB.mountViewer(document.getElementById('viewer3d'), p.build);
+
+    /* Changing where you are shipping to rewrites every supplier link, so
+       re-render - but keep the reader where they were on the page. */
+    if (!AB._regionBound) {
+      AB._regionBound = true;
+      document.addEventListener('ab-region-change', function () {
+        var y = window.scrollY;
+        AB.renderProject();
+        window.scrollTo({ top: y, behavior: 'instant' });
+      });
+    }
 
     /* scroll-spy for the contents list */
     var links = {}, obs;

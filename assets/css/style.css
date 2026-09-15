@@ -367,6 +367,12 @@ p code,li code,td code,dd code{font-family:var(--mono);font-size:.86em;backgroun
 .site-foot a{color:var(--ink-2);text-decoration:none}
 .site-foot a:hover{color:var(--copper)}
 
+/* --- where to buy -------------------------------------------------------- */
+.bom-head{display:flex;justify-content:flex-end;margin:4px 0 -6px}
+.region-picker{flex:0 0 auto;display:flex;align-items:center;gap:8px}
+.region-picker select{width:auto;min-width:140px}
+td .buy-local{font-weight:600}
+
 /* --- progressive web app chrome ----------------------------------------- */
 .icon-btn.done{border-color:var(--pcb);color:var(--pcb)}
 .icon-btn.busy{border-color:var(--copper);color:var(--copper)}

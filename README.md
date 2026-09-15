@@ -150,6 +150,11 @@ with a `lo`/`hi` range showing what you will actually see; EUR is derived from o
 
 None of the supplier links are affiliate links — they are plain search URLs.
 
+**Regions.** Set *Shipping to* on any parts table and the supplier links change: picking **Sweden** puts
+Electrokit and Kjell & Company first and swaps Amazon for Amazon.se and DigiKey/Mouser for RS Sverige.
+Defined in `AB.regions` in `assets/data/parts.js`; the choice is auto-detected from your browser language
+and then remembered. Adding another country is one entry in that object.
+
 ## Conventions
 
 - **Wire colours mean the same thing everywhere.** Red is power, black is ground, everything else is signal.
