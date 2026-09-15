@@ -152,6 +152,20 @@ try {
   ['install', 'activate', 'fetch', 'message'].forEach(ev => {
     if (typeof listeners[ev] !== 'function') fail.push(`sw.js registers no "${ev}" handler`);
   });
+
+  // Taking over during install makes an already-open page run old cached
+  // HTML against new JS until it reloads. The update toast exists so the
+  // reader triggers that swap instead.
+  const sw = read('sw.js');
+  const installBody = sw.slice(sw.indexOf("addEventListener('install'"), sw.indexOf("addEventListener('activate'"));
+  if (/^\s*[^/\n]*\bskipWaiting\s*\(/m.test(installBody)) {
+    fail.push('sw.js calls skipWaiting() during install - that causes a mixed-version page until it reloads');
+  } else {
+    ok.push('install does not skipWaiting, so updates go through the reload prompt');
+  }
+  if (!sw.includes("'SKIP_WAITING'")) {
+    fail.push('sw.js has no SKIP_WAITING message handler, so the update prompt cannot apply an update');
+  }
   if (Object.keys(listeners).length) {
     ok.push('sw.js evaluates and registers: ' + Object.keys(listeners).join(', '));
   }

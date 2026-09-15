@@ -36,7 +36,14 @@ self.addEventListener('install', event => {
       .map((r, i) => (r.status === 'rejected' ? CORE[i] : null))
       .filter(Boolean);
     if (failed.length) console.warn('[sw] could not precache:', failed);
-    await self.skipWaiting();
+
+    // Deliberately NOT calling skipWaiting() here. Taking over while a page
+    // is already open means that page can end up running old cached HTML
+    // against new JS for a moment - which is exactly the mixed-version
+    // flash it looks like. Instead the new worker waits, the page offers
+    // "a new version is ready / Reload", and SKIP_WAITING arrives from
+    // there. On a first install there is no controller to wait behind, so
+    // activation is immediate anyway.
   })());
 });
 
