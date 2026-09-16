@@ -7,7 +7,7 @@ solder joint in plain words, and the complete sketch with a copy button.
 Static HTML, CSS and vanilla JavaScript. No frameworks, no dependencies, no tracking. One optional Node
 script regenerates a summary index.
 
-**64 projects across 13 themes. 192 parts priced. 5 reference pages.**
+**66 projects across 13 themes. 192 parts priced. 5 reference pages.**
 
 **Live: <https://tobno683.github.io/arduino-build-book/>**
 

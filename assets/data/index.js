@@ -2,7 +2,7 @@
    index.js - GENERATED FILE, do not edit by hand.
    Rebuild with:  node tools/build-index.js
    A summary of every project so the home page and the catalogue can render
-   without loading 64 full build guides.
+   without loading 66 full build guides.
    ========================================================================== */
 window.AB = window.AB || {};
 
@@ -656,6 +656,27 @@ AB.index = [
     "cost": 15.84
   },
   {
+    "slug": "snake-oled",
+    "title": "Snake on an OLED",
+    "cat": "games",
+    "level": 1,
+    "time": "2 hours",
+    "solder": false,
+    "board": "Nano",
+    "blurb": "The game everyone had on a Nokia, on eight dollars of parts. A perfect first game because the whole thing is one clean idea - and one subtle mistake that everybody makes first.",
+    "tags": [
+      "snake",
+      "game loop",
+      "oled",
+      "ring buffer",
+      "joystick",
+      "eeprom",
+      "no soldering"
+    ],
+    "feature": false,
+    "cost": 13
+  },
+  {
     "slug": "reaction-timer",
     "title": "Two-player reaction timer",
     "cat": "games",
@@ -1184,6 +1205,29 @@ AB.index = [
     ],
     "feature": false,
     "cost": 35.19
+  },
+  {
+    "slug": "5g-teleoperated-rover",
+    "title": "5G teleoperated rover",
+    "cat": "robotics",
+    "level": 4,
+    "time": "12 hours",
+    "solder": true,
+    "board": "UNO Q + RM500Q",
+    "blurb": "Drive a rover from anywhere with a browser, watching through its camera. The engineering is entirely about latency - how much there is, where it comes from, and what the rover does when it stops arriving.",
+    "tags": [
+      "5g",
+      "teleoperation",
+      "latency",
+      "webrtc",
+      "deadman",
+      "rover",
+      "urllc",
+      "remote control",
+      "failsafe"
+    ],
+    "feature": false,
+    "cost": 480.45
   },
   {
     "slug": "automatic-plant-waterer",
