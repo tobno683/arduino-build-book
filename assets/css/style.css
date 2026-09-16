@@ -189,6 +189,11 @@ a.card:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg);border-color
 .chip.d3{border-color:color-mix(in srgb,var(--warn) 55%,transparent);color:var(--warn);background:color-mix(in srgb,var(--warn) 12%,transparent)}
 .chip.d4{border-color:color-mix(in srgb,var(--danger) 45%,transparent);color:var(--danger);background:color-mix(in srgb,var(--danger) 10%,transparent)}
 
+a.chip{text-decoration:none;transition:border-color .12s,color .12s,background .12s}
+a.chip:hover{border-color:var(--copper);color:var(--copper);background:color-mix(in srgb,var(--copper) 8%,transparent)}
+a.chip .n{color:var(--ink-3);font-weight:400}
+a.chip:hover .n{color:inherit}
+
 /* --- buttons ------------------------------------------------------------ */
 .btn{
   display:inline-flex;align-items:center;gap:8px;cursor:pointer;

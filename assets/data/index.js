@@ -27,7 +27,10 @@ AB.index = [
       "no soldering"
     ],
     "feature": false,
-    "cost": 69.78
+    "cost": 69.78,
+    "boards": [
+      "nano33ble"
+    ]
   },
   {
     "slug": "tinyml-machine-listener",
@@ -49,7 +52,10 @@ AB.index = [
       "nano 33 ble"
     ],
     "feature": false,
-    "cost": 75.96
+    "cost": 75.96,
+    "boards": [
+      "nano33ble"
+    ]
   },
   {
     "slug": "uno-q-object-detection",
@@ -73,7 +79,10 @@ AB.index = [
       "ssd"
     ],
     "feature": true,
-    "cost": 121.15
+    "cost": 121.15,
+    "boards": [
+      "uno-q"
+    ]
   },
   {
     "slug": "uno-q-voice-control",
@@ -97,7 +106,10 @@ AB.index = [
       "privacy"
     ],
     "feature": false,
-    "cost": 108.49
+    "cost": 108.49,
+    "boards": [
+      "uno-q"
+    ]
   },
   {
     "slug": "jetson-orin-vision",
@@ -121,7 +133,11 @@ AB.index = [
       "linux"
     ],
     "feature": false,
-    "cost": 360.59
+    "cost": 360.59,
+    "boards": [
+      "jetson-orin",
+      "uno"
+    ]
   },
   {
     "slug": "ventuno-q-sorter",
@@ -145,7 +161,10 @@ AB.index = [
       "dual brain"
     ],
     "feature": false,
-    "cost": 367.72
+    "cost": 367.72,
+    "boards": [
+      "ventuno-q"
+    ]
   },
   {
     "slug": "arduino-theremin",
@@ -166,7 +185,10 @@ AB.index = [
       "scales"
     ],
     "feature": false,
-    "cost": 14.79
+    "cost": 14.79,
+    "boards": [
+      "uno"
+    ]
   },
   {
     "slug": "mp3-doorbell",
@@ -186,7 +208,10 @@ AB.index = [
       "speaker"
     ],
     "feature": false,
-    "cost": 25.97
+    "cost": 25.97,
+    "boards": [
+      "nano"
+    ]
   },
   {
     "slug": "sound-reactive-led",
@@ -207,7 +232,10 @@ AB.index = [
       "music"
     ],
     "feature": true,
-    "cost": 22.7
+    "cost": 22.7,
+    "boards": [
+      "nano"
+    ]
   },
   {
     "slug": "thermal-camera",
@@ -228,7 +256,10 @@ AB.index = [
       "tft"
     ],
     "feature": false,
-    "cost": 45
+    "cost": 45,
+    "boards": [
+      "esp32"
+    ]
   },
   {
     "slug": "timelapse-camera",
@@ -248,7 +279,10 @@ AB.index = [
       "18650"
     ],
     "feature": false,
-    "cost": 26.9
+    "cost": 26.9,
+    "boards": [
+      "esp32cam"
+    ]
   },
   {
     "slug": "esp32cam-motion-trap",
@@ -268,7 +302,10 @@ AB.index = [
       "security"
     ],
     "feature": false,
-    "cost": 21.5
+    "cost": 21.5,
+    "boards": [
+      "esp32cam"
+    ]
   },
   {
     "slug": "qr-scanner",
@@ -289,7 +326,10 @@ AB.index = [
       "grayscale"
     ],
     "feature": false,
-    "cost": 28.94
+    "cost": 28.94,
+    "boards": [
+      "esp32cam"
+    ]
   },
   {
     "slug": "esp32cam-wifi-camera",
@@ -309,7 +349,10 @@ AB.index = [
       "ftdi"
     ],
     "feature": true,
-    "cost": 24
+    "cost": 24,
+    "boards": [
+      "esp32cam"
+    ]
   },
   {
     "slug": "gsm-sms-alarm",
@@ -331,7 +374,10 @@ AB.index = [
       "no wifi"
     ],
     "feature": false,
-    "cost": 34.1
+    "cost": 34.1,
+    "boards": [
+      "nano"
+    ]
   },
   {
     "slug": "lte-camera-uploader",
@@ -353,7 +399,10 @@ AB.index = [
       "telegram"
     ],
     "feature": false,
-    "cost": 99.35
+    "cost": 99.35,
+    "boards": [
+      "esp32cam"
+    ]
   },
   {
     "slug": "lte-remote-monitor",
@@ -376,7 +425,10 @@ AB.index = [
       "no wifi"
     ],
     "feature": true,
-    "cost": 66.25
+    "cost": 66.25,
+    "boards": [
+      "esp32"
+    ]
   },
   {
     "slug": "5g-edge-uplink",
@@ -401,7 +453,10 @@ AB.index = [
       "streaming"
     ],
     "feature": false,
-    "cost": 469
+    "cost": 469,
+    "boards": [
+      "uno-q"
+    ]
   },
   {
     "slug": "nbiot-field-sensor",
@@ -424,7 +479,10 @@ AB.index = [
       "coap"
     ],
     "feature": false,
-    "cost": 79.85
+    "cost": 79.85,
+    "boards": [
+      "esp32"
+    ]
   },
   {
     "slug": "lte-remote-switch",
@@ -446,7 +504,10 @@ AB.index = [
       "failsafe"
     ],
     "feature": false,
-    "cost": 61.19
+    "cost": 61.19,
+    "boards": [
+      "esp32"
+    ]
   },
   {
     "slug": "kitchen-timer",
@@ -467,7 +528,10 @@ AB.index = [
       "kitchen"
     ],
     "feature": false,
-    "cost": 11.3
+    "cost": 11.3,
+    "boards": [
+      "nano"
+    ]
   },
   {
     "slug": "desk-clock",
@@ -488,7 +552,10 @@ AB.index = [
       "nano"
     ],
     "feature": false,
-    "cost": 11.22
+    "cost": 11.22,
+    "boards": [
+      "nano"
+    ]
   },
   {
     "slug": "led-matrix-sign",
@@ -508,7 +575,10 @@ AB.index = [
       "sign"
     ],
     "feature": false,
-    "cost": 16.5
+    "cost": 16.5,
+    "boards": [
+      "esp8266"
+    ]
   },
   {
     "slug": "epaper-dashboard",
@@ -528,7 +598,10 @@ AB.index = [
       "battery"
     ],
     "feature": false,
-    "cost": 43.59
+    "cost": 43.59,
+    "boards": [
+      "esp32"
+    ]
   },
   {
     "slug": "word-clock",
@@ -548,7 +621,10 @@ AB.index = [
       "light bleed"
     ],
     "feature": true,
-    "cost": 63.84
+    "cost": 63.84,
+    "boards": [
+      "nano"
+    ]
   },
   {
     "slug": "brushless-thrust-bench",
@@ -570,7 +646,10 @@ AB.index = [
       "lipo"
     ],
     "feature": false,
-    "cost": 131.65
+    "cost": 131.65,
+    "boards": [
+      "nano"
+    ]
   },
   {
     "slug": "rc-receiver-decoder",
@@ -592,7 +671,10 @@ AB.index = [
       "no soldering"
     ],
     "feature": false,
-    "cost": 83.14
+    "cost": 83.14,
+    "boards": [
+      "esp32"
+    ]
   },
   {
     "slug": "rc-rover-brushless",
@@ -614,7 +696,10 @@ AB.index = [
       "reverse"
     ],
     "feature": false,
-    "cost": 194.4
+    "cost": 194.4,
+    "boards": [
+      "esp32"
+    ]
   },
   {
     "slug": "rc-boat",
@@ -636,7 +721,10 @@ AB.index = [
       "flooding"
     ],
     "feature": false,
-    "cost": 189.27
+    "cost": 189.27,
+    "boards": [
+      "esp32"
+    ]
   },
   {
     "slug": "camera-gimbal",
@@ -658,7 +746,10 @@ AB.index = [
       "imu"
     ],
     "feature": false,
-    "cost": 102.25
+    "cost": 102.25,
+    "boards": [
+      "esp32"
+    ]
   },
   {
     "slug": "quadcopter-flight-controller",
@@ -681,7 +772,10 @@ AB.index = [
       "arming"
     ],
     "feature": true,
-    "cost": 323.24
+    "cost": 323.24,
+    "boards": [
+      "esp32"
+    ]
   },
   {
     "slug": "desk-weather-station",
@@ -702,7 +796,10 @@ AB.index = [
       "no soldering"
     ],
     "feature": true,
-    "cost": 18
+    "cost": 18,
+    "boards": [
+      "uno"
+    ]
   },
   {
     "slug": "co2-monitor",
@@ -723,7 +820,10 @@ AB.index = [
       "air quality"
     ],
     "feature": false,
-    "cost": 34.85
+    "cost": 34.85,
+    "boards": [
+      "nano"
+    ]
   },
   {
     "slug": "fridge-freezer-logger",
@@ -744,7 +844,10 @@ AB.index = [
       "alarm"
     ],
     "feature": false,
-    "cost": 33.32
+    "cost": 33.32,
+    "boards": [
+      "uno"
+    ]
   },
   {
     "slug": "air-quality-monitor",
@@ -765,7 +868,10 @@ AB.index = [
       "mqtt"
     ],
     "feature": false,
-    "cost": 41.95
+    "cost": 41.95,
+    "boards": [
+      "esp32"
+    ]
   },
   {
     "slug": "electronic-dice",
@@ -786,7 +892,10 @@ AB.index = [
       "board games"
     ],
     "feature": false,
-    "cost": 15.84
+    "cost": 15.84,
+    "boards": [
+      "uno"
+    ]
   },
   {
     "slug": "snake-oled",
@@ -807,7 +916,10 @@ AB.index = [
       "no soldering"
     ],
     "feature": false,
-    "cost": 13
+    "cost": 13,
+    "boards": [
+      "nano"
+    ]
   },
   {
     "slug": "reaction-timer",
@@ -828,7 +940,10 @@ AB.index = [
       "first project"
     ],
     "feature": false,
-    "cost": 13.81
+    "cost": 13.81,
+    "boards": [
+      "uno"
+    ]
   },
   {
     "slug": "oled-pong",
@@ -848,7 +963,10 @@ AB.index = [
       "no soldering"
     ],
     "feature": false,
-    "cost": 10.45
+    "cost": 10.45,
+    "boards": [
+      "nano"
+    ]
   },
   {
     "slug": "simon-says",
@@ -868,7 +986,10 @@ AB.index = [
       "memory game"
     ],
     "feature": true,
-    "cost": 8.73
+    "cost": 8.73,
+    "boards": [
+      "nano"
+    ]
   },
   {
     "slug": "rgb-mood-lamp",
@@ -888,7 +1009,10 @@ AB.index = [
       "first project"
     ],
     "feature": false,
-    "cost": 16.52
+    "cost": 16.52,
+    "boards": [
+      "nano"
+    ]
   },
   {
     "slug": "ambient-tv-backlight",
@@ -908,7 +1032,10 @@ AB.index = [
       "web server"
     ],
     "feature": true,
-    "cost": 31.62
+    "cost": 31.62,
+    "boards": [
+      "esp32"
+    ]
   },
   {
     "slug": "infinity-mirror",
@@ -928,7 +1055,10 @@ AB.index = [
       "rotary encoder"
     ],
     "feature": false,
-    "cost": 40.92
+    "cost": 40.92,
+    "boards": [
+      "nano"
+    ]
   },
   {
     "slug": "smart-bike-light",
@@ -949,7 +1079,10 @@ AB.index = [
       "wearable"
     ],
     "feature": false,
-    "cost": 34.96
+    "cost": 34.96,
+    "boards": [
+      "nano"
+    ]
   },
   {
     "slug": "battery-capacity-tester",
@@ -970,7 +1103,10 @@ AB.index = [
       "no soldering"
     ],
     "feature": false,
-    "cost": 18.69
+    "cost": 18.69,
+    "boards": [
+      "nano"
+    ]
   },
   {
     "slug": "usb-power-meter",
@@ -991,7 +1127,10 @@ AB.index = [
       "battery"
     ],
     "feature": true,
-    "cost": 13.5
+    "cost": 13.5,
+    "boards": [
+      "nano"
+    ]
   },
   {
     "slug": "solar-battery-logger",
@@ -1012,7 +1151,10 @@ AB.index = [
       "energy budget"
     ],
     "feature": false,
-    "cost": 37.33
+    "cost": 37.33,
+    "boards": [
+      "esp32"
+    ]
   },
   {
     "slug": "mains-energy-monitor",
@@ -1033,7 +1175,10 @@ AB.index = [
       "non-contact"
     ],
     "feature": false,
-    "cost": 27.82
+    "cost": 27.82,
+    "boards": [
+      "esp32"
+    ]
   },
   {
     "slug": "hc05-bluetooth-control",
@@ -1056,7 +1201,10 @@ AB.index = [
       "ws2812"
     ],
     "feature": false,
-    "cost": 18.73
+    "cost": 18.73,
+    "boards": [
+      "nano"
+    ]
   },
   {
     "slug": "gps-bike-computer",
@@ -1079,7 +1227,10 @@ AB.index = [
       "cycling"
     ],
     "feature": false,
-    "cost": 31.49
+    "cost": 31.49,
+    "boards": [
+      "nano"
+    ]
   },
   {
     "slug": "nrf24-sensor-link",
@@ -1101,7 +1252,10 @@ AB.index = [
       "bme280"
     ],
     "feature": false,
-    "cost": 27.16
+    "cost": 27.16,
+    "boards": [
+      "nano"
+    ]
   },
   {
     "slug": "lora-remote-sensor",
@@ -1125,7 +1279,10 @@ AB.index = [
       "link budget"
     ],
     "feature": true,
-    "cost": 65.81
+    "cost": 65.81,
+    "boards": [
+      "esp32"
+    ]
   },
   {
     "slug": "lora-offgrid-messenger",
@@ -1148,7 +1305,10 @@ AB.index = [
       "duty cycle"
     ],
     "feature": false,
-    "cost": 65.9
+    "cost": 65.9,
+    "boards": [
+      "esp32"
+    ]
   },
   {
     "slug": "gps-lora-tracker",
@@ -1171,7 +1331,10 @@ AB.index = [
       "sx1276"
     ],
     "feature": false,
-    "cost": 71.6
+    "cost": 71.6,
+    "boards": [
+      "esp32"
+    ]
   },
   {
     "slug": "rfid-attendance-logger",
@@ -1192,7 +1355,10 @@ AB.index = [
       "logging"
     ],
     "feature": false,
-    "cost": 29.89
+    "cost": 29.89,
+    "boards": [
+      "uno"
+    ]
   },
   {
     "slug": "rfid-door-lock",
@@ -1213,7 +1379,10 @@ AB.index = [
       "mifare"
     ],
     "feature": true,
-    "cost": 33.39
+    "cost": 33.39,
+    "boards": [
+      "uno"
+    ]
   },
   {
     "slug": "nfc-jukebox",
@@ -1234,7 +1403,10 @@ AB.index = [
       "amplifier"
     ],
     "feature": false,
-    "cost": 30.59
+    "cost": 30.59,
+    "boards": [
+      "nano"
+    ]
   },
   {
     "slug": "parking-sensor",
@@ -1255,7 +1427,10 @@ AB.index = [
       "garage"
     ],
     "feature": false,
-    "cost": 17.01
+    "cost": 17.01,
+    "boards": [
+      "uno"
+    ]
   },
   {
     "slug": "pan-tilt-camera",
@@ -1275,7 +1450,11 @@ AB.index = [
       "sweep"
     ],
     "feature": false,
-    "cost": 19.85
+    "cost": 19.85,
+    "boards": [
+      "nano",
+      "esp32cam"
+    ]
   },
   {
     "slug": "line-following-robot",
@@ -1295,7 +1474,10 @@ AB.index = [
       "robot"
     ],
     "feature": false,
-    "cost": 34.08
+    "cost": 34.08,
+    "boards": [
+      "nano"
+    ]
   },
   {
     "slug": "obstacle-avoiding-robot",
@@ -1316,7 +1498,10 @@ AB.index = [
       "pwm"
     ],
     "feature": true,
-    "cost": 39.9
+    "cost": 39.9,
+    "boards": [
+      "uno"
+    ]
   },
   {
     "slug": "robot-arm",
@@ -1337,7 +1522,10 @@ AB.index = [
       "robot arm"
     ],
     "feature": false,
-    "cost": 35.19
+    "cost": 35.19,
+    "boards": [
+      "nano"
+    ]
   },
   {
     "slug": "5g-teleoperated-rover",
@@ -1360,7 +1548,10 @@ AB.index = [
       "failsafe"
     ],
     "feature": false,
-    "cost": 480.45
+    "cost": 480.45,
+    "boards": [
+      "uno-q"
+    ]
   },
   {
     "slug": "automatic-plant-waterer",
@@ -1380,7 +1571,10 @@ AB.index = [
       "nano"
     ],
     "feature": false,
-    "cost": 26.28
+    "cost": 26.28,
+    "boards": [
+      "nano"
+    ]
   },
   {
     "slug": "letterbox-notifier",
@@ -1401,7 +1595,10 @@ AB.index = [
       "low power"
     ],
     "feature": false,
-    "cost": 15.64
+    "cost": 15.64,
+    "boards": [
+      "esp8266"
+    ]
   },
   {
     "slug": "presence-detector",
@@ -1423,7 +1620,10 @@ AB.index = [
       "doppler"
     ],
     "feature": false,
-    "cost": 12.07
+    "cost": 12.07,
+    "boards": [
+      "esp8266"
+    ]
   },
   {
     "slug": "motion-activated-lights",
@@ -1444,7 +1644,10 @@ AB.index = [
       "under-cabinet"
     ],
     "feature": false,
-    "cost": 21.71
+    "cost": 21.71,
+    "boards": [
+      "nano"
+    ]
   },
   {
     "slug": "fan-thermostat",
@@ -1465,7 +1668,10 @@ AB.index = [
       "thermostat"
     ],
     "feature": false,
-    "cost": 22.67
+    "cost": 22.67,
+    "boards": [
+      "nano"
+    ]
   },
   {
     "slug": "door-window-sensor",
@@ -1485,7 +1691,10 @@ AB.index = [
       "home assistant"
     ],
     "feature": false,
-    "cost": 10.14
+    "cost": 10.14,
+    "boards": [
+      "esp8266"
+    ]
   },
   {
     "slug": "smart-thermostat",
@@ -1507,7 +1716,10 @@ AB.index = [
       "ds18b20"
     ],
     "feature": false,
-    "cost": 28.41
+    "cost": 28.41,
+    "boards": [
+      "esp32"
+    ]
   },
   {
     "slug": "water-leak-alarm",
@@ -1528,7 +1740,10 @@ AB.index = [
       "insurance"
     ],
     "feature": false,
-    "cost": 42.62
+    "cost": 42.62,
+    "boards": [
+      "esp32"
+    ]
   },
   {
     "slug": "smart-plug-relay",
@@ -1549,6 +1764,9 @@ AB.index = [
       "wifi"
     ],
     "feature": true,
-    "cost": 17.57
+    "cost": 17.57,
+    "boards": [
+      "esp32"
+    ]
   }
 ];

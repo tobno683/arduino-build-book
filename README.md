@@ -9,6 +9,8 @@ script regenerates a summary index.
 
 **72 projects across 14 themes. 211 parts priced. 5 reference pages.**
 
+Filterable by the board you already own: `projects.html?board=uno-q`, `?board=esp32`, `?board=jetson-orin`.
+
 **Live: <https://tobno683.github.io/arduino-build-book/>**
 
 ## Run it

@@ -5,6 +5,15 @@
 window.AB = window.AB || {};
 
 /* --- small helpers ------------------------------------------------------ */
+/* Display name for a board part id. Board parts carry a short name
+   because the full one is right for a bill of materials and too long
+   for a dropdown - "Arduino Uno R3 (or a clone)" against "Arduino
+   Uno". Falls back sensibly if either is missing. */
+AB.boardName = function (id) {
+  var p = AB.partIndex && AB.partIndex[id];
+  return p ? (p.short || p.name) : id;
+};
+
 AB.esc = function (s) {
   return String(s == null ? '' : s)
     .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')

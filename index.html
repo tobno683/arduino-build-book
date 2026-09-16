@@ -57,9 +57,17 @@
 
   <section class="section">
     <div class="sec-head"><h2>Projects by theme</h2><span class="count" id="cat-count"></span></div>
-    <p class="sec-sub">Ten shelves. Pick the one you would actually use in your house, not the one that sounds
+    <p class="sec-sub">Pick the one you would actually use in your house, not the one that sounds
     most impressive - the finished thing on the shelf is what keeps you going.</p>
     <div class="grid grid-3" id="cats"></div>
+  </section>
+
+  <section class="section">
+    <div class="sec-head"><h2>Already have a board?</h2><span class="count" id="board-count"></span></div>
+    <p class="sec-sub">Filter the whole book by what is already in your drawer. The counts include builds where
+    a board is a supporting part rather than the brain - the Jetson vision project uses an Uno for its I/O, so
+    it appears under both.</p>
+    <div class="pill-list" id="boards"></div>
   </section>
 
   <section class="section">
@@ -127,6 +135,21 @@
   }).join('');
 
   document.getElementById('cat-count').textContent = AB.categories.length + ' themes';
+
+  /* Built from the projects, so a board only appears once something
+     uses it - and the counts cannot drift out of step with the book. */
+  var boardCount = {};
+  AB.index.forEach(function (p) {
+    (p.boards || []).forEach(function (b) { boardCount[b] = (boardCount[b] || 0) + 1; });
+  });
+  var boardIds = Object.keys(boardCount).sort(function (a, b) {
+    return boardCount[b] - boardCount[a] || AB.boardName(a).localeCompare(AB.boardName(b));
+  });
+  document.getElementById('board-count').textContent = boardIds.length + ' boards';
+  document.getElementById('boards').innerHTML = boardIds.map(function (b) {
+    return '<a class="chip" href="projects.html?board=' + encodeURIComponent(b) + '">' +
+           AB.esc(AB.boardName(b)) + ' <span class="n">' + boardCount[b] + '</span></a>';
+  }).join('');
   document.getElementById('cats').innerHTML = AB.categories.map(function (c) {
     var n = idx.filter(function (p) { return p.cat === c.slug; }).length;
     return '<a class="card cat-card" href="projects.html?cat=' + c.slug + '">' +

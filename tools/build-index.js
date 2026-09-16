@@ -127,6 +127,11 @@ for (const p of AB.projects) {
   }
 
   if (!p.code || !p.code.length) warnings.push(`${where}: no code blocks`);
+  /* The board filter is built from this, so a project with no board
+     part in its BOM would be invisible to it. */
+  if (!(p.bom || []).some(l => AB.partIndex[l.id] && AB.partIndex[l.id].cat === 'Board')) {
+    warnings.push(`${where}: no part in the "Board" category - it will not appear under any board filter`);
+  }
   if (p.solder && !(p.solderSteps || []).length) warnings.push(`${where}: marked as needing soldering but has no soldering steps`);
 }
 
@@ -136,6 +141,19 @@ if (errors.length) {
   console.error('');
   process.exit(1);
 }
+
+/* Which boards a project uses, in BOM order - so boards[0] is the
+   primary one, because BOMs list the main board first. Derived from
+   the BOM rather than from the free-text `board` field, which says
+   things like "Jetson + Uno" and "ESP32 x2" and cannot be parsed. */
+const boardsOf = p => {
+  const seen = [];
+  (p.bom || []).forEach(l => {
+    const part = AB.partIndex[l.id];
+    if (part && part.cat === 'Board' && !seen.includes(l.id)) seen.push(l.id);
+  });
+  return seen;
+};
 
 const cost = p => (p.bom || []).reduce((t, l) => {
   const part = AB.partIndex[l.id];
@@ -153,7 +171,8 @@ const index = AB.projects.map(p => ({
   blurb: p.blurb,
   tags: p.tags || [],
   feature: !!p.feature,
-  cost: Math.round(cost(p) * 100) / 100
+  cost: Math.round(cost(p) * 100) / 100,
+  boards: boardsOf(p)
 })).sort((a, b) => a.cat.localeCompare(b.cat) || a.level - b.level || a.title.localeCompare(b.title));
 
 const out =

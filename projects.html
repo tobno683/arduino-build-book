@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>All projects — The Arduino Build Book</title>
-<meta name="description" content="Every Arduino project in the book, filterable by theme, difficulty, budget and whether it needs soldering.">
+<meta name="description" content="Every Arduino project in the book, filterable by the board you own, theme, difficulty, budget and whether it needs soldering.">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
@@ -41,6 +41,10 @@
     <div class="field">
       <label for="f-cat">Theme</label>
       <select id="f-cat"></select>
+    </div>
+    <div class="field">
+      <label for="f-board">Board</label>
+      <select id="f-board"></select>
     </div>
     <div class="field">
       <label for="f-lvl">Level</label>
@@ -86,11 +90,30 @@
   var idx = AB.index || [];
 
   var q = document.getElementById('q'), fc = document.getElementById('f-cat'),
+      fb = document.getElementById('f-board'),
       fl = document.getElementById('f-lvl'), fq = document.getElementById('f-cost'),
       fs = document.getElementById('f-sol');
 
   fc.innerHTML = '<option value="">All themes</option>' + AB.categories.map(function (c) {
     return '<option value="' + c.slug + '">' + AB.esc(c.name) + '</option>';
+  }).join('');
+
+  /* The board list comes from the projects themselves, not from the
+     parts list, so a board nobody has used yet never appears as an
+     option that returns nothing. Sorted by how many projects use each,
+     because "what can I build with the thing I already own" is the
+     question this filter answers. */
+  var boardCount = {};
+  idx.forEach(function (p) {
+    (p.boards || []).forEach(function (b) { boardCount[b] = (boardCount[b] || 0) + 1; });
+  });
+  var boardIds = Object.keys(boardCount).sort(function (a, b) {
+    return boardCount[b] - boardCount[a] || AB.boardName(a).localeCompare(AB.boardName(b));
+  });
+
+  fb.innerHTML = '<option value="">Any board</option>' + boardIds.map(function (b) {
+    return '<option value="' + b + '">' + AB.esc(AB.boardName(b)) +
+           ' (' + boardCount[b] + ')</option>';
   }).join('');
 
   var pre = AB.qs('cat');
@@ -103,22 +126,55 @@
     document.title = c.name + ' — The Arduino Build Book';
   }
 
+  var preBoard = AB.qs('board');
+  if (preBoard && boardCount[preBoard]) {
+    fb.value = preBoard;
+    if (!pre) {
+      var bPart = AB.partIndex[preBoard];
+      document.getElementById('ph-title').textContent =
+        'Projects for the ' + AB.boardName(preBoard);
+      document.getElementById('ph-blurb').textContent =
+        (bPart && bPart.note) ? bPart.note : 'Every build in the book that uses this board.';
+      document.getElementById('ph-learn').innerHTML = '';
+      document.title = AB.boardName(preBoard) + ' projects';
+    }
+  }
+
   function apply() {
     var text = q.value.trim().toLowerCase();
-    var cat = fc.value, lvl = fl.value, cost = fq.value ? +fq.value : 0, sol = fs.value;
+    var cat = fc.value, board = fb.value, lvl = fl.value,
+        cost = fq.value ? +fq.value : 0, sol = fs.value;
     var out = idx.filter(function (p) {
       if (cat && p.cat !== cat) return false;
+      /* Matches ANY board in the bill of materials, not only the
+         primary one - so filtering by Uno also finds the Jetson build
+         that uses one as its I/O layer. The card still shows the real
+         board line, so nothing is misrepresented. */
+      if (board && (p.boards || []).indexOf(board) < 0) return false;
       if (lvl && p.level !== +lvl) return false;
       if (cost && p.cost > cost) return false;
       if (sol === 'no' && p.solder) return false;
       if (sol === 'yes' && !p.solder) return false;
       if (text) {
         var hay = (p.title + ' ' + p.blurb + ' ' + (p.tags || []).join(' ') + ' ' + p.board + ' ' +
+                   (p.boards || []).map(AB.boardName).join(' ') + ' ' +
                    (AB.catIndex[p.cat] ? AB.catIndex[p.cat].name : '')).toLowerCase();
         if (hay.indexOf(text) < 0) return false;
       }
       return true;
     });
+
+    /* Primary-board matches first. boards[0] is the main board because
+       a BOM lists it first, so filtering by Uno puts the Uno projects
+       above the Jetson build that merely contains one. */
+    if (board) {
+      out = out.slice().sort(function (a, b) {
+        var pa = (a.boards || [])[0] === board ? 0 : 1;
+        var pb = (b.boards || [])[0] === board ? 0 : 1;
+        return pa - pb || a.level - b.level || a.title.localeCompare(b.title);
+      });
+    }
+
     document.getElementById('count').textContent =
       out.length + (out.length === 1 ? ' project' : ' projects') +
       (out.length ? ' · ' + AB.usd(out.reduce(function (a, p) { return a + p.cost; }, 0)) + ' to build them all' : '');
@@ -126,11 +182,14 @@
       ? out.map(function (p) { return AB.projectCard(p, ''); }).join('')
       : '<div class="empty" style="grid-column:1/-1"><h3>Nothing matches that</h3><p>Try clearing a filter.</p></div>';
 
-    var u = cat ? '?cat=' + cat : location.pathname.split('/').pop();
-    history.replaceState(null, '', u);
+    var qp = [];
+    if (cat) qp.push('cat=' + cat);
+    if (board) qp.push('board=' + board);
+    history.replaceState(null, '',
+      qp.length ? '?' + qp.join('&') : location.pathname.split('/').pop());
   }
 
-  [q, fc, fl, fq, fs].forEach(function (el) {
+  [q, fc, fb, fl, fq, fs].forEach(function (el) {
     el.addEventListener('input', apply);
     el.addEventListener('change', apply);
   });

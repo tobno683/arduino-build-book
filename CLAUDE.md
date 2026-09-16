@@ -34,6 +34,12 @@ assets/data/index.js     GENERATED. Never hand-edit.
 **The wiring table and the 3D view both come from `build.wires`.** They cannot disagree because they are the
 same array. If you change wiring, you change it once.
 
+**The board filter is derived from the BOM.** `build-index.js` puts a `boards: [...]` array on every
+index entry, built from the BOM lines whose part is in the `Board` category, in BOM order - so `boards[0]`
+is the primary board. The free-text `board` field is for display only and is deliberately not parsed; it
+says things like `"Jetson + Uno"` and `"ESP32 x2"`. A project with no `Board` part in its BOM gets a
+warning, because it would be invisible to the filter.
+
 **Every price comes from `assets/data/parts.js`.** Project BOMs reference part ids. Correcting a price there
 updates every project page, every total, and the shopping piles on `basics/tools.html`.
 
@@ -69,6 +75,9 @@ House conventions:
   was a bug — three projects used the `18650` id labelled as AA holders, which corrupted analysis and was
   dishonest in the BOM.
 - **`feature: true` — exactly one per theme.** The home page shuffles and shows six, so all fourteen get airtime.
+- **Board parts carry a `short:` name.** The full name is right for a BOM and too long for a dropdown -
+  `Arduino Uno R3 (or a clone)` against `Arduino Uno`. `AB.boardName(id)` in site.js is the one accessor;
+  it falls back to the full name.
 - **Supplier links are search URLs, never product URLs.** That is what makes it honest to offer a shop
   for every part: the link means "look for it here", not "this is in stock here". It also means links
   never rot.
