@@ -2,7 +2,7 @@
    index.js - GENERATED FILE, do not edit by hand.
    Rebuild with:  node tools/build-index.js
    A summary of every project so the home page and the catalogue can render
-   without loading 52 full build guides.
+   without loading 58 full build guides.
    ========================================================================== */
 window.AB = window.AB || {};
 
@@ -268,6 +268,143 @@ AB.index = [
     ],
     "feature": true,
     "cost": 24
+  },
+  {
+    "slug": "gsm-sms-alarm",
+    "title": "SMS alarm that texts you",
+    "cat": "cellular",
+    "level": 2,
+    "time": "4 hours",
+    "solder": true,
+    "board": "Nano",
+    "blurb": "A sensor somewhere with no Wi-Fi sends a text to your phone. Fifteen dollars, works from a shed or a field - and the clearest possible introduction to AT commands.",
+    "tags": [
+      "sim800l",
+      "gsm",
+      "2g",
+      "sms",
+      "at commands",
+      "alarm",
+      "pir",
+      "no wifi"
+    ],
+    "feature": false,
+    "cost": 34.1
+  },
+  {
+    "slug": "lte-camera-uploader",
+    "title": "LTE camera that posts pictures",
+    "cat": "cellular",
+    "level": 3,
+    "time": "6 hours",
+    "solder": true,
+    "board": "ESP32-CAM",
+    "blurb": "A camera in a field that photographs whatever moves and posts the picture to your phone. No Wi-Fi, no SD card to collect, no walking out to check it.",
+    "tags": [
+      "esp32-cam",
+      "sim7600",
+      "lte",
+      "http post",
+      "camera",
+      "remote",
+      "trail camera",
+      "telegram"
+    ],
+    "feature": false,
+    "cost": 99.35
+  },
+  {
+    "slug": "lte-remote-monitor",
+    "title": "LTE remote monitor",
+    "cat": "cellular",
+    "level": 3,
+    "time": "6 hours",
+    "solder": true,
+    "board": "ESP32",
+    "blurb": "A sensor with no Wi-Fi and no base station of yours, posting to a dashboard you can open from anywhere. The tower is already built and paid for; you rent a few megabytes of it.",
+    "tags": [
+      "lte",
+      "cat-1",
+      "a7670",
+      "mqtt",
+      "iot sim",
+      "telemetry",
+      "at commands",
+      "dashboard",
+      "no wifi"
+    ],
+    "feature": true,
+    "cost": 66.25
+  },
+  {
+    "slug": "5g-edge-uplink",
+    "title": "5G edge uplink for a camera site",
+    "cat": "cellular",
+    "level": 4,
+    "time": "10 hours",
+    "solder": false,
+    "board": "UNO Q + RM500Q",
+    "blurb": "A camera site with no fibre, no DSL and no Wi-Fi, pushing live video over 5G while a local model decides what is worth sending. Also a clear account of when 5G is ridiculous overkill, which is most of the time.",
+    "tags": [
+      "5g",
+      "nr",
+      "rm500q",
+      "sub-6",
+      "mimo",
+      "qmi",
+      "mbim",
+      "edge",
+      "uplink",
+      "linux",
+      "streaming"
+    ],
+    "feature": false,
+    "cost": 469
+  },
+  {
+    "slug": "nbiot-field-sensor",
+    "title": "NB-IoT sensor that lasts years",
+    "cat": "cellular",
+    "level": 4,
+    "time": "8 hours",
+    "solder": true,
+    "board": "ESP32",
+    "blurb": "A cellular sensor on a battery for three years. The trick is not sleeping the Arduino - it is telling the mobile network to stop expecting you.",
+    "tags": [
+      "nb-iot",
+      "lte-m",
+      "sim7080g",
+      "psm",
+      "edrx",
+      "deep sleep",
+      "battery",
+      "udp",
+      "coap"
+    ],
+    "feature": false,
+    "cost": 79.85
+  },
+  {
+    "slug": "lte-remote-switch",
+    "title": "Remote switch over LTE",
+    "cat": "cellular",
+    "level": 4,
+    "time": "6 hours",
+    "solder": true,
+    "board": "ESP32",
+    "blurb": "Turn a heater on in a caravan before you arrive, or a pump off from another country. Control is much harder to get right than monitoring, and this guide is mostly about why.",
+    "tags": [
+      "lte",
+      "a7670",
+      "relay",
+      "remote control",
+      "mqtt",
+      "mains",
+      "watchdog",
+      "failsafe"
+    ],
+    "feature": false,
+    "cost": 61.19
   },
   {
     "slug": "kitchen-timer",

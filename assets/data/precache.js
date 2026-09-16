@@ -6,7 +6,7 @@
    listed file, so the cache is replaced exactly when the content changes.
    ========================================================================== */
 self.AB_PRECACHE = {
-  version: "6d330f59a9a4",
+  version: "63e9208d8f17",
   core: [
     "./",
     "./index.html",
@@ -36,6 +36,7 @@ self.AB_PRECACHE = {
     "./assets/icons/apple-touch-icon.png"
   ],
   guides: [
+    "./assets/data/projects/5g-edge-uplink.js",
     "./assets/data/projects/air-quality-monitor.js",
     "./assets/data/projects/ambient-tv-backlight.js",
     "./assets/data/projects/arduino-theremin.js",
@@ -53,6 +54,7 @@ self.AB_PRECACHE = {
     "./assets/data/projects/fridge-freezer-logger.js",
     "./assets/data/projects/gps-bike-computer.js",
     "./assets/data/projects/gps-lora-tracker.js",
+    "./assets/data/projects/gsm-sms-alarm.js",
     "./assets/data/projects/hc05-bluetooth-control.js",
     "./assets/data/projects/infinity-mirror.js",
     "./assets/data/projects/jetson-orin-vision.js",
@@ -61,9 +63,13 @@ self.AB_PRECACHE = {
     "./assets/data/projects/line-following-robot.js",
     "./assets/data/projects/lora-offgrid-messenger.js",
     "./assets/data/projects/lora-remote-sensor.js",
+    "./assets/data/projects/lte-camera-uploader.js",
+    "./assets/data/projects/lte-remote-monitor.js",
+    "./assets/data/projects/lte-remote-switch.js",
     "./assets/data/projects/mains-energy-monitor.js",
     "./assets/data/projects/motion-activated-lights.js",
     "./assets/data/projects/mp3-doorbell.js",
+    "./assets/data/projects/nbiot-field-sensor.js",
     "./assets/data/projects/nfc-jukebox.js",
     "./assets/data/projects/nrf24-sensor-link.js",
     "./assets/data/projects/obstacle-avoiding-robot.js",

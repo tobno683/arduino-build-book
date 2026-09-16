@@ -638,6 +638,56 @@ window.AB = window.AB || {};
              { t: 'box', x: -14, z: 4, w: 3, h: 1.6, d: 2, c: '#cf3b34' }]
     }),
 
+    /* SIM800L: the small blue board with the SIM socket on the back and
+       a notoriously hungry 2 A transmit burst. */
+    sim800l: mod({
+      name: 'SIM800L GSM module', w: 25, d: 23, color: C.pcbBlue,
+      rows: [{ names: ['NET', 'VCC', 'RST', 'RXD', 'TXD', 'GND'], z: -8, step: P },
+             { names: ['RING', 'DTR', 'MIC+', 'MIC-', 'SPK+', 'SPK-'], z: 8, step: P }],
+      extraPins: [['ANT', 10, 4, 0]],
+      deco: [{ t: 'box', x: -2, z: 0, w: 15, h: 1.4, d: 13, c: '#2b3138' },
+             { t: 'pad', x: 6, z: -2, w: 11, d: 13, c: '#c0c4c8' },
+             { t: 'box', x: 10, z: 0, w: 3, h: 2.5, d: 3, c: '#c8ccd0' }]
+    }),
+
+    /* SIM7080G / A7670 class LTE breakout - bigger board, SIM holder,
+       two u.FL pads for main and diversity antennas. */
+    lte: mod({
+      name: 'LTE module breakout', w: 48, d: 34, color: C.pcbBlack,
+      rows: [{ names: ['VCC', 'GND', 'TXD', 'RXD', 'PWR', 'RST', 'DTR', 'STA'], z: -13, step: P }],
+      extraPins: [['ANT', 20, 4.5, 8], ['DIV', 20, 4.5, -2], ['SIM', -14, 3, 8]],
+      deco: [{ t: 'box', x: 2, z: -2, w: 22, h: 2.2, d: 18, c: '#2b3138' },
+             { t: 'pad', x: 2, z: -2, w: 19, d: 15, c: '#8d9096' },
+             { t: 'box', x: -14, z: 8, w: 16, h: 2.4, d: 14, c: C.metal },
+             { t: 'box', x: 20, z: 8, w: 3.5, h: 2.5, d: 3.5, c: '#c8ccd0' },
+             { t: 'box', x: 20, z: -2, w: 3.5, h: 2.5, d: 3.5, c: '#c8ccd0' }]
+    }),
+
+    /* An M.2 Key-B 5G module on its carrier: the card is 30 x 52 mm and
+       the four antenna connectors along its edge are the whole story. */
+    m2mod: {
+      name: '5G NR module on M.2 carrier', w: 72, d: 62, ex: 0,
+      pins: {
+        ANT0: [26, 5, -18], ANT1: [26, 5, -6], ANT2: [26, 5, 6], ANT3: [26, 5, 18],
+        USB: [-34, 6, 0], PWR: [-34, 6, 20], SIM: [-18, 4, -24]
+      },
+      build: function () {
+        var f = G.box(0, 0, 0, 72, 1.6, 62, '#1d3552', { top: '#1d3552' });
+        // the module card itself, standing off the carrier
+        f = f.concat(G.box(2, 1.6, 0, 52, 3, 30, '#141719'));
+        f = f.concat(G.pad(2, 4.7, 0, 46, 24, '#22272c'));
+        f = f.concat(G.box(-14, 4.7, 0, 16, 1.2, 16, '#3a3f45'));   // the SoC
+        // four u.FL antenna connectors down one edge
+        for (var i = 0; i < 4; i++) {
+          f = f.concat(G.box(26, 4.7, -18 + i * 12, 4, 2.5, 4, '#c8ccd0'));
+        }
+        f = f.concat(G.box(-34, 1.6, 0, 14, 5, 12, C.metal));       // USB 3
+        f = f.concat(G.box(-34, 1.6, 20, 9, 3.5, 8, '#1a1c1f'));    // barrel jack
+        f = f.concat(G.box(-18, 1.6, -24, 18, 2.4, 14, C.metal));   // SIM holder
+        return f;
+      }
+    },
+
     hx711: mod({
       name: 'HX711 load-cell amplifier', w: 34, d: 21, color: C.pcbRed,
       rows: [{ names: ['GND', 'DT', 'SCK', 'VCC'], z: -8, cx: 8 },

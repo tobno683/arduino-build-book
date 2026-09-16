@@ -77,6 +77,13 @@ AB.categories = [
     icon: '<circle cx="12" cy="8.2" r="1.5"/><path d="M9.4 10.8a3.7 3.7 0 0 1 0-5.2M14.6 5.6a3.7 3.7 0 0 1 0 5.2"/><path d="M6.9 13.3a7.2 7.2 0 0 1 0-10.2M17.1 3.1a7.2 7.2 0 0 1 0 10.2"/><path d="M12 9.7V21M9.2 21h5.6"/>'
   },
   {
+    slug: 'cellular',
+    name: 'Cellular: LTE, NB-IoT & 5G',
+    blurb: 'The radio that works everywhere, because someone else already built the towers. A sensor in a field that needs no base station of yours, an alarm that texts you from another country, and - at the top end - a 5G module moving more data than your home broadband.',
+    learn: 'AT commands, LTE-M and NB-IoT, PSM and eDRX, IoT SIMs and data plans, antennas and MIMO, the 2G sunset.',
+    icon: '<rect x="3" y="14" width="3.4" height="6.5" rx="0.8"/><rect x="8.2" y="10.5" width="3.4" height="10" rx="0.8"/><rect x="13.4" y="7" width="3.4" height="13.5" rx="0.8"/><rect x="18.6" y="3.5" width="3.4" height="17" rx="0.8"/>'
+  },
+  {
     slug: 'ai',
     name: 'AI & Edge Machine Learning',
     blurb: 'Where a microcontroller stops being enough. Gesture recognition in 20 kB on a board you already own, then camera boards that run real models locally - no cloud, no subscription, nothing leaving the room.',
