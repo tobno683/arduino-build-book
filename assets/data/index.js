@@ -2,11 +2,151 @@
    index.js - GENERATED FILE, do not edit by hand.
    Rebuild with:  node tools/build-index.js
    A summary of every project so the home page and the catalogue can render
-   without loading 40 full build guides.
+   without loading 46 full build guides.
    ========================================================================== */
 window.AB = window.AB || {};
 
 AB.index = [
+  {
+    "slug": "tinyml-gesture-nano",
+    "title": "Gesture recognition with TinyML",
+    "cat": "ai",
+    "level": 2,
+    "time": "4 hours (plus training time)",
+    "solder": false,
+    "board": "Nano 33 BLE Sense",
+    "blurb": "Wave the board and it knows which gesture you made. A real neural network, trained on your own data, running in 20 kB on a microcontroller with no internet connection.",
+    "tags": [
+      "tinyml",
+      "edge impulse",
+      "machine learning",
+      "nano 33 ble",
+      "bmi270",
+      "accelerometer",
+      "neural network",
+      "no soldering"
+    ],
+    "feature": false,
+    "cost": 69.78
+  },
+  {
+    "slug": "tinyml-machine-listener",
+    "title": "Machine listener: anomaly detection",
+    "cat": "ai",
+    "level": 3,
+    "time": "5 hours (plus a day of recording)",
+    "solder": true,
+    "board": "Nano 33 BLE Sense",
+    "blurb": "Stick it to a pump, a fan or a 3D printer. It learns what healthy sounds like, then tells you when that changes - without ever being shown a fault.",
+    "tags": [
+      "tinyml",
+      "anomaly detection",
+      "edge impulse",
+      "predictive maintenance",
+      "mfcc",
+      "pdm microphone",
+      "vibration",
+      "nano 33 ble"
+    ],
+    "feature": false,
+    "cost": 75.96
+  },
+  {
+    "slug": "uno-q-object-detection",
+    "title": "Object detection that follows you",
+    "cat": "ai",
+    "level": 3,
+    "time": "6 hours",
+    "solder": false,
+    "board": "UNO Q",
+    "blurb": "A camera that recognises what it is looking at and turns to follow it. Python and a real neural network on the Linux half of the board, precise servo timing on the microcontroller half.",
+    "tags": [
+      "uno q",
+      "object detection",
+      "computer vision",
+      "opencv",
+      "python",
+      "dual brain",
+      "linux",
+      "pan tilt",
+      "mobilenet",
+      "ssd"
+    ],
+    "feature": true,
+    "cost": 121.15
+  },
+  {
+    "slug": "uno-q-voice-control",
+    "title": "Offline voice control",
+    "cat": "ai",
+    "level": 3,
+    "time": "5 hours",
+    "solder": true,
+    "board": "UNO Q",
+    "blurb": "Say \"lights warm white\" and it happens. Real speech recognition running entirely on the board - no Alexa, no account, no microphone feed leaving your house.",
+    "tags": [
+      "uno q",
+      "voice control",
+      "speech recognition",
+      "vosk",
+      "offline",
+      "python",
+      "dual brain",
+      "linux",
+      "wake word",
+      "privacy"
+    ],
+    "feature": false,
+    "cost": 108.49
+  },
+  {
+    "slug": "jetson-orin-vision",
+    "title": "Real-time vision with a Jetson Orin Nano",
+    "cat": "ai",
+    "level": 4,
+    "time": "8 hours",
+    "solder": true,
+    "board": "Jetson + Uno",
+    "blurb": "Thirty frames a second of real object detection, with identities tracked between frames. A GPU does the seeing, an Uno does the switching, and the price of admission is honestly discussed.",
+    "tags": [
+      "jetson",
+      "orin nano",
+      "yolo",
+      "tensorrt",
+      "gpu",
+      "object tracking",
+      "bytetrack",
+      "people counter",
+      "cuda",
+      "linux"
+    ],
+    "feature": false,
+    "cost": 360.59
+  },
+  {
+    "slug": "ventuno-q-sorter",
+    "title": "Vision sorting machine",
+    "cat": "ai",
+    "level": 4,
+    "time": "12 hours over a weekend",
+    "solder": true,
+    "board": "Ventuno Q",
+    "blurb": "A conveyor, a camera and two flaps. It looks at each object as it passes, decides what it is, and fires a diverter at exactly the right millisecond - which turns out to be the hard part.",
+    "tags": [
+      "ventuno q",
+      "machine vision",
+      "npu",
+      "sorting",
+      "conveyor",
+      "industrial",
+      "latency",
+      "classification",
+      "linux",
+      "dual brain"
+    ],
+    "feature": false,
+    "cost": 367.72
+  },
   {
     "slug": "arduino-theremin",
     "title": "Ultrasonic theremin",

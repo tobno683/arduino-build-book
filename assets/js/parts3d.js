@@ -100,6 +100,33 @@ window.AB = window.AB || {};
     }
   }
 
+  /* ---------------------------------------------------------------------
+     hdr40() - the 40-pin Raspberry Pi header, as carried by the Ventuno Q
+     and the Jetson Orin Nano carrier. Fills `pins` with P1..P40 laid out
+     the way the silkscreen numbers them: odd pins along the row nearest
+     `z`, even pins one 0.1" row further in, P1 at `x0`. The named aliases
+     are the ones a guide will actually refer to.
+
+     Existing keys are left alone, so a board that also has Arduino headers
+     keeps its own 5V/GND meaning them.
+     --------------------------------------------------------------------- */
+  function hdr40(pins, x0, y, z) {
+    for (var i = 0; i < 20; i++) {
+      pins['P' + (i * 2 + 1)] = [x0 + i * P, y, z];
+      pins['P' + (i * 2 + 2)] = [x0 + i * P, y, z + P];
+    }
+    var alias = {
+      '3V3': 'P1', '5V': 'P2', 'SDA': 'P3', 'SCL': 'P5', 'GND': 'P6',
+      'TX': 'P8', 'RX': 'P10', 'GPIO17': 'P11', 'GPIO18': 'P12',
+      'GPIO27': 'P13', 'GPIO22': 'P15', 'GPIO23': 'P16', 'GPIO24': 'P18',
+      'MOSI': 'P19', 'MISO': 'P21', 'GPIO25': 'P22', 'SCLK': 'P23', 'CE0': 'P24',
+      'GND2': 'P9', 'GND3': 'P14', 'GND4': 'P20', 'GND5': 'P25'
+    };
+    Object.keys(alias).forEach(function (k) {
+      if (!pins[k]) pins[k] = pins[alias[k]];
+    });
+  }
+
   AB.comp = {};
 
   /* =====================================================================
@@ -183,6 +210,7 @@ window.AB = window.AB || {};
     ana.forEach(function (n, i) { pins[n] = [40.64 + i * P - W / 2, T + HH, botZ]; });
     pins.GND = pins.GND1;                       // the one people actually type
     pins.A4_SDA = pins.A4; pins.A5_SCL = pins.A5;
+    pins.USB = [-W / 2 + 4, T + 5, D / 2 - 15];  // the USB-B jack, so a host link can be drawn
 
     AB.comp.uno = {
       name: 'Arduino Uno R3', w: W, d: D, ex: 0, pins: pins,
@@ -897,6 +925,209 @@ window.AB = window.AB || {};
       deco: [{ t: 'pad', x: 2, z: 3, w: 33, d: 26, c: '#2f6fa8' },
              { t: 'box', x: -14, z: 12, w: 8, h: 1.2, d: 8, c: C.chip }]
     }),
+
+    /* --- AI boards ------------------------------------------------------
+
+       Two of these carry the 40-pin header that started on the Raspberry Pi
+       and has since become the de-facto standard for single-board Linux.
+       Pins are numbered the way the silkscreen numbers them - odd down one
+       row, even down the other, P1 nearest the board edge - and the handful
+       of names people actually type are aliased on top. Existing keys are
+       never overwritten, so a board that also has Arduino headers keeps its
+       own 5V and GND.
+
+       The UNO Q keeps the classic UNO headers and footprint, so the pin
+       positions below are the same grid as AB.comp.uno - only the board
+       colour, the USB-C jack, the Qualcomm SoC and the Qwiic connector
+       differ. That compatibility is the whole point of the board. */
+    unoq: (function () {
+      var W = 68.6, D = 53.4, T = 1.6, HH = 8.6;
+      var topZ = 50.8 - D / 2, botZ = 2.54 - D / 2;
+      var pins = {};
+      var digHi = ['SCL', 'SDA', 'AREF', 'GND3', 'D13', 'D12', 'D11', 'D10', 'D9', 'D8'];
+      var digLo = ['D7', 'D6', 'D5', 'D4', 'D3', 'D2', 'D1', 'D0'];
+      var pwr   = ['NC', 'IOREF', 'RESET', '3V3', '5V', 'GND1', 'GND2', 'VIN'];
+      var ana   = ['A0', 'A1', 'A2', 'A3', 'A4', 'A5'];
+
+      digHi.forEach(function (n, i) { pins[n] = [17.78 + i * P - W / 2, T + HH, topZ]; });
+      digLo.forEach(function (n, i) { pins[n] = [44.70 + i * P - W / 2, T + HH, topZ]; });
+      pwr.forEach(function (n, i) { pins[n] = [17.78 + i * P - W / 2, T + HH, botZ]; });
+      ana.forEach(function (n, i) { pins[n] = [40.64 + i * P - W / 2, T + HH, botZ]; });
+      pins.GND = pins.GND1;
+      pins.QWIIC = [W / 2 - 6, T + 3, -D / 2 + 9];    // Qwiic I2C connector
+      pins.USB = [-W / 2 + 3, T + 2, D / 2 - 16];     // the USB-C jack
+
+      return {
+        name: 'Arduino UNO Q', w: W, d: D, ex: 0, pins: pins,
+        build: function () {
+          var f = G.box(0, 0, 0, W, T, D, '#1b2733', { top: '#1b2733' });
+          f = f.concat(G.box(17.78 + 4.5 * P - W / 2, T, topZ, 10 * P, HH - 0.7, 2.6, C.hdr));
+          f = f.concat(G.box(44.70 + 3.5 * P - W / 2, T, topZ, 8 * P, HH - 0.7, 2.6, C.hdr));
+          f = f.concat(G.box(17.78 + 3.5 * P - W / 2, T, botZ, 8 * P, HH - 0.7, 2.6, C.hdr));
+          f = f.concat(G.box(40.64 + 2.5 * P - W / 2, T, botZ, 6 * P, HH - 0.7, 2.6, C.hdr));
+          Object.keys(pins).forEach(function (k) {
+            if (k === 'GND' || k === 'QWIIC' || k === 'CSI') return;
+            var q = pins[k];
+            f = f.concat(G.pad(q[0], T + HH - 0.65, q[2], 1.3, 1.3, '#0b0d10'));
+          });
+          // USB-C, the Dragonwing SoC under its shield, eMMC, Qwiic
+          f = f.concat(G.box(-W / 2 + 3, T, D / 2 - 16, 9, 3.2, 8.5, C.metal));
+          f = f.concat(G.box(2, T, -2, 20, 1.6, 18, C.metal));
+          f = f.concat(G.pad(2, T + 1.7, -2, 17, 15, '#2b3138'));
+          f = f.concat(G.box(-18, T, 8, 9, 1.1, 7, C.chip));
+          f = f.concat(G.box(W / 2 - 6, T, -D / 2 + 9, 4.5, 3, 7, '#111'));
+          return f;
+        }
+      };
+    }()),
+
+    /* 160 x 100 mm, so roughly two and a half UNOs. UNO headers on one
+       side, a 40-pin Raspberry Pi header on the other. */
+    ventunoq: (function () {
+      var W = 160, D = 100, T = 1.6, HH = 8.6;
+      var pins = {};
+      var uno = ['D0', 'D1', 'D2', 'D3', 'D4', 'D5', 'D6', 'D7', 'D8', 'D9', 'D10', 'D11', 'D12', 'D13'];
+      uno.forEach(function (n, i) { pins[n] = [-W / 2 + 20 + i * P, T + HH, -D / 2 + 8]; });
+      ['VIN', '5V', '3V3', 'GND', 'A0', 'A1', 'A2', 'A3', 'A4', 'A5'].forEach(function (n, i) {
+        pins[n] = [-W / 2 + 20 + i * P, T + HH, -D / 2 + 16];
+      });
+      pins.A4_SDA = pins.A4; pins.A5_SCL = pins.A5;
+      hdr40(pins, -W / 2 + 26, T + HH, D / 2 - 10);
+      pins.QWIIC = [W / 2 - 10, T + 3, 0];
+      pins.CSI0 = [W / 2 - 22, T + 2, -D / 2 + 22];
+      pins.ETH = [-W / 2 + 14, T + 7, D / 2 - 26];
+      pins.USB = [-W / 2 + 14, T + 5, D / 2 - 48];   // the USB stack
+
+      return {
+        name: 'Arduino Ventuno Q', w: W, d: D, ex: 0, pins: pins,
+        build: function () {
+          var f = G.box(0, 0, 0, W, T, D, '#12202c', { top: '#12202c' });
+          f = f.concat(G.box(-W / 2 + 20 + 6.5 * P, T, -D / 2 + 8, 14 * P, HH - 0.7, 2.6, C.hdr));
+          f = f.concat(G.box(-W / 2 + 20 + 4.5 * P, T, -D / 2 + 16, 10 * P, HH - 0.7, 2.6, C.hdr));
+          f = f.concat(G.box(-W / 2 + 26 + 9.5 * P, T, D / 2 - 10 + P / 2, 20 * P, HH - 0.7, 2 * P, C.hdr));
+          // SoC under a heatsink, RAM, eMMC, M.2, Ethernet, USB stack, LED matrix
+          f = f.concat(G.box(6, T, -6, 34, 10, 34, '#8f949a'));
+          for (var k = 0; k < 7; k++) {
+            f = f.concat(G.box(-9 + k * 5, T + 10, -6, 2.2, 5, 32, '#9aa0a6'));
+          }
+          f = f.concat(G.box(-34, T, -8, 14, 1.4, 12, C.chip));
+          f = f.concat(G.box(44, T, 12, 22, 2, 42, '#2b3138'));
+          f = f.concat(G.box(-W / 2 + 14, T, D / 2 - 26, 16, 13, 16, C.metal));
+          f = f.concat(G.box(-W / 2 + 14, T, D / 2 - 48, 16, 8, 18, C.metal));
+          f = f.concat(G.pad(W / 2 - 30, T + 0.2, D / 2 - 30, 26, 10, '#b4662b'));
+          f = f.concat(G.box(W / 2 - 10, T, 0, 4.5, 3, 7, '#111'));
+          return f;
+        }
+      };
+    }()),
+
+    /* Jetson Orin Nano Developer Kit: a 100 x 79 mm carrier with the module
+       and its fan stacked on top, and a 40-pin header down one edge. */
+    jetson: (function () {
+      var W = 100, D = 79, T = 1.8;
+      var pins = {};
+      hdr40(pins, -W / 2 + 14, T + 8.6, -D / 2 + 7);
+      pins.CSI0 = [W / 2 - 12, T + 2, -14];
+      pins.CSI1 = [W / 2 - 12, T + 2, 8];
+      pins.USB = [-W / 2 + 8, T + 8, 18];
+
+      return {
+        name: 'Jetson Orin Nano Dev Kit', w: W, d: D, ex: 0, pins: pins,
+        build: function () {
+          var f = G.box(0, 0, 0, W, T, D, '#1d4d2b', { top: '#1d4d2b' });
+          f = f.concat(G.box(-W / 2 + 14 + 9.5 * P, T, -D / 2 + 7 + P / 2, 20 * P, 8, 2 * P, C.hdr));
+          // the module, its heatsink and the fan on top
+          f = f.concat(G.box(2, T, 4, 70, 4, 45, '#23262b'));
+          f = f.concat(G.box(2, T + 4, 4, 68, 12, 43, '#9aa0a6'));
+          for (var k = 0; k < 11; k++) {
+            f = f.concat(G.box(-30 + k * 6, T + 16, 4, 2.4, 6, 41, '#a8aeb4'));
+          }
+          f = f.concat(G.box(2, T + 22, 4, 40, 9, 40, '#2b2f34'));
+          f = f.concat(G.cyl(2, T + 31, 4, 18, 1.2, '#1a1c20', { sides: 20 }));
+          for (var a = 0; a < 7; a++) {
+            var ang = a / 7 * Math.PI * 2;
+            f = f.concat(G.box(2 + Math.cos(ang) * 11, T + 31.5, 4 + Math.sin(ang) * 11, 10, 0.9, 5, '#3a3f45'));
+          }
+          // I/O along the edges
+          f = f.concat(G.box(-W / 2 + 8, T, 18, 15, 8, 14, C.metal));
+          f = f.concat(G.box(-W / 2 + 8, T, 34, 15, 13, 14, C.metal));
+          f = f.concat(G.box(W / 2 - 12, T, -14, 4, 2.6, 18, '#23262b'));
+          f = f.concat(G.box(W / 2 - 12, T, 8, 4, 2.6, 18, '#23262b'));
+          return f;
+        }
+      };
+    }()),
+
+    /* A CSI camera on its ribbon - the lens block plus the little PCB. */
+    csicam: {
+      name: 'CSI camera module', w: 25, d: 24, ex: 22,
+      pins: { RIBBON: [0, 1, 12] },
+      build: function () {
+        var f = G.box(0, 0, 0, 25, 1.2, 24, '#1b5e35', { top: '#1b5e35' });
+        f = f.concat(G.box(0, 1.2, -1, 8.5, 5.5, 8.5, '#22262b'));
+        f = f.concat(G.cyl(0, 6.7, -1, 3.6, 2.4, '#11161c', { sides: 16, top: C.glass }));
+        f = f.concat(G.box(0, 1.2, 11, 20, 1.2, 2.4, '#d8d2c4'));   // ribbon stub
+        return f;
+      }
+    },
+
+    /* A USB webcam: barrel body on a folding clip, with its lead. A CSI
+       camera looks nothing like this, so the two are separate shapes
+       rather than one standing in for the other. */
+    webcam: {
+      name: 'USB webcam', w: 58, d: 32, ex: 24,
+      pins: { USB: [0, 14, 14] },
+      build: function () {
+        var f = G.box(0, 0, 2, 52, 5, 16, '#23262b');            // the folding clip foot
+        f = f.concat(G.box(0, 5, 0, 44, 3, 10, '#2b2f34'));      // hinge block
+        // Body: a barrel lying along X. G.cyl is always vertical, so a
+        // horizontal one needs cylX - there is no arbitrary axis.
+        f = f.concat(G.cylX(0, 15, -2, 9.5, 46, '#1c1f24', { sides: 18 }));
+        // Lens pointing up, the same convention the other cameras in
+        // this library use - these scenes are drawn looking down.
+        f = f.concat(G.cyl(0, 22, -2, 6.5, 3.5, '#15181d', { sides: 18 }));
+        f = f.concat(G.cyl(0, 25, -2, 4.2, 1.2, '#0b0e12', { sides: 16, top: C.glass }));
+        f = f.concat(G.box(-15, 23, -2, 3, 1.6, 2.5, '#3a3f45'));    // status LED
+        f = f.concat(G.box(0, 1, 12, 7, 2, 8, '#d8d2c4'));           // cable stub
+        return f;
+      }
+    },
+
+    /* Nano 33 BLE Sense Rev2 - the classic 45 x 18 mm Nano footprint, so it
+       drops into the same breadboard rows, but 3.3 V only and with the
+       sensor cluster (IMU, mic, pressure, humidity, proximity) on top. */
+    nano33: (function () {
+      var W = 45, D = 18, T = 1.6, HH = 8.5, rz = 7.62;
+      var A = ['D13', '3V3', 'AREF', 'A0', 'A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'VUSB', 'RST2', 'GND', 'VIN'];
+      var B = ['D12', 'D11', 'D10', 'D9', 'D8', 'D7', 'D6', 'D5', 'D4', 'D3', 'D2', 'GND2', 'RST', 'RX0', 'TX1'];
+      var pins = {};
+      A.forEach(function (n, i) { pins[n] = [-W / 2 + 3.3 + i * P, T + HH, -rz]; });
+      B.forEach(function (n, i) { pins[n] = [-W / 2 + 3.3 + i * P, T + HH, rz]; });
+      pins.A4_SDA = pins.A4; pins.A5_SCL = pins.A5;
+
+      return {
+        name: 'Arduino Nano 33 BLE Sense Rev2', w: W, d: D, ex: 22, pins: pins,
+        build: function () {
+          var f = G.box(0, 0, 0, W, T, D, C.pcbBlack, { top: C.pcbBlack });
+          [-rz, rz].forEach(function (z) {
+            f = f.concat(G.box(-W / 2 + 3.3 + 7 * P, T, z, 15 * P, HH - 0.6, 2.4, C.hdr));
+          });
+          [A, B].forEach(function (row, ri) {
+            row.forEach(function (n, i) {
+              f = f.concat(G.box(-W / 2 + 3.3 + i * P, T + HH - 0.6, ri ? rz : -rz, 0.7, 0.9, 0.7, C.pinGold));
+            });
+          });
+          f = f.concat(G.box(-W / 2 + 4, T, 0, 8.5, 3.2, 7.5, C.metal));    // micro-USB
+          f = f.concat(G.box(3, T, 0, 16, 2.4, 10, C.metal));               // the NINA module
+          f = f.concat(G.pad(3, T + 2.6, 0, 14, 5, '#3c4148'));             // antenna keep-out
+          // the sensor cluster: IMU, mic, and the gesture/proximity window
+          f = f.concat(G.box(15, T, -3.5, 3, 1, 3, C.chip));
+          f = f.concat(G.box(15, T, 1, 2.6, 0.9, 2.6, '#4a4f56'));
+          f = f.concat(G.box(19, T, -2, 2.4, 0.8, 2.4, '#1c1f24'));
+          return f;
+        }
+      };
+    }()),
 
     scd40: mod({
       name: 'SCD40 CO2 sensor', w: 25, d: 22, color: C.pcbBlack,

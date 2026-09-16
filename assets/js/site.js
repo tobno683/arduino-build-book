@@ -140,29 +140,91 @@ AB.chrome = function (current) {
   document.body.appendChild(foot);
 };
 
-/* --- code blocks -------------------------------------------------------- */
-var KEYWORDS = ('void|int|long|short|float|double|char|bool|boolean|byte|word|uint8_t|uint16_t|uint32_t|' +
-  'int8_t|int16_t|int32_t|size_t|unsigned|signed|const|constexpr|static|volatile|extern|struct|class|enum|' +
-  'union|typedef|template|typename|namespace|using|public|private|protected|virtual|override|new|delete|' +
-  'if|else|for|while|do|switch|case|default|break|continue|return|goto|sizeof|true|false|null|nullptr|NULL|' +
-  'this|operator|inline|auto|register|friend|try|catch|throw|String|PROGMEM').split('|');
+/* --- code blocks --------------------------------------------------------
+   A small multi-language highlighter. The Linux-side boards in the AI
+   projects are programmed in Python and set up from a shell, so C++ alone
+   is not enough - Python highlighted with C++ rules looks broken in a way
+   that undermines trust in the code.
+   ------------------------------------------------------------------------ */
+var LANGS = {
+  cpp: {
+    label: 'Arduino C++',
+    line: '//',
+    keywords: ('void|int|long|short|float|double|char|bool|boolean|byte|word|uint8_t|uint16_t|uint32_t|' +
+      'int8_t|int16_t|int32_t|size_t|unsigned|signed|const|constexpr|static|volatile|extern|struct|class|enum|' +
+      'union|typedef|template|typename|namespace|using|public|private|protected|virtual|override|new|delete|' +
+      'if|else|for|while|do|switch|case|default|break|continue|return|goto|sizeof|true|false|null|nullptr|NULL|' +
+      'this|operator|inline|auto|register|friend|try|catch|throw|String|PROGMEM').split('|'),
+    consts: ('HIGH|LOW|INPUT|OUTPUT|INPUT_PULLUP|LED_BUILTIN|A0|A1|A2|A3|A4|A5|A6|A7|DEC|HEX|BIN|OCT|' +
+      'CHANGE|RISING|FALLING|MSBFIRST|LSBFIRST').split('|')
+  },
+  python: {
+    label: 'Python',
+    line: '#',
+    keywords: ('def|class|return|yield|lambda|import|from|as|if|elif|else|for|while|break|continue|pass|' +
+      'in|is|not|and|or|try|except|finally|raise|with|global|nonlocal|assert|del|async|await|self|cls|' +
+      'True|False|None|print|len|range|open|enumerate|zip|int|float|str|bool|list|dict|set|tuple').split('|'),
+    consts: ('True|False|None|__name__|__main__').split('|')
+  },
+  bash: {
+    label: 'Shell',
+    line: '#',
+    keywords: ('sudo|apt|apt-get|pip|pip3|install|cd|ls|mkdir|rm|cp|mv|echo|export|source|chmod|chown|' +
+      'systemctl|docker|git|curl|wget|python|python3|nano|sh|bash|if|then|fi|for|do|done|while').split('|'),
+    consts: []
+  }
+};
 
-var CONSTS = ('HIGH|LOW|INPUT|OUTPUT|INPUT_PULLUP|LED_BUILTIN|A0|A1|A2|A3|A4|A5|A6|A7|DEC|HEX|BIN|OCT|' +
-  'CHANGE|RISING|FALLING|MSBFIRST|LSBFIRST').split('|');
+/* Work out the language from an explicit label or the file extension. */
+AB.langOf = function (o) {
+  var hint = ((o.lang || '') + ' ' + (o.name || '')).toLowerCase();
+  if (/\.py\b|python/.test(hint)) return 'python';
+  if (/\.sh\b|shell|bash|terminal|command/.test(hint)) return 'bash';
+  return 'cpp';
+};
 
-AB.highlight = function (src) {
-  var re = /(\/\/[^\n]*)|(\/\*[\s\S]*?\*\/)|("(?:\\.|[^"\\])*")|('(?:\\.|[^'\\])*')|(^[ \t]*#[^\n]*)|(\b\d[\w.]*\b)|(\b[A-Za-z_]\w*\b)/gm;
-  return src.replace(re, function (m, c1, c2, s1, s2, pp, num, word, off, str) {
-    if (c1 || c2) return '<span class="tok-c">' + AB.esc(m) + '</span>';
-    if (s1 || s2) return '<span class="tok-s">' + AB.esc(m) + '</span>';
-    if (pp) return '<span class="tok-p">' + AB.esc(m) + '</span>';
+/* Built from regex literals rather than concatenated strings: escaping
+   \s and \w through a JS string literal means doubling every backslash,
+   which is exactly the sort of thing that silently produces a regex
+   matching the wrong thing. */
+var RX = {
+  pyBlock:   /("""[\s\S]*?"""|'''[\s\S]*?''')/,
+  cBlock:    /(\/\*[\s\S]*?\*\/)/,
+  hashLine:  /(#[^\n]*)/,
+  slashLine: /(\/\/[^\n]*)/,
+  dq:        /("(?:\\.|[^"\\])*")/,
+  sq:        /('(?:\\.|[^'\\])*')/,
+  decorator: /(@[A-Za-z_]\w*)/,
+  preproc:   /(^[ \t]*#[^\n]*)/,
+  num:       /(\b\d[\w.]*\b)/,
+  word:      /(\b[A-Za-z_]\w*\b)/
+};
+
+AB.highlight = function (src, langName) {
+  var L = LANGS[langName] || LANGS.cpp;
+  var isPy = langName === 'python';
+
+  // Order matters: comments and strings must win over everything else.
+  var re = new RegExp([
+    (isPy ? RX.pyBlock : RX.cBlock).source,
+    (L.line === '#' ? RX.hashLine : RX.slashLine).source,
+    RX.dq.source,
+    RX.sq.source,
+    (isPy ? RX.decorator : RX.preproc).source,
+    RX.num.source,
+    RX.word.source
+  ].join('|'), 'gm');
+
+  return src.replace(re, function (m, block, line, dq, sq, special, num, word, off, str) {
+    if (block || line) return '<span class="tok-c">' + AB.esc(m) + '</span>';
+    if (dq || sq) return '<span class="tok-s">' + AB.esc(m) + '</span>';
+    if (special) return '<span class="tok-p">' + AB.esc(m) + '</span>';
     if (num) return '<span class="tok-n">' + AB.esc(m) + '</span>';
     if (word) {
-      if (KEYWORDS.indexOf(m) > -1) return '<span class="tok-k">' + m + '</span>';
-      if (CONSTS.indexOf(m) > -1) return '<span class="tok-n">' + m + '</span>';
+      if (L.keywords.indexOf(m) > -1) return '<span class="tok-k">' + m + '</span>';
+      if (L.consts.indexOf(m) > -1) return '<span class="tok-n">' + m + '</span>';
       if (/^[A-Z][A-Z0-9_]{2,}$/.test(m)) return '<span class="tok-n">' + m + '</span>';
-      var after = str.slice(off + m.length).match(/^\s*\(/);
-      if (after) return '<span class="tok-f">' + m + '</span>';
+      if (/^\s*\(/.test(str.slice(off + m.length))) return '<span class="tok-f">' + m + '</span>';
     }
     return AB.esc(m);
   });
@@ -173,13 +235,13 @@ AB.codeBlock = function (o) {
   return '<div class="code">' +
       '<div class="code-head">' +
         '<span class="name">' + AB.esc(o.name || 'sketch.ino') + '</span>' +
-        '<span class="lang">' + AB.esc(o.lang || 'Arduino C++') + '</span>' +
+        '<span class="lang">' + AB.esc(o.lang || LANGS[AB.langOf(o)].label) + '</span>' +
         '<button class="copy-btn" data-copy="' + id + '">' +
           '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">' +
           '<rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg> Copy' +
         '</button>' +
       '</div>' +
-      '<pre><code id="' + id + '">' + AB.highlight(o.code) + '</code></pre>' +
+      '<pre><code id="' + id + '">' + AB.highlight(o.code, AB.langOf(o)) + '</code></pre>' +
     '</div>';
 };
 

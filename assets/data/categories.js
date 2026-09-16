@@ -70,6 +70,13 @@ AB.categories = [
     icon: '<rect x="2.5" y="7" width="19" height="10" rx="4"/><path d="M7 10.5v3M5.5 12h3"/><circle cx="16" cy="11" r="1"/><circle cx="18.3" cy="13.2" r="1"/>'
   },
   {
+    slug: 'ai',
+    name: 'AI & Edge Machine Learning',
+    blurb: 'Where a microcontroller stops being enough. Gesture recognition in 20 kB on a board you already own, then camera boards that run real models locally - no cloud, no subscription, nothing leaving the room.',
+    learn: 'TinyML, quantisation, Edge Impulse, NPUs and TOPS, cameras on Linux, the MCU-plus-CPU split.',
+    icon: '<rect x="6.5" y="6.5" width="11" height="11" rx="2.5"/><circle cx="12" cy="12" r="2.2"/><path d="M9.5 3v3.5M14.5 3v3.5M9.5 17.5V21M14.5 17.5V21M3 9.5h3.5M3 14.5h3.5M17.5 9.5H21M17.5 14.5H21"/>'
+  },
+  {
     slug: 'power',
     name: 'Power, Energy & Measurement',
     blurb: 'Battery monitors, solar loggers, mains energy meters, bench supplies and the deep-sleep tricks that turn a three-day battery life into a nine-month one.',

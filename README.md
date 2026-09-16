@@ -7,7 +7,7 @@ solder joint in plain words, and the complete sketch with a copy button.
 Static HTML, CSS and vanilla JavaScript. No frameworks, no dependencies, no tracking. One optional Node
 script regenerates a summary index.
 
-**40 projects across 10 themes. 150 parts priced. 5 reference pages.**
+**46 projects across 11 themes. 162 parts priced. 5 reference pages.**
 
 **Live: <https://tobno683.github.io/arduino-build-book/>**
 
@@ -41,7 +41,7 @@ replaced exactly when something changes and not on every build.
 
 | Page | What's in it |
 |---|---|
-| `index.html` | Hub: the four starting guides, the ten themes, featured builds |
+| `index.html` | Hub: the four starting guides, the eleven themes, featured builds |
 | `projects.html` | Every project, filterable by theme, level, budget and whether it needs soldering. `?cat=<slug>` opens one theme |
 | `project.html?p=<slug>` | A full build guide, rendered from one data file |
 | `basics/tools.html` | What to buy, in three piles, plus every part on the site priced and searchable |
@@ -74,7 +74,7 @@ assets/
   js/parts3d.js          component library: real dimensions, real pin maps
   js/project.js          renders one project from its data file
   data/parts.js          the shop - every price on the site comes from here
-  data/categories.js     the ten themes
+  data/categories.js     the eleven themes
   data/glossary.js       glossary entries
   data/index.js          GENERATED summary, see below
   data/projects/*.js     one file per project

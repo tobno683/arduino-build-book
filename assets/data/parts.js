@@ -19,6 +19,7 @@ AB.suppliers = {
   mouser:    { name: 'Mouser',     url: 'https://www.mouser.com/c/?q=',                       kind: 'Real datasheets, real parts' },
   amazon:    { name: 'Amazon',     url: 'https://www.amazon.com/s?k=',                        kind: 'Fast, mixed quality' },
   ali:       { name: 'AliExpress', url: 'https://www.aliexpress.com/wholesale?SearchText=',   kind: 'Cheapest, 2-5 week wait' },
+  arduino:   { name: 'Arduino Store', url: 'https://store-usa.arduino.cc/search?q=',           kind: 'Official, and the only source for brand-new boards' },
 
   /* --- Sweden -----------------------------------------------------------
      Search URLs verified against each site rather than guessed - several
@@ -72,6 +73,21 @@ AB.parts = [
 { id:'pico',       name:'Raspberry Pi Pico 2 W',            cat:'Board',  price:7.00,  lo:6,   hi:10,  unit:'each', q:'Raspberry Pi Pico 2 W',     buy:['adafruit','pimoroni','sparkfun'] },
 { id:'pro-micro',  name:'Pro Micro (ATmega32U4, 5V/16MHz)', cat:'Board',  price:5.00,  lo:3,   hi:22,  unit:'each', q:'Pro Micro ATmega32U4 5V',   buy:['ali','sparkfun','amazon'],
   note:'The 32U4 can pretend to be a USB keyboard or mouse. That is the whole reason to pick it over a Nano.' },
+
+{ id:'uno-q',      name:'Arduino UNO Q (2 GB / 16 GB)',      cat:'Board',  price:44.00, lo:44,  hi:79,  unit:'each', q:'Arduino UNO Q',  buy:['arduino','electrokit','amazon'],
+  note:'Two brains on an UNO footprint: a quad-core Qualcomm Dragonwing QRB2210 running Debian, plus an STM32U585 for the real-time pins. $44 for 2 GB/16 GB, $59 for 4 GB/32 GB. Keeps the classic UNO headers, so your shields still fit.' },
+{ id:'ventuno-q',  name:'Arduino Ventuno Q',                 cat:'Board',  price:299.00,lo:299, hi:399, unit:'each', q:'Arduino Ventuno Q', buy:['arduino','electrokit'],
+  note:'The big one: Dragonwing IQ8 octa-core, Adreno GPU, 40 TOPS NPU, 16 GB LPDDR5, 64 GB eMMC, M.2 NVMe, 2.5 GbE, three MIPI camera connectors. 160x100 mm, so not an UNO any more - but it keeps UNO and Raspberry Pi headers.' },
+{ id:'jetson-orin',name:'NVIDIA Jetson Orin Nano Super kit', cat:'Board',  price:249.00,lo:229, hi:349, unit:'each', q:'Jetson Orin Nano Super Developer Kit', buy:['sparkfun','amazon','arduino'],
+  note:'67 sparse TOPS, 1024 CUDA cores, 8 GB LPDDR5, six Cortex-A78AE cores. "Super" is a JetPack software mode, not new silicon - an older Orin Nano gets it from an update. Includes the carrier board and a power supply.' },
+{ id:'nano33ble',  name:'Arduino Nano 33 BLE Sense Rev2',    cat:'Board',  price:55.00, lo:45,  hi:75,  unit:'each', q:'Arduino Nano 33 BLE Sense Rev2', buy:['arduino','electrokit','amazon'],
+  note:'The TinyML board: IMU, microphone, temperature, humidity and pressure already on it, and enough flash for a small model. Expensive for what it is, and the only Arduino where you can do the whole ML loop with nothing else plugged in.' },
+{ id:'csi-cam',    name:'MIPI CSI camera module (IMX219)',   cat:'Sensor', price:25.00, lo:9,   hi:45,  unit:'each', q:'IMX219 CSI camera module 8MP', buy:['ali','amazon','sparkfun'],
+  note:'The Raspberry Pi Camera v2 sensor. Works on the Jetson and on the UNO Q / Ventuno Q MIPI connectors. Check the ribbon: Jetson boards want the 22-pin fine-pitch cable, not the 15-pin one.' },
+{ id:'usb-cam',    name:'USB webcam, 1080p',                 cat:'Sensor', price:25.00, lo:10,  hi:80,  unit:'each', q:'1080p USB webcam UVC', buy:['amazon','ali'],
+  note:'Any UVC-class webcam works on Linux with no driver at all, which makes it the least frustrating way to get pixels into a first vision project.' },
+{ id:'nvme',       name:'M.2 NVMe SSD, 500 GB',              cat:'Module', price:45.00, lo:30,  hi:90,  unit:'each', q:'M.2 2280 NVMe SSD 500GB', buy:['amazon','ali'],
+  note:'Worth it on a Jetson or Ventuno Q. Model files, datasets and JetPack itself are large, and running the OS from eMMC or an SD card is the main reason these boards feel slow.' },
 
 /* --- prototyping -------------------------------------------------------- */
 { id:'bb-830',     name:'Solderless breadboard, 830 points',cat:'Proto',  price:3.00,  lo:1.5, hi:7,   unit:'each', q:'830 point solderless breadboard', buy:['ali','amazon','adafruit'] },
@@ -215,6 +231,12 @@ AB.parts = [
 { id:'ds3231',     name:'DS3231 real-time clock + battery',  cat:'Module', price:1.50, lo:0.8, hi:8,   unit:'each', q:'DS3231 RTC module',         buy:['ali','amazon','adafruit'],
   note:'DS3231, not DS1307. The 3231 is temperature-compensated and drifts about a minute a year; the 1307 drifts that much in a fortnight.' },
 { id:'sdcard',     name:'Micro SD card breakout module',     cat:'Module', price:1.00, lo:0.5, hi:8,   unit:'each', q:'micro sd card module arduino', buy:['ali','amazon','adafruit'] },
+{ id:'usb-mic',    name:'USB microphone, omnidirectional',   cat:'Sensor', price:14.00, lo:8,  hi:35,  unit:'each', q:'USB omnidirectional microphone',  buy:['amazon','ali'],
+  note:'A Linux board sees this as a standard USB audio device with no driver. A conference-style boundary mic picks up a room far better than the pinhole in a webcam, and for voice work that difference is most of the accuracy.' },
+{ id:'usbc-hub',   name:'USB-C hub with USB-A + power passthrough', cat:'Module', price:16.00, lo:10, hi:30, unit:'each', q:'USB-C hub power delivery USB-A', buy:['amazon','ali'],
+  note:'A single-board computer with one USB-C port needs this the moment you want a webcam and power at the same time. Get one with power delivery passthrough, not a bare splitter.' },
+{ id:'sd-64gb',    name:'Micro SD card, 64 GB A2/U3',        cat:'Module', price:12.00, lo:8,  hi:22,  unit:'each', q:'64GB A2 U3 micro sd card',  buy:['amazon','ali'],
+  note:'A single-board Linux machine boots from this and then runs its whole root filesystem on it. A slow card makes a fast board feel broken, and cheap cards die from the write load. Buy an A2/U3 rated one from a shop you trust.' },
 { id:'sdcard-8gb', name:'Micro SD card, 8-32 GB',            cat:'Module', price:6.00, lo:4,   hi:12,  unit:'each', q:'32GB micro sd card',        buy:['amazon','ali'] },
 { id:'nrf24',      name:'nRF24L01+ 2.4 GHz radio pair',      cat:'Module', price:3.00, lo:1.5, hi:9,   unit:'pair', q:'nRF24L01 module pair',      buy:['ali','amazon'],
   note:'Solder a 10 uF cap across its VCC and GND or it will reset at random. This is not optional; it is the single most common nRF24 complaint.' },
