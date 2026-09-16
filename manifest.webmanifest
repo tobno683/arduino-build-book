@@ -1,7 +1,7 @@
 {
-  "name": "The Arduino Build Book",
+  "name": "The Build Book",
   "short_name": "Build Book",
-  "description": "Arduino build guides with the whole build written down: what to buy and what it costs, a 3D model you can spin, a wiring table that matches it pin for pin, how to solder it, and code you can copy.",
+  "description": "Build guides for Arduino, ESP32, ESP8266 and NVIDIA Jetson with the whole build written down: what to buy and what it costs, a 3D model you can spin, a wiring table that matches it pin for pin, how to solder it, and code you can copy.",
   "id": "./",
   "start_url": "./index.html",
   "scope": "./",

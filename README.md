@@ -1,6 +1,6 @@
-# The Arduino Build Book
+# The Build Book
 
-Arduino build guides with the whole build written down: the exact parts and what they cost, an
+Build guides for Arduino, ESP32, ESP8266 and NVIDIA Jetson, with the whole build written down: the exact parts and what they cost, an
 interactive 3D model of the finished thing, a wiring table that matches it pin for pin, how to make each
 solder joint in plain words, and the complete sketch with a copy button.
 

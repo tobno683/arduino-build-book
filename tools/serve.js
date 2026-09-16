@@ -34,4 +34,4 @@ http.createServer((req, res) => {
     });
     res.end(data);
   });
-}).listen(PORT, () => console.log('The Arduino Build Book on http://localhost:' + PORT));
+}).listen(PORT, () => console.log('The Build Book on http://localhost:' + PORT));

@@ -1,4 +1,4 @@
-# The Arduino Build Book — working notes
+# The Build Book — working notes
 
 Static site. No build step for the site itself, no dependencies, no framework. Works from `file://`.
 One optional Node script regenerates a summary index and validates everything.

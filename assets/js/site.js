@@ -79,7 +79,7 @@ AB.chrome = function (current) {
           '<rect x="2.5" y="7" width="19" height="10" rx="4"/>' +
           '<path d="M6 12h3.6M7.8 10.2v3.6"/><path d="M14.4 12h3.6"/>' +
         '</svg>' +
-        '<span>The Arduino Build Book</span>' +
+        '<span>The Build Book</span>' +
       '</a>' +
       '<nav class="nav" id="ab-nav">' +
         AB.NAV.map(function (n) {

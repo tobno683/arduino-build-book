@@ -160,7 +160,7 @@ AB.addProject = function (p) { AB.projects.push(p); };
       return;
     }
     secs = [];
-    document.title = p.title + ' — The Arduino Build Book';
+    document.title = p.title + ' — The Build Book';
     var md = document.querySelector('meta[name="description"]');
     if (md) md.setAttribute('content', p.blurb);
 

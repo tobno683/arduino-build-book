@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>All projects — The Arduino Build Book</title>
-<meta name="description" content="Every Arduino project in the book, filterable by the board you own, theme, difficulty, budget and whether it needs soldering.">
+<title>All projects — The Build Book</title>
+<meta name="description" content="Every project in the book: Arduino, ESP32, ESP8266 and NVIDIA Jetson. Filterable by the board you own, theme, difficulty, budget and whether it needs soldering.">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
@@ -123,7 +123,7 @@
     document.getElementById('ph-title').textContent = c.name;
     document.getElementById('ph-blurb').textContent = c.blurb;
     document.getElementById('ph-learn').innerHTML = '<strong>What you learn here:</strong> ' + AB.esc(c.learn);
-    document.title = c.name + ' — The Arduino Build Book';
+    document.title = c.name + ' — The Build Book';
   }
 
   var preBoard = AB.qs('board');
@@ -136,7 +136,7 @@
       document.getElementById('ph-blurb').textContent =
         (bPart && bPart.note) ? bPart.note : 'Every build in the book that uses this board.';
       document.getElementById('ph-learn').innerHTML = '';
-      document.title = AB.boardName(preBoard) + ' projects';
+      document.title = AB.boardName(preBoard) + ' projects — The Build Book';
     }
   }
 
