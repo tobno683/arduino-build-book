@@ -2,7 +2,7 @@
    index.js - GENERATED FILE, do not edit by hand.
    Rebuild with:  node tools/build-index.js
    A summary of every project so the home page and the catalogue can render
-   without loading 46 full build guides.
+   without loading 52 full build guides.
    ========================================================================== */
 window.AB = window.AB || {};
 
@@ -700,7 +700,145 @@ AB.index = [
       "non-contact"
     ],
     "feature": false,
-    "cost": 27.77
+    "cost": 27.82
+  },
+  {
+    "slug": "hc05-bluetooth-control",
+    "title": "Bluetooth control from a phone",
+    "cat": "radio",
+    "level": 2,
+    "time": "3 hours",
+    "solder": false,
+    "board": "Nano",
+    "blurb": "Three dollars turns your USB cable into a wireless one. Type a command on your phone, the lamp changes colour, and the temperature comes back the other way.",
+    "tags": [
+      "hc-05",
+      "bluetooth",
+      "spp",
+      "serial",
+      "at commands",
+      "phone control",
+      "android",
+      "no soldering",
+      "ws2812"
+    ],
+    "feature": false,
+    "cost": 18.73
+  },
+  {
+    "slug": "gps-bike-computer",
+    "title": "GPS bike computer",
+    "cat": "radio",
+    "level": 2,
+    "time": "4 hours",
+    "solder": false,
+    "board": "Nano",
+    "blurb": "Speed, distance, heading and a clock set from orbit, on a $20 build. Also the clearest way to understand what a GPS fix actually is and why it takes so long the first time.",
+    "tags": [
+      "gps",
+      "neo-6m",
+      "nmea",
+      "tinygps",
+      "speed",
+      "hdop",
+      "satellites",
+      "no soldering",
+      "cycling"
+    ],
+    "feature": false,
+    "cost": 31.49
+  },
+  {
+    "slug": "nrf24-sensor-link",
+    "title": "Wireless sensor link on 2.4 GHz",
+    "cat": "radio",
+    "level": 2,
+    "time": "3 hours",
+    "solder": false,
+    "board": "Nano x2",
+    "blurb": "Three dollars of radio, a sensor in the garden and a display indoors. Also the project where you learn why almost everyone's first nRF24 does not work.",
+    "tags": [
+      "nrf24l01",
+      "2.4ghz",
+      "wireless",
+      "spi",
+      "sensor node",
+      "acknowledgement",
+      "no soldering",
+      "bme280"
+    ],
+    "feature": false,
+    "cost": 27.16
+  },
+  {
+    "slug": "lora-remote-sensor",
+    "title": "LoRa sensor across a valley",
+    "cat": "radio",
+    "level": 3,
+    "time": "6 hours",
+    "solder": true,
+    "board": "ESP32 x2",
+    "blurb": "A battery sensor two kilometres away, reporting through trees and buildings, with no Wi-Fi, no SIM card and no monthly bill. The trade is that it can only say a little, slowly.",
+    "tags": [
+      "lora",
+      "sx1276",
+      "868mhz",
+      "long range",
+      "spread spectrum",
+      "deep sleep",
+      "duty cycle",
+      "solar",
+      "rssi",
+      "link budget"
+    ],
+    "feature": true,
+    "cost": 65.81
+  },
+  {
+    "slug": "lora-offgrid-messenger",
+    "title": "Off-grid messenger",
+    "cat": "radio",
+    "level": 3,
+    "time": "8 hours for the pair",
+    "solder": true,
+    "board": "ESP32 x2",
+    "blurb": "Two pocket units that text each other across a valley with no phone signal, no network and no account. Preset messages, delivery confirmation, and an honest reckoning with how slow it has to be.",
+    "tags": [
+      "lora",
+      "sx1276",
+      "messaging",
+      "off grid",
+      "handheld",
+      "acknowledgement",
+      "oled",
+      "lipo",
+      "duty cycle"
+    ],
+    "feature": false,
+    "cost": 65.9
+  },
+  {
+    "slug": "gps-lora-tracker",
+    "title": "GPS tracker over LoRa",
+    "cat": "radio",
+    "level": 4,
+    "time": "10 hours",
+    "solder": true,
+    "board": "ESP32 + Nano",
+    "blurb": "Where is the boat, the beehive, the trailer? Position reported over kilometres with no SIM and no subscription - and a clear statement of what this must never be used for.",
+    "tags": [
+      "gps",
+      "lora",
+      "tracker",
+      "geofence",
+      "deep sleep",
+      "solar",
+      "asset tracking",
+      "neo-6m",
+      "sx1276"
+    ],
+    "feature": false,
+    "cost": 71.6
   },
   {
     "slug": "rfid-attendance-logger",

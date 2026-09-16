@@ -68,7 +68,7 @@ House conventions:
 - **Do not reuse a part id with an `as:` relabel** to stand in for a different part. Add the real part. This
   was a bug — three projects used the `18650` id labelled as AA holders, which corrupted analysis and was
   dishonest in the BOM.
-- **`feature: true` — exactly one per theme.** The home page shuffles and shows six, so all eleven get airtime.
+- **`feature: true` — exactly one per theme.** The home page shuffles and shows six, so all twelve get airtime.
 - **Supplier links are search URLs, never product URLs.** That is what makes it honest to offer a shop
   for every part: the link means "look for it here", not "this is in stock here". It also means links
   never rot.

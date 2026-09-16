@@ -50,7 +50,7 @@ bom: [
   { id: 'esp32', qty: 1 },
   { id: 'sct013', qty: 1, note: 'Get the SCT-013-030: 30 A range, 1 V output, burden resistor built in. The -000 needs extra components.' },
   { id: 'res10k', qty: 2, note: 'The bias divider. They must be reasonably matched - use two from the same strip.' },
-  { id: 'cap100n', qty: 1, as: '10 uF capacitor (bias hold)', note: 'From the divider midpoint to ground, to keep the bias steady.' },
+  { id: 'cap10', qty: 1, note: 'From the divider midpoint to ground, to keep the bias steady.' },
   { id: 'oled13', qty: 1 },
   { id: 'screwterm', qty: 1, note: 'Or a 3.5 mm socket, which is what the clamp actually has on its lead.' },
   { id: 'perfboard', qty: 1 },

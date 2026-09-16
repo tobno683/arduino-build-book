@@ -6,7 +6,7 @@
    listed file, so the cache is replaced exactly when the content changes.
    ========================================================================== */
 self.AB_PRECACHE = {
-  version: "3f54f5d88f3d",
+  version: "6d330f59a9a4",
   core: [
     "./",
     "./index.html",
@@ -51,15 +51,21 @@ self.AB_PRECACHE = {
     "./assets/data/projects/esp32cam-wifi-camera.js",
     "./assets/data/projects/fan-thermostat.js",
     "./assets/data/projects/fridge-freezer-logger.js",
+    "./assets/data/projects/gps-bike-computer.js",
+    "./assets/data/projects/gps-lora-tracker.js",
+    "./assets/data/projects/hc05-bluetooth-control.js",
     "./assets/data/projects/infinity-mirror.js",
     "./assets/data/projects/jetson-orin-vision.js",
     "./assets/data/projects/kitchen-timer.js",
     "./assets/data/projects/led-matrix-sign.js",
     "./assets/data/projects/line-following-robot.js",
+    "./assets/data/projects/lora-offgrid-messenger.js",
+    "./assets/data/projects/lora-remote-sensor.js",
     "./assets/data/projects/mains-energy-monitor.js",
     "./assets/data/projects/motion-activated-lights.js",
     "./assets/data/projects/mp3-doorbell.js",
     "./assets/data/projects/nfc-jukebox.js",
+    "./assets/data/projects/nrf24-sensor-link.js",
     "./assets/data/projects/obstacle-avoiding-robot.js",
     "./assets/data/projects/oled-pong.js",
     "./assets/data/projects/pan-tilt-camera.js",

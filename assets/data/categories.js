@@ -70,6 +70,13 @@ AB.categories = [
     icon: '<rect x="2.5" y="7" width="19" height="10" rx="4"/><path d="M7 10.5v3M5.5 12h3"/><circle cx="16" cy="11" r="1"/><circle cx="18.3" cy="13.2" r="1"/>'
   },
   {
+    slug: 'radio',
+    name: 'Radio & Long Range',
+    blurb: 'Getting data from here to there with no wire, no Wi-Fi and no monthly bill. Two dollars of 2.4 GHz across a house, LoRa across a valley, GPS from orbit, and an honest account of what "10 km range" means on a box.',
+    learn: 'LoRa and spread spectrum, link budgets, antennas and SWR, GPS fixes and HDOP, duty cycle law, deep sleep.',
+    icon: '<circle cx="12" cy="8.2" r="1.5"/><path d="M9.4 10.8a3.7 3.7 0 0 1 0-5.2M14.6 5.6a3.7 3.7 0 0 1 0 5.2"/><path d="M6.9 13.3a7.2 7.2 0 0 1 0-10.2M17.1 3.1a7.2 7.2 0 0 1 0 10.2"/><path d="M12 9.7V21M9.2 21h5.6"/>'
+  },
+  {
     slug: 'ai',
     name: 'AI & Edge Machine Learning',
     blurb: 'Where a microcontroller stops being enough. Gesture recognition in 20 kB on a board you already own, then camera boards that run real models locally - no cloud, no subscription, nothing leaving the room.',

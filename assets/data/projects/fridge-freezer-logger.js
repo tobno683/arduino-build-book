@@ -44,7 +44,7 @@ minutes by default.</p>`,
 bom: [
   { id: 'uno', qty: 1 },
   { id: 'ds18b20', qty: 3, note: 'The waterproof stainless probes on a lead. Get 2 m or 3 m leads - fridges are further from a socket than you think.' },
-  { id: 'res10k', qty: 1, as: '4.7 k resistor (1-Wire pull-up)', note: 'A 4.7 k is correct. A 10 k works on short runs; on a long cable it does not.' },
+  { id: 'res4k7', qty: 1, note: 'The 1-Wire pull-up. A 10 k works on short runs; on a long cable it does not.' },
   { id: 'ds3231', qty: 1, note: 'DS3231, not DS1307. And check the coin cell is present.' },
   { id: 'rtc-cell', qty: 1, own: true },
   { id: 'sdcard', qty: 1 },

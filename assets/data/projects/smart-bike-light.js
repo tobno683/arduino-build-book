@@ -53,7 +53,7 @@ bom: [
   { id: 'mpu6050', qty: 1 },
   { id: 'lipo2000', qty: 1, note: 'A flat pouch cell fits a saddlebag better than an 18650.' },
   { id: 'tp4056', qty: 1, note: 'Protected version. This is the charger and the low-voltage cutoff.' },
-  { id: 'buck', qty: 1, as: 'Boost converter to 5 V (MT3608)', note: 'A LiPo is 3.0-4.2 V; WS2812Bs want 5 V. A boost converter, not a buck.' },
+  { id: 'boost', qty: 1, note: 'A LiPo is 3.0-4.2 V; WS2812Bs want 5 V. A boost converter steps up - a buck cannot.' },
   { id: 'button', qty: 2, note: 'Left and right indicators. Bar-mounted momentary switches if you can find them.' },
   { id: 'switch', qty: 1, note: 'Main power.' },
   { id: 'res220', qty: 1 },

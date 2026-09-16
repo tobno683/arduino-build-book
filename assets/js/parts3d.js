@@ -616,6 +616,28 @@ window.AB = window.AB || {};
              { t: 'pad', x: 12, z: 0, w: 6, d: 10, c: '#d8c98a' }]
     }),
 
+    /* Ra-02 style SX1276 breakout. Real modules vary in pin order more
+       than almost anything else in this book - check YOUR silkscreen
+       before wiring, the labels here are the common Ai-Thinker layout. */
+    lora: mod({
+      name: 'SX1276 LoRa module', w: 30, d: 18, color: C.pcbBlue,
+      rows: [{ names: ['GND', 'MISO', 'MOSI', 'SCK', 'NSS', 'RST', 'DIO0'], z: -6.5, step: P },
+             { names: ['VCC', 'DIO1', 'DIO2', 'DIO3', 'DIO4', 'DIO5', 'GND2'], z: -6.5 + P, step: P }],
+      extraPins: [['ANT', 11, 5.5, 5]],
+      deco: [{ t: 'box', x: -3, z: 3.5, w: 16, h: 1.8, d: 9, c: C.metal },
+             { t: 'box', x: 11, z: 5, w: 4.5, h: 3.5, d: 4.5, c: '#c8ccd0' }]
+    }),
+
+    /* HC-05: the blue board on a carrier, with the EN pin people forget
+       and the state LED that tells you which mode it is in. */
+    hc05: mod({
+      name: 'HC-05 Bluetooth serial', w: 37, d: 16, color: C.pcbBlue,
+      rows: [{ names: ['EN', 'VCC', 'GND', 'TXD', 'RXD', 'STATE'], z: -5, cx: -4, step: P }],
+      deco: [{ t: 'box', x: 8, z: 1.5, w: 17, h: 1.6, d: 11, c: '#2f4f8f' },
+             { t: 'pad', x: 15.5, z: 1.5, w: 4, d: 9, c: '#d8c98a' },
+             { t: 'box', x: -14, z: 4, w: 3, h: 1.6, d: 2, c: '#cf3b34' }]
+    }),
+
     hx711: mod({
       name: 'HX711 load-cell amplifier', w: 34, d: 21, color: C.pcbRed,
       rows: [{ names: ['GND', 'DT', 'SCK', 'VCC'], z: -8, cx: 8 },
