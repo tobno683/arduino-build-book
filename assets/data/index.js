@@ -2,7 +2,7 @@
    index.js - GENERATED FILE, do not edit by hand.
    Rebuild with:  node tools/build-index.js
    A summary of every project so the home page and the catalogue can render
-   without loading 72 full build guides.
+   without loading 76 full build guides.
    ========================================================================== */
 window.AB = window.AB || {};
 
@@ -30,6 +30,32 @@ AB.index = [
     "cost": 69.78,
     "boards": [
       "nano33ble"
+    ]
+  },
+  {
+    "slug": "jetson-bird-classifier",
+    "title": "Bird feeder species classifier",
+    "cat": "ai",
+    "level": 3,
+    "time": "6 hours, plus weeks of collecting",
+    "solder": true,
+    "board": "Jetson Orin Nano",
+    "blurb": "A camera on a bird feeder that learns your birds, from photographs it took itself. The only project in this book where the board trains the model as well as running it.",
+    "tags": [
+      "jetson",
+      "transfer learning",
+      "training",
+      "classification",
+      "open set",
+      "class imbalance",
+      "wildlife",
+      "resnet"
+    ],
+    "feature": false,
+    "cost": 353.24,
+    "boards": [
+      "jetson-orin",
+      "uno"
     ]
   },
   {
@@ -109,6 +135,84 @@ AB.index = [
     "cost": 108.49,
     "boards": [
       "uno-q"
+    ]
+  },
+  {
+    "slug": "jetson-pose-coach",
+    "title": "Pose estimation exercise coach",
+    "cat": "ai",
+    "level": 3,
+    "time": "6 hours",
+    "solder": true,
+    "board": "Jetson Orin Nano",
+    "blurb": "Counts your reps and tells you when your form has gone. Seventeen body keypoints at thirty frames a second - and the interesting part is the geometry you do with them, not the model that finds them.",
+    "tags": [
+      "jetson",
+      "pose estimation",
+      "keypoints",
+      "yolo",
+      "rep counting",
+      "state machine",
+      "joint angles"
+    ],
+    "feature": false,
+    "cost": 361.35,
+    "boards": [
+      "jetson-orin",
+      "uno"
+    ]
+  },
+  {
+    "slug": "jetson-depth-nav",
+    "title": "Depth-aware rover from one camera",
+    "cat": "ai",
+    "level": 4,
+    "time": "10 hours",
+    "solder": true,
+    "board": "Jetson Orin Nano",
+    "blurb": "A neural network that estimates depth from one ordinary camera, driving a rover round obstacles. It works startlingly well and it cannot tell you how far anything is in metres - which is the whole lesson.",
+    "tags": [
+      "jetson",
+      "depth anything",
+      "monocular depth",
+      "transformer",
+      "navigation",
+      "scale",
+      "sensor fusion",
+      "rover"
+    ],
+    "feature": false,
+    "cost": 383.7,
+    "boards": [
+      "jetson-orin",
+      "uno"
+    ]
+  },
+  {
+    "slug": "jetson-local-llm",
+    "title": "Offline assistant with a real language model",
+    "cat": "ai",
+    "level": 4,
+    "time": "8 hours",
+    "solder": false,
+    "board": "Jetson Orin Nano",
+    "blurb": "An 8-billion-parameter language model, speech recognition and speech synthesis, all running on a board beside your desk with the network cable pulled out. The constraint that shapes everything is eight gigabytes.",
+    "tags": [
+      "jetson",
+      "llm",
+      "llama",
+      "ollama",
+      "whisper",
+      "piper",
+      "quantisation",
+      "offline",
+      "unified memory"
+    ],
+    "feature": false,
+    "cost": 345.05,
+    "boards": [
+      "jetson-orin",
+      "uno"
     ]
   },
   {

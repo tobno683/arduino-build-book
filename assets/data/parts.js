@@ -272,6 +272,8 @@ AB.parts = [
 { id:'ds3231',     name:'DS3231 real-time clock + battery',  cat:'Module', price:1.50, lo:0.8, hi:8,   unit:'each', q:'DS3231 RTC module',         buy:['ali','amazon','adafruit'],
   note:'DS3231, not DS1307. The 3231 is temperature-compensated and drifts about a minute a year; the 1307 drifts that much in a fortnight.' },
 { id:'sdcard',     name:'Micro SD card breakout module',     cat:'Module', price:1.00, lo:0.5, hi:8,   unit:'each', q:'micro sd card module arduino', buy:['ali','amazon','adafruit'] },
+{ id:'usb-speaker', name:'USB powered speaker',               cat:'Module', price:15.00, lo:8, hi:40, unit:'each', q:'USB powered speaker desktop', buy:['amazon','ali'],
+  note:'A Linux board sees this as a standard USB audio device with no driver and no amplifier to build. For a talking project it saves an evening over a PAM8403 and a bare driver.' },
 { id:'usb-mic',    name:'USB microphone, omnidirectional',   cat:'Sensor', price:14.00, lo:8,  hi:35,  unit:'each', q:'USB omnidirectional microphone',  buy:['amazon','ali'],
   note:'A Linux board sees this as a standard USB audio device with no driver. A conference-style boundary mic picks up a room far better than the pinhole in a webcam, and for voice work that difference is most of the accuracy.' },
 { id:'usbc-hub',   name:'USB-C hub with USB-A + power passthrough', cat:'Module', price:16.00, lo:10, hi:30, unit:'each', q:'USB-C hub power delivery USB-A', buy:['amazon','ali'],
