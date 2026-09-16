@@ -688,6 +688,164 @@ window.AB = window.AB || {};
       }
     },
 
+    /* --- sensors and modules for the later themes --------------------- */
+
+    ld2410: mod({
+      name: 'LD2410C mmWave presence sensor', w: 20, d: 32, color: C.pcbBlue,
+      rows: [{ names: ['VCC', 'GND', 'TX', 'RX', 'OUT'], z: -13, step: P }],
+      deco: [{ t: 'pad', x: 0, z: 5, w: 15, d: 15, c: '#c9a227' },
+             { t: 'box', x: 0, z: -4, w: 6, h: 1.2, d: 6, c: C.chip }]
+    }),
+
+    amg8833: mod({
+      name: 'AMG8833 thermal camera', w: 25, d: 20, color: C.pcbBlack,
+      rows: [{ names: ['VIN', '3V3', 'GND', 'SCL', 'SDA', 'INT'], z: -7, step: P }],
+      deco: [{ t: 'box', x: 0, z: 4, w: 12, h: 3.2, d: 12, c: '#c0c4c8' },
+             { t: 'cyl', x: 0, z: 4, r: 4, h: 3.6, c: '#2a2f36', sides: 12 }]
+    }),
+
+    ltr390: mod({
+      name: 'LTR390 UV sensor', w: 18, d: 16, color: C.pcbPurple,
+      rows: [{ names: ['VIN', '3V3', 'GND', 'SCL', 'SDA'], z: -5, step: P }],
+      deco: [{ t: 'box', x: 0, z: 3, w: 3, h: 1, d: 3, c: C.clear }]
+    }),
+
+    mcp4725: mod({
+      name: 'MCP4725 12-bit DAC', w: 20, d: 14, color: C.pcbBlue,
+      rows: [{ names: ['OUT', 'GND', 'SCL', 'SDA', 'VCC'], z: -4, step: P }],
+      deco: [{ t: 'box', x: 2, z: 2, w: 5, h: 1.1, d: 4, c: C.chip }]
+    }),
+
+    watersens: {
+      name: 'Water leak probe', w: 20, d: 60, ex: 24,
+      pins: { VCC: [-P, 4, -26], GND: [0, 4, -26], SIG: [P, 4, -26] },
+      build: function () {
+        var f = G.box(0, 0, 0, 20, 1.2, 60, C.pcbBlue, { top: C.pcbBlue });
+        // interleaved exposed tracks - the part that corrodes if left powered
+        for (var i = 0; i < 9; i++) {
+          f = f.concat(G.pad(-6 + (i % 2) * 12, 1.3, -10 + i * 4, 11, 2, C.pinGold));
+        }
+        f = f.concat(G.box(0, 1.2, -26, 3 * P, 7.9, 2.4, C.hdr));
+        return f;
+      }
+    },
+
+    seg7big: {
+      name: '7-segment digit, 1.8 in', w: 26, d: 46, ex: 20,
+      pins: { A: [-9, 3, -20], B: [-3, 3, -20], C: [3, 3, -20], D: [9, 3, -20],
+              E: [-9, 3, 20], F: [-3, 3, 20], G: [3, 3, 20], CC: [9, 3, 20] },
+      build: function () {
+        var f = G.box(0, 0, 0, 26, 3, 46, '#1a1c1f', { top: '#1a1c1f' });
+        var on = '#b8302a';
+        // seven bars laid out as a figure eight
+        f = f.concat(G.pad(0, 3.1, -16, 14, 3.5, on));     // A
+        f = f.concat(G.pad(8, 3.1, -8.5, 3.5, 12, on));    // B
+        f = f.concat(G.pad(8, 3.1, 8.5, 3.5, 12, on));     // C
+        f = f.concat(G.pad(0, 3.1, 16, 14, 3.5, on));      // D
+        f = f.concat(G.pad(-8, 3.1, 8.5, 3.5, 12, on));    // E
+        f = f.concat(G.pad(-8, 3.1, -8.5, 3.5, 12, on));   // F
+        f = f.concat(G.pad(0, 3.1, 0, 14, 3.5, on));       // G
+        f = f.concat(G.cyl(11, 3.1, 18, 1.6, 0.4, on, { sides: 8 }));
+        return f;
+      }
+    },
+
+    laser: {
+      name: 'Laser diode module', w: 12, d: 32, ex: 22,
+      pins: { '+': [-2, 3, 15], '-': [2, 3, 15] },
+      build: function () {
+        var f = G.cylX(0, 6, 0, 6, 26, C.metal, { sides: 14 });
+        f = f.concat(G.cylX(15, 6, 0, 3.2, 4, '#8d9096', { sides: 12 }));
+        f = f.concat(G.box(-2, 0, 15, 6, 2, 6, '#c03030'));
+        return f;
+      }
+    },
+
+    nema17: {
+      name: 'NEMA 17 stepper', w: 42.3, d: 42.3, ex: 0,
+      pins: { A1: [-14, 4, 21], A2: [-5, 4, 21], B1: [5, 4, 21], B2: [14, 4, 21] },
+      build: function () {
+        var f = G.box(0, 0, 0, 42.3, 40, 42.3, '#3a3f45');
+        f = f.concat(G.pad(0, 40.1, 0, 38, 38, '#2b3138'));
+        f = f.concat(G.cyl(0, 40, 0, 11, 2, C.metal, { sides: 16 }));
+        f = f.concat(G.cyl(0, 42, 0, 2.5, 22, C.metal, { sides: 12 }));
+        for (var i = 0; i < 4; i++) {
+          var x = (i % 2 ? 1 : -1) * 15.5, z = (i < 2 ? -1 : 1) * 15.5;
+          f = f.concat(G.cyl(x, 40, z, 1.5, 1, '#1a1c1f', { sides: 8, lod: 1 }));
+        }
+        f = f.concat(G.box(0, 4, 21, 3 * P + 6, 6, 3, C.hdr));
+        return f;
+      }
+    },
+
+    a4988: mod({
+      name: 'A4988 stepper driver', w: 20, d: 15, color: '#1d5c3a',
+      rows: [{ names: ['EN', 'MS1', 'MS2', 'MS3', 'RST', 'SLP', 'STEP', 'DIR'], z: -5, step: P, cx: -1 },
+             { names: ['VMOT', 'GND2', '2B', '2A', '1A', '1B', 'VDD', 'GND'], z: 5, step: P, cx: -1 }],
+      deco: [{ t: 'box', x: 0, z: 0, w: 5, h: 1.4, d: 5, c: C.chip },
+             { t: 'box', x: 0, z: 0, w: 9, h: 3, d: 9, c: '#9aa0a6' }]
+    }),
+
+    tcs34725: mod({
+      name: 'TCS34725 colour sensor', w: 19, d: 16, color: C.pcbPurple,
+      rows: [{ names: ['VIN', '3V3', 'GND', 'SCL', 'SDA', 'INT', 'LED'], z: -5, step: P }],
+      deco: [{ t: 'box', x: 0, z: 3, w: 3.5, h: 1, d: 3.5, c: C.clear },
+             { t: 'box', x: 6, z: 3, w: 2.5, h: 1, d: 2, c: C.white }]
+    }),
+
+    hall: mod({
+      name: 'Hall effect sensor module', w: 16, d: 30, color: C.pcbBlue,
+      rows: [{ names: ['VCC', 'GND', 'DO'], z: -11, step: P }],
+      deco: [{ t: 'box', x: 0, z: 9, w: 4, h: 1.5, d: 3, c: '#1a1c1f' }]
+    }),
+
+    loadcell: {
+      name: 'Load cell, 5 kg bar', w: 80, d: 13, ex: 26,
+      pins: { RED: [-34, 7, 0], BLK: [-34, 7, 3], WHT: [-34, 7, -3], GRN: [-34, 7, 6] },
+      build: function () {
+        var f = G.box(0, 0, 0, 80, 12.7, 12.7, '#b9bdc2');
+        f = f.concat(G.cyl(-12, 6, 0, 5, 12.8, '#9aa0a6', { sides: 14 }));
+        f = f.concat(G.cyl(12, 6, 0, 5, 12.8, '#9aa0a6', { sides: 14 }));
+        f = f.concat(G.pad(2, 12.8, 0, 16, 9, '#d8d2c4'));
+        return f;
+      }
+    },
+
+    /* AA holders - a cell is 14.5 mm across and 50.5 mm long, and the
+       holder adds a couple of millimetres of plastic each way. */
+    batt2aa: (function () {
+      return {
+        name: '2x AA battery holder', w: 58, d: 34, ex: 0,
+        pins: { '+': [29, 8, -9], '-': [29, 8, 9] },
+        build: function () {
+          var f = G.box(0, 0, 0, 58, 6, 34, '#1a1c1f');
+          [-9, 9].forEach(function (z) {
+            f = f.concat(G.cylX(0, 13, z, 7.25, 50.5, '#2f3439', { sides: 14 }));
+            f = f.concat(G.pad(0, 20.4, z, 34, 9, '#c8ccd0'));
+            f = f.concat(G.cylX(-26, 13, z, 3, 2, C.metal, { sides: 10 }));
+          });
+          f = f.concat(G.box(29, 6, -9, 3, 3, 4, '#cf3b34'));
+          f = f.concat(G.box(29, 6, 9, 3, 3, 4, '#26262a'));
+          return f;
+        }
+      };
+    }()),
+
+    batt4aa: {
+      name: '4x AA battery holder', w: 58, d: 66, ex: 0,
+      pins: { '+': [29, 8, -24], '-': [29, 8, 24] },
+      build: function () {
+        var f = G.box(0, 0, 0, 58, 6, 66, '#1a1c1f');
+        [-24, -8, 8, 24].forEach(function (z) {
+          f = f.concat(G.cylX(0, 13, z, 7.25, 50.5, '#2f3439', { sides: 12 }));
+          f = f.concat(G.pad(0, 20.4, z, 34, 8, '#c8ccd0'));
+        });
+        f = f.concat(G.box(29, 6, -24, 3, 3, 4, '#cf3b34'));
+        f = f.concat(G.box(29, 6, 24, 3, 3, 4, '#26262a'));
+        return f;
+      }
+    },
+
     hx711: mod({
       name: 'HX711 load-cell amplifier', w: 34, d: 21, color: C.pcbRed,
       rows: [{ names: ['GND', 'DT', 'SCK', 'VCC'], z: -8, cx: 8 },

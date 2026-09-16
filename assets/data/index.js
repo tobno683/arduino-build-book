@@ -2,7 +2,7 @@
    index.js - GENERATED FILE, do not edit by hand.
    Rebuild with:  node tools/build-index.js
    A summary of every project so the home page and the catalogue can render
-   without loading 58 full build guides.
+   without loading 64 full build guides.
    ========================================================================== */
 window.AB = window.AB || {};
 
@@ -210,6 +210,27 @@ AB.index = [
     "cost": 22.7
   },
   {
+    "slug": "thermal-camera",
+    "title": "Thermal camera",
+    "cat": "camera",
+    "level": 2,
+    "time": "3 hours",
+    "solder": false,
+    "board": "ESP32",
+    "blurb": "Sixty-four pixels, which sounds useless until you point it at a wall and see exactly where the heat is escaping. It measures temperature per pixel, which a megapixel camera never will.",
+    "tags": [
+      "thermal",
+      "amg8833",
+      "infrared",
+      "interpolation",
+      "heat loss",
+      "no soldering",
+      "tft"
+    ],
+    "feature": false,
+    "cost": 45
+  },
+  {
     "slug": "timelapse-camera",
     "title": "Battery timelapse camera",
     "cat": "camera",
@@ -248,6 +269,27 @@ AB.index = [
     ],
     "feature": false,
     "cost": 21.5
+  },
+  {
+    "slug": "qr-scanner",
+    "title": "QR code scanner and access control",
+    "cat": "camera",
+    "level": 3,
+    "time": "4 hours",
+    "solder": false,
+    "board": "ESP32-CAM",
+    "blurb": "Reads a QR code off a phone screen or a printed card and opens a door, logs a visitor, or looks up a part. All of it on the board, with no network and no cloud service.",
+    "tags": [
+      "esp32-cam",
+      "qr code",
+      "quirc",
+      "access control",
+      "offline",
+      "reed-solomon",
+      "grayscale"
+    ],
+    "feature": false,
+    "cost": 28.94
   },
   {
     "slug": "esp32cam-wifi-camera",
@@ -1164,6 +1206,49 @@ AB.index = [
     "cost": 26.28
   },
   {
+    "slug": "letterbox-notifier",
+    "title": "Letterbox notifier",
+    "cat": "smart-home",
+    "level": 2,
+    "time": "3 hours",
+    "solder": true,
+    "board": "ESP8266",
+    "blurb": "Tells your phone when the post arrives. Genuinely useful if your letterbox is at the end of a drive, and the best small lesson in interrupt-driven deep sleep in this book.",
+    "tags": [
+      "deep sleep",
+      "reed switch",
+      "battery",
+      "notification",
+      "interrupt wake",
+      "esp8266",
+      "low power"
+    ],
+    "feature": false,
+    "cost": 15.64
+  },
+  {
+    "slug": "presence-detector",
+    "title": "mmWave presence sensor",
+    "cat": "smart-home",
+    "level": 2,
+    "time": "3 hours",
+    "solder": false,
+    "board": "ESP8266",
+    "blurb": "The reason your lights go off while you are sitting reading. A PIR sees movement; this sees a person breathing, and it costs four dollars.",
+    "tags": [
+      "mmwave",
+      "ld2410",
+      "presence",
+      "radar",
+      "occupancy",
+      "home assistant",
+      "no soldering",
+      "doppler"
+    ],
+    "feature": false,
+    "cost": 12.07
+  },
+  {
     "slug": "motion-activated-lights",
     "title": "Motion-activated cupboard light",
     "cat": "smart-home",
@@ -1224,6 +1309,49 @@ AB.index = [
     ],
     "feature": false,
     "cost": 10.14
+  },
+  {
+    "slug": "smart-thermostat",
+    "title": "Programmable thermostat",
+    "cat": "smart-home",
+    "level": 3,
+    "time": "5 hours",
+    "solder": true,
+    "board": "ESP32",
+    "blurb": "Replaces a dial on a wall with something that knows what day it is. The interesting part is not the relay - it is stopping the boiler cycling on and off every ninety seconds.",
+    "tags": [
+      "thermostat",
+      "heating",
+      "hysteresis",
+      "relay",
+      "schedule",
+      "mqtt",
+      "home assistant",
+      "ds18b20"
+    ],
+    "feature": false,
+    "cost": 28.41
+  },
+  {
+    "slug": "water-leak-alarm",
+    "title": "Water leak alarm and cutoff",
+    "cat": "smart-home",
+    "level": 3,
+    "time": "5 hours",
+    "solder": true,
+    "board": "ESP32",
+    "blurb": "Probes under the washing machine, the boiler and the sink. Water bridges the tracks, a valve shuts, and a notification arrives - before the ceiling comes down.",
+    "tags": [
+      "water leak",
+      "solenoid valve",
+      "alarm",
+      "mqtt",
+      "failsafe",
+      "corrosion",
+      "insurance"
+    ],
+    "feature": false,
+    "cost": 42.62
   },
   {
     "slug": "smart-plug-relay",

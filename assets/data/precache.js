@@ -6,7 +6,7 @@
    listed file, so the cache is replaced exactly when the content changes.
    ========================================================================== */
 self.AB_PRECACHE = {
-  version: "63e9208d8f17",
+  version: "2708e9586b23",
   core: [
     "./",
     "./index.html",
@@ -60,6 +60,7 @@ self.AB_PRECACHE = {
     "./assets/data/projects/jetson-orin-vision.js",
     "./assets/data/projects/kitchen-timer.js",
     "./assets/data/projects/led-matrix-sign.js",
+    "./assets/data/projects/letterbox-notifier.js",
     "./assets/data/projects/line-following-robot.js",
     "./assets/data/projects/lora-offgrid-messenger.js",
     "./assets/data/projects/lora-remote-sensor.js",
@@ -76,6 +77,8 @@ self.AB_PRECACHE = {
     "./assets/data/projects/oled-pong.js",
     "./assets/data/projects/pan-tilt-camera.js",
     "./assets/data/projects/parking-sensor.js",
+    "./assets/data/projects/presence-detector.js",
+    "./assets/data/projects/qr-scanner.js",
     "./assets/data/projects/reaction-timer.js",
     "./assets/data/projects/rfid-attendance-logger.js",
     "./assets/data/projects/rfid-door-lock.js",
@@ -84,8 +87,10 @@ self.AB_PRECACHE = {
     "./assets/data/projects/simon-says.js",
     "./assets/data/projects/smart-bike-light.js",
     "./assets/data/projects/smart-plug-relay.js",
+    "./assets/data/projects/smart-thermostat.js",
     "./assets/data/projects/solar-battery-logger.js",
     "./assets/data/projects/sound-reactive-led.js",
+    "./assets/data/projects/thermal-camera.js",
     "./assets/data/projects/timelapse-camera.js",
     "./assets/data/projects/tinyml-gesture-nano.js",
     "./assets/data/projects/tinyml-machine-listener.js",
@@ -93,6 +98,7 @@ self.AB_PRECACHE = {
     "./assets/data/projects/uno-q-voice-control.js",
     "./assets/data/projects/usb-power-meter.js",
     "./assets/data/projects/ventuno-q-sorter.js",
+    "./assets/data/projects/water-leak-alarm.js",
     "./assets/data/projects/word-clock.js"
   ]
 };
