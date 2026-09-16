@@ -42,6 +42,13 @@ AB.categories = [
     icon: '<rect x="4.5" y="8" width="15" height="10" rx="2.5"/><path d="M12 8V4.5M9.5 4.5h5"/><circle cx="9" cy="13" r="1.4"/><circle cx="15" cy="13" r="1.4"/><path d="M2.5 12v3M21.5 12v3"/>'
   },
   {
+    slug: 'drones',
+    name: 'Drones & Radio Control',
+    blurb: 'Brushless motors, electronic speed controllers and things that move fast enough to hurt. Thrust benches, rovers, gimbals, boats and - at the top - a flight controller you wrote yourself. The theme where the safety sections are not padding.',
+    learn: 'BLDC motors and ESCs, PWM and DShot, SBUS and CRSF, PID stabilisation, LiPo handling, failsafes and the law.',
+    icon: '<circle cx="12" cy="12" r="2.4"/><path d="M13.7 10.3 16.6 7.4M10.3 10.3 7.4 7.4M13.7 13.7l2.9 2.9M10.3 13.7l-2.9 2.9"/><circle cx="5.6" cy="5.6" r="2.3"/><circle cx="18.4" cy="5.6" r="2.3"/><circle cx="5.6" cy="18.4" r="2.3"/><circle cx="18.4" cy="18.4" r="2.3"/>'
+  },
+  {
     slug: 'display',
     name: 'Displays & Clocks',
     blurb: 'Screens that show something worth looking at. Word clocks, weather panels, retro segment displays, e-paper dashboards, tiny OLED status widgets and the classic Nixie-adjacent nonsense.',

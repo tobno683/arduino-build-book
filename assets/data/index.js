@@ -2,7 +2,7 @@
    index.js - GENERATED FILE, do not edit by hand.
    Rebuild with:  node tools/build-index.js
    A summary of every project so the home page and the catalogue can render
-   without loading 66 full build guides.
+   without loading 72 full build guides.
    ========================================================================== */
 window.AB = window.AB || {};
 
@@ -549,6 +549,139 @@ AB.index = [
     ],
     "feature": true,
     "cost": 63.84
+  },
+  {
+    "slug": "brushless-thrust-bench",
+    "title": "Brushless motor thrust bench",
+    "cat": "drones",
+    "level": 2,
+    "time": "5 hours",
+    "solder": true,
+    "board": "Nano",
+    "blurb": "Bolt a motor to a stand and measure what it actually produces - grams of thrust, amps, watts, grams per watt. The right first brushless project, because nothing is trying to fly away from you.",
+    "tags": [
+      "brushless",
+      "bldc",
+      "esc",
+      "thrust",
+      "load cell",
+      "hx711",
+      "calibration",
+      "lipo"
+    ],
+    "feature": false,
+    "cost": 131.65
+  },
+  {
+    "slug": "rc-receiver-decoder",
+    "title": "Decode an RC receiver",
+    "cat": "drones",
+    "level": 2,
+    "time": "4 hours",
+    "solder": false,
+    "board": "ESP32",
+    "blurb": "Take sixteen channels off a proper RC transmitter into your own code. The bridge between hobby radio gear and everything you build - and the project where failsafe stops being a word.",
+    "tags": [
+      "rc",
+      "sbus",
+      "crsf",
+      "ppm",
+      "expresslrs",
+      "receiver",
+      "failsafe",
+      "no soldering"
+    ],
+    "feature": false,
+    "cost": 83.14
+  },
+  {
+    "slug": "rc-rover-brushless",
+    "title": "Brushless RC rover",
+    "cat": "drones",
+    "level": 3,
+    "time": "8 hours",
+    "solder": true,
+    "board": "ESP32",
+    "blurb": "A fast ground vehicle using the same motor, ESC and radio as a quadcopter - with telemetry on the handset and a failsafe that means \"stop\" rather than \"fall\". The sensible middle step.",
+    "tags": [
+      "rc car",
+      "brushless",
+      "esc",
+      "crsf",
+      "telemetry",
+      "failsafe",
+      "traction",
+      "reverse"
+    ],
+    "feature": false,
+    "cost": 194.4
+  },
+  {
+    "slug": "rc-boat",
+    "title": "RC boat with a bilge alarm",
+    "cat": "drones",
+    "level": 3,
+    "time": "8 hours",
+    "solder": true,
+    "board": "ESP32",
+    "blurb": "A boat has two problems no other vehicle has: water gets in, and when it stops it drifts away rather than staying put. Both are solvable and both need designing for.",
+    "tags": [
+      "rc boat",
+      "brushed esc",
+      "waterproofing",
+      "bilge",
+      "failsafe",
+      "telemetry",
+      "rudder",
+      "flooding"
+    ],
+    "feature": false,
+    "cost": 189.27
+  },
+  {
+    "slug": "camera-gimbal",
+    "title": "Two-axis camera gimbal",
+    "cat": "drones",
+    "level": 3,
+    "time": "10 hours",
+    "solder": true,
+    "board": "ESP32",
+    "blurb": "A brushless motor holding a camera perfectly level while you walk. The same PID loop as a flight controller, at walking pace, with nothing that can fall on anyone.",
+    "tags": [
+      "gimbal",
+      "foc",
+      "simplefoc",
+      "bldc",
+      "as5600",
+      "pid",
+      "stabilisation",
+      "imu"
+    ],
+    "feature": false,
+    "cost": 102.25
+  },
+  {
+    "slug": "quadcopter-flight-controller",
+    "title": "Write your own flight controller",
+    "cat": "drones",
+    "level": 4,
+    "time": "20 hours, plus weeks of tuning",
+    "solder": true,
+    "board": "ESP32",
+    "blurb": "Three PID loops, an IMU and four motors. The most demanding project in this book, and the one where the honest advice is to buy a Betaflight board - with a real explanation of why you might build it anyway.",
+    "tags": [
+      "quadcopter",
+      "flight controller",
+      "pid",
+      "imu",
+      "mpu6050",
+      "complementary filter",
+      "crsf",
+      "betaflight",
+      "arming"
+    ],
+    "feature": true,
+    "cost": 323.24
   },
   {
     "slug": "desk-weather-station",

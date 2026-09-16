@@ -846,6 +846,118 @@ window.AB = window.AB || {};
       }
     },
 
+    /* --- brushless hardware ------------------------------------------
+       A 2207 motor is 27 mm across the bell and 32 mm tall with the
+       shaft. Three wires, no connector - you solder them. */
+    bldc: {
+      name: '2207 brushless motor', w: 28, d: 28, ex: 0,
+      pins: { A: [-5, 3, 14], B: [0, 3, 14], C: [5, 3, 14] },
+      build: function () {
+        var f = G.cyl(0, 0, 0, 14, 4, '#2b3138', { sides: 18 });     // base
+        f = f.concat(G.cyl(0, 4, 0, 13.5, 16, '#b4442e', { sides: 18, top: '#8f3524' }));
+        // the vents in the bell, which is what these actually look like
+        for (var i = 0; i < 9; i++) {
+          var a = i / 9 * Math.PI * 2;
+          f = f.concat(G.box(Math.cos(a) * 10, 19, Math.sin(a) * 10, 4, 1.2, 4, '#6f2a1c'));
+        }
+        f = f.concat(G.cyl(0, 20, 0, 2.5, 9, C.metal, { sides: 10 }));  // shaft
+        f = f.concat(G.cyl(0, 20, 0, 6, 2, '#c8ccd0', { sides: 12 }));  // prop nut seat
+        [-5, 0, 5].forEach(function (x, i) {
+          f = f.concat(G.box(x, 1, 14, 2, 2, 8, ['#cf3b34', '#26262a', '#d8d2c4'][i]));
+        });
+        return f;
+      }
+    },
+
+    /* A bare ESC: a small PCB in heatshrink with fat wires one end and
+       a servo lead the other. */
+    esc: {
+      name: '30 A brushless ESC', w: 26, d: 40, ex: 22,
+      pins: {
+        'B+': [-6, 3, -20], 'B-': [6, 3, -20],
+        A: [-8, 3, 20], B: [0, 3, 20], C: [8, 3, 20],
+        SIG: [-9, 4, 14], GND: [-4, 4, 14], BEC: [1, 4, 14]
+      },
+      build: function () {
+        var f = G.box(0, 0, 0, 26, 5, 40, '#141719', { top: '#1b1f22' });
+        f = f.concat(G.pad(0, 5.1, -6, 20, 16, '#2b3138'));
+        f = f.concat(G.box(0, 5, 8, 14, 3.5, 9, '#3a3f45'));      // the FETs
+        f = f.concat(G.cyl(-7, 5, -12, 4, 7, '#1d3552', { sides: 12 }));  // bulk cap
+        return f;
+      }
+    },
+
+    /* A 5 inch three-blade propeller, seen from above. */
+    prop5: {
+      name: '5 inch propeller', w: 127, d: 127, ex: 0,
+      pins: { HUB: [0, 4, 0] },
+      build: function () {
+        var f = G.cyl(0, 0, 0, 7, 5, '#2b3138', { sides: 12 });
+        for (var b = 0; b < 3; b++) {
+          var a = b / 3 * Math.PI * 2;
+          for (var seg = 0; seg < 6; seg++) {
+            var r = 9 + seg * 9;
+            var w = 13 - seg * 1.2;
+            f = f.concat(G.box(Math.cos(a) * r, 3.2 + seg * 0.15,
+                               Math.sin(a) * r, w, 1.1, w, '#cfd3d8', { lod: 1 }));
+          }
+        }
+        return f;
+      }
+    },
+
+    /* A 4S LiPo pack: a soft brick with an XT60 and a balance lead. */
+    lipo4s: {
+      name: '4S LiPo pack', w: 76, d: 36, ex: 0,
+      pins: { 'XT+': [-38, 10, -8], 'XT-': [-38, 10, 8], BAL: [-38, 16, 0] },
+      build: function () {
+        var f = G.box(0, 0, 0, 76, 30, 36, '#2a2f36', { top: '#343a42' });
+        f = f.concat(G.pad(0, 30.1, 0, 60, 26, '#b4662b'));
+        f = f.concat(G.box(-40, 6, 0, 8, 10, 16, '#f0d000'));      // XT60 body
+        f = f.concat(G.box(-44, 16, 0, 6, 2, 10, '#d8d2c4'));      // balance lead
+        return f;
+      }
+    },
+
+    /* A tiny ELRS receiver: a stamp-sized board with a wire antenna. */
+    rxelrs: mod({
+      name: 'ExpressLRS receiver', w: 14, d: 18, color: C.pcbBlack,
+      rows: [{ names: ['5V', 'GND', 'TX', 'RX'], z: -6, step: 2.0 }],
+      extraPins: [['ANT', 0, 3, 8]],
+      deco: [{ t: 'box', x: 0, z: 0, w: 7, h: 1.3, d: 7, c: C.chip },
+             { t: 'box', x: 0, z: 8, w: 1.4, h: 0.8, d: 14, c: '#d8d2c4' }]
+    }),
+
+    /* A quadcopter frame seen from above - the arms and the stack plate. */
+    quadframe: {
+      name: '5 inch quad frame', w: 210, d: 210, ex: 0,
+      pins: {
+        M1: [-75, 5, -75], M2: [75, 5, -75], M3: [75, 5, 75], M4: [-75, 5, 75],
+        STACK: [0, 5, 0]
+      },
+      build: function () {
+        var f = G.box(0, 0, 0, 60, 4, 70, '#1a1c1f', { top: '#26292d' });
+        // four arms, each a plate running out to a motor mount
+        [[-1, -1], [1, -1], [1, 1], [-1, 1]].forEach(function (d) {
+          for (var i = 0; i < 7; i++) {
+            var t = i / 6;
+            f = f.concat(G.box(d[0] * (25 + t * 52), 1, d[1] * (25 + t * 52),
+                               16, 4, 16, '#202326', { lod: 1 }));
+          }
+          f = f.concat(G.cyl(d[0] * 75, 4, d[1] * 75, 13, 3, '#2b2f34', { sides: 14 }));
+        });
+        f = f.concat(G.pad(0, 4.2, 0, 34, 34, '#3a3f45'));
+        return f;
+      }
+    },
+
+    as5600: mod({
+      name: 'AS5600 magnetic encoder', w: 18, d: 20, color: C.pcbPurple,
+      rows: [{ names: ['VCC', 'GND', 'SDA', 'SCL', 'DIR', 'OUT'], z: -7, step: 2.0 }],
+      deco: [{ t: 'box', x: 0, z: 3, w: 4.5, h: 1.1, d: 4.5, c: C.chip },
+             { t: 'cyl', x: 0, z: 3, r: 1.2, h: 1.4, c: '#8d9096', sides: 8 }]
+    }),
+
     hx711: mod({
       name: 'HX711 load-cell amplifier', w: 34, d: 21, color: C.pcbRed,
       rows: [{ names: ['GND', 'DT', 'SCK', 'VCC'], z: -8, cx: 8 },
