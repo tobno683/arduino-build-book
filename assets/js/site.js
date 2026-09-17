@@ -48,9 +48,11 @@ AB.theme = {
     document.documentElement.setAttribute('data-theme', v);
   },
   init: function () {
-    var t = AB.theme.get();
-    if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    document.documentElement.setAttribute('data-theme', t);
+    /* Dark unless the reader has chosen otherwise on this site. The OS
+       preference is deliberately NOT consulted - this book is mostly read
+       in a workshop at night, and a light-themed OS should not override
+       that. The toggle stores a choice, and a stored choice always wins. */
+    document.documentElement.setAttribute('data-theme', AB.theme.get() || 'dark');
   },
   toggle: function () {
     AB.theme.set(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
