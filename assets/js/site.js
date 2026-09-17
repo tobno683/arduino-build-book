@@ -38,6 +38,59 @@ AB.root = function () {
   return /\/basics\//.test(location.pathname) ? '../' : '';
 };
 
+/* --- language ------------------------------------------------------------
+   English is the source and the lookup key, so a string with no Swedish
+   entry renders in English rather than as a missing key. Changing
+   language reloads, because every page builds its content from JS at
+   load time and re-rendering all of it in place would be far more code
+   for the same result. */
+AB.lang = {
+  get: function () {
+    try {
+      var v = localStorage.getItem('ab-lang');
+      if (v) return v;
+    } catch (e) {}
+    // No choice stored: follow the browser, the same way regions do.
+    try { return /^sv/i.test(navigator.language || '') ? 'sv' : 'en'; } catch (e) {}
+    return 'en';
+  },
+  set: function (v) {
+    try { localStorage.setItem('ab-lang', v); } catch (e) {}
+    location.reload();
+  },
+  init: function () {
+    document.documentElement.setAttribute('lang', AB.lang.get());
+  }
+};
+
+/* Walk static markup and translate anything carrying data-i18n. Lets
+   hand-written HTML be translated in place rather than being moved into
+   a data file. Use data-i18n-html where the string contains markup. */
+AB.applyI18n = function (root) {
+  if (AB.lang.get() === 'en') return;
+  (root || document).querySelectorAll('[data-i18n]').forEach(function (el) {
+    var key = el.getAttribute('data-i18n') || el.textContent.trim();
+    el.textContent = AB.t(key);
+  });
+  (root || document).querySelectorAll('[data-i18n-html]').forEach(function (el) {
+    el.innerHTML = AB.t(el.getAttribute('data-i18n-html'));
+  });
+  (root || document).querySelectorAll('[data-i18n-ph]').forEach(function (el) {
+    el.setAttribute('placeholder', AB.t(el.getAttribute('data-i18n-ph')));
+  });
+};
+
+/* Translate. Keyed on the English string - see assets/data/i18n.js. */
+AB.t = function (s) {
+  var d = AB.i18n && AB.i18n[AB.lang.get()];
+  if (!d) return s;
+  var hit = d[s];
+  if (hit) return hit;
+  // Allow a 'context|String' key, falling back to the plain string.
+  var bar = s.indexOf('|');
+  return bar > -1 ? (d[s] || s.slice(bar + 1)) : s;
+};
+
 /* --- theme -------------------------------------------------------------- */
 AB.theme = {
   get: function () {
@@ -75,6 +128,9 @@ AB.NAV = [
 
 AB.chrome = function (current) {
   var r = AB.root();
+  // With two languages the picker is a toggle; this is the one it goes to.
+  var here = AB.lang.get();
+  var other = AB.languages.filter(function (l) { return l.code !== here; })[0] || AB.languages[0];
   var head = document.createElement('header');
   head.className = 'site-head';
   head.innerHTML =
@@ -89,31 +145,46 @@ AB.chrome = function (current) {
       '<nav class="nav" id="ab-nav">' +
         AB.NAV.map(function (n) {
           var on = current && n[0].indexOf(current) > -1;
-          return '<a href="' + r + n[0] + '"' + (on ? ' aria-current="page"' : '') + '>' + n[1] + '</a>';
+          return '<a href="' + r + n[0] + '"' + (on ? ' aria-current="page"' : '') + '>' +
+                 AB.esc(AB.t(n[1])) + '</a>';
         }).join('') +
       '</nav>' +
-      '<button class="icon-btn nav-toggle" id="ab-burger" aria-label="Menu" aria-expanded="false">' +
+      '<button class="icon-btn nav-toggle" id="ab-burger" aria-label="' + AB.esc(AB.t('Menu')) + '" aria-expanded="false">' +
         '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>' +
       '</button>' +
       '<button class="icon-btn pwa-only" id="ab-offline" hidden ' +
-        'aria-label="Save the whole book for offline use" title="Save offline">' +
+        'aria-label="' + AB.esc(AB.t('Save the whole book for offline use')) +
+        '" title="' + AB.esc(AB.t('Save offline')) + '">' +
         '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' +
         '<path d="M12 3v11m0 0 4-4m-4 4-4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>' +
       '</button>' +
       '<button class="icon-btn pwa-only" id="ab-install" hidden ' +
-        'aria-label="Install the Build Book as an app" title="Install app">' +
+        'aria-label="' + AB.esc(AB.t('Install the Build Book as an app')) +
+        '" title="' + AB.esc(AB.t('Install app')) + '">' +
         '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' +
         '<rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M10.5 18.5h3"/></svg>' +
       '</button>' +
-      '<button class="icon-btn" id="ab-theme" aria-label="Switch light or dark">' +
+      '<button class="icon-btn lang-btn" id="ab-lang" aria-label="' + AB.esc(AB.t('Language')) +
+        '" title="' + AB.esc(other.code === 'sv' ? AB.t('Switch to Svenska') : AB.t('Switch to English')) + '">' +
+        '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">' +
+        '<circle cx="12" cy="12" r="9"/><path d="M3 12h18"/>' +
+        '<path d="M12 3a15 15 0 0 1 0 18a15 15 0 0 1 0-18z"/></svg>' +
+        '<span>' + AB.esc(other.short) + '</span>' +
+      '</button>' +
+      '<button class="icon-btn" id="ab-theme" aria-label="' + AB.esc(AB.t('Switch light or dark')) + '">' +
         '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">' +
         '<path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7z"/></svg>' +
       '</button>' +
     '</div>';
   document.body.insertBefore(head, document.body.firstChild);
+  AB.lang.init();
+  AB.applyI18n();
   AB.pwa.init();
 
   document.getElementById('ab-theme').addEventListener('click', AB.theme.toggle);
+  document.getElementById('ab-lang').addEventListener('click', function () {
+    AB.lang.set(other.code);
+  });
   var burger = document.getElementById('ab-burger');
   var nav = document.getElementById('ab-nav');
 
@@ -641,4 +712,28 @@ AB.autoToc = function () {
 };
 
 /* --- boot --------------------------------------------------------------- */
+/* Merge every `sv` block over its object, once, before anything renders.
+   Doing it here rather than at each call site means all the existing
+   `cat.name` and `lvl.name` reads keep working untouched - they simply
+   find Swedish in them. */
+AB.loc = function (o) {
+  if (!o || !o.sv || AB.lang.get() !== 'sv') return o;
+  var out = {};
+  Object.keys(o).forEach(function (k) { out[k] = o[k]; });
+  Object.keys(o.sv).forEach(function (k) { out[k] = o.sv[k]; });
+  return out;
+};
+
+(function localiseData() {
+  if (AB.lang.get() !== 'sv') return;
+
+  if (AB.categories) {
+    AB.categories = AB.categories.map(AB.loc);
+    // catIndex points at the old objects, so it has to be rebuilt.
+    AB.catIndex = AB.categories.reduce(function (m, c) { m[c.slug] = c; return m; }, {});
+  }
+  if (AB.levels) AB.levels = AB.levels.map(AB.loc);
+  if (AB.boards) AB.boards = AB.boards.map(AB.loc);
+}());
+
 AB.theme.init();

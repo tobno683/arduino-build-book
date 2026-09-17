@@ -35,43 +35,43 @@
 
   <div class="toolbar">
     <div class="field" style="flex:2 1 280px">
-      <label for="q">Search</label>
+      <label for="q" data-i18n>Search</label>
       <input id="q" type="search" placeholder="camera, rfid, plant, clock, esp32&hellip;" autocomplete="off">
     </div>
     <div class="field">
-      <label for="f-cat">Theme</label>
+      <label for="f-cat" data-i18n>Theme</label>
       <select id="f-cat"></select>
     </div>
     <div class="field">
-      <label for="f-board">Board</label>
+      <label for="f-board" data-i18n>Board</label>
       <select id="f-board"></select>
     </div>
     <div class="field">
-      <label for="f-lvl">Level</label>
+      <label for="f-lvl" data-i18n>Level</label>
       <select id="f-lvl">
-        <option value="">Any</option>
-        <option value="1">Beginner</option>
-        <option value="2">Easy</option>
-        <option value="3">Intermediate</option>
-        <option value="4">Advanced</option>
-        <option value="5">Expert</option>
+        <option value="" data-i18n>Any</option>
+        <option value="1" data-i18n>Beginner</option>
+        <option value="2" data-i18n>Easy</option>
+        <option value="3" data-i18n>Intermediate</option>
+        <option value="4" data-i18n>Advanced</option>
+        <option value="5" data-i18n>Expert</option>
       </select>
     </div>
     <div class="field">
-      <label for="f-cost">Budget</label>
+      <label for="f-cost" data-i18n>Budget</label>
       <select id="f-cost">
-        <option value="">Any</option>
-        <option value="15">Under $15</option>
-        <option value="30">Under $30</option>
-        <option value="60">Under $60</option>
+        <option value="" data-i18n>Any</option>
+        <option value="15" data-i18n>Under $15</option>
+        <option value="30" data-i18n>Under $30</option>
+        <option value="60" data-i18n>Under $60</option>
       </select>
     </div>
     <div class="field" style="flex:0 1 auto">
-      <label for="f-sol">Soldering</label>
+      <label for="f-sol" data-i18n>Soldering</label>
       <select id="f-sol">
-        <option value="">Either</option>
-        <option value="no">None needed</option>
-        <option value="yes">Yes</option>
+        <option value="" data-i18n>Either</option>
+        <option value="no" data-i18n>None needed</option>
+        <option value="yes" data-i18n>Yes</option>
       </select>
     </div>
   </div>
@@ -84,6 +84,7 @@
 <script src="assets/data/parts.js"></script>
 <script src="assets/data/categories.js"></script>
 <script src="assets/data/index.js"></script>
+<script src="assets/data/i18n.js"></script>
 <script src="assets/js/site.js"></script>
 <script>
 (function () {
@@ -95,7 +96,7 @@
       fl = document.getElementById('f-lvl'), fq = document.getElementById('f-cost'),
       fs = document.getElementById('f-sol');
 
-  fc.innerHTML = '<option value="">All themes</option>' + AB.categories.map(function (c) {
+  fc.innerHTML = '<option value="" data-i18n>All themes</option>' + AB.categories.map(function (c) {
     return '<option value="' + c.slug + '">' + AB.esc(c.name) + '</option>';
   }).join('');
 
@@ -112,7 +113,7 @@
     return boardCount[b] - boardCount[a] || AB.boardName(a).localeCompare(AB.boardName(b));
   });
 
-  fb.innerHTML = '<option value="">Any board</option>' + boardIds.map(function (b) {
+  fb.innerHTML = '<option value="" data-i18n>Any board</option>' + boardIds.map(function (b) {
     return '<option value="' + b + '">' + AB.esc(AB.boardName(b)) +
            ' (' + boardCount[b] + ')</option>';
   }).join('');

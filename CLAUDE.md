@@ -29,6 +29,7 @@ assets/data/projects/*.js  one file per project, one AB.addProject() call each
 assets/data/news.js      the news shelf - new and upcoming boards
 assets/data/boards.js    what each board is for - one entry per Board part
 assets/data/drones.js    drone reference - classes, frames, pitfalls. Not projects.
+assets/data/i18n.js      Swedish UI strings, keyed on the English source string
 assets/data/index.js     GENERATED. Never hand-edit.
 ```
 
@@ -73,6 +74,13 @@ House conventions:
 - **`build-index.js` actually draws every 3D component** a project uses, calling `build(it.opt || {})` the
   way the renderer does. Checking pin names alone missed a component whose `build` was written to the wrong
   contract - it passed every name check and then threw in the browser.
+- **Swedish is keyed on the English string.** `AB.t('Home')` gives `Hem`, and a string with no entry falls
+  through to English rather than showing a bare key - which is what makes translating a piece at a time
+  survivable. Static markup uses `data-i18n`. Data objects carry an optional `sv: {}` block which `AB.loc()`
+  merges over the top at load, so every existing `cat.name` read keeps working. A project's `sv` block must
+  carry at least `title` and `blurb`, and must NOT translate `build`, `bom`, `tools` or `code` - pin names and
+  part ids are the same in both languages and translating them breaks the sketch. `build-index.js` enforces
+  both and prints guide coverage on every run.
 - **Wire colours mean the same thing everywhere** — red power, black ground, brown load/high-current,
   everything else signal. Defined in `AB.wireColors` / `AB.wireLegend`.
 - **`own: true` on a BOM line** means shared stock you buy once (jumper wires, resistor kits). It is excluded

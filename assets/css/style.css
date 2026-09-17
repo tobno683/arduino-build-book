@@ -255,6 +255,11 @@ ul.gotchas li{margin-bottom:6px}
   .board-pros{grid-template-columns:1fr}
 }
 
+/* The language toggle is an icon button with a two-letter label, so it
+   needs to be wider than the square ones next to it. */
+.lang-btn{width:auto;gap:4px;padding:0 8px}
+.lang-btn span{font-family:var(--mono);font-size:.68rem;font-weight:600;letter-spacing:.06em}
+
 /* --- buttons ------------------------------------------------------------ */
 .btn{
   display:inline-flex;align-items:center;gap:8px;cursor:pointer;

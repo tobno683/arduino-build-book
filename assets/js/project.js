@@ -15,9 +15,10 @@ AB.addProject = function (p) { AB.projects.push(p); };
   var secs = [];
   function section(id, title, html) {
     if (!html) return '';
-    secs.push({ id: id, title: title });
+    var t = AB.t(title);
+    secs.push({ id: id, title: t });
     return '<section id="' + id + '"><h2><span class="num">' + String(secs.length).padStart(2, '0') +
-           '</span>' + AB.esc(title) + '</h2>' + html + '</section>';
+           '</span>' + AB.esc(t) + '</h2>' + html + '</section>';
   }
   function steps(list) {
     if (!list || !list.length) return '';
@@ -160,6 +161,22 @@ AB.addProject = function (p) { AB.projects.push(p); };
       return;
     }
     secs = [];
+
+    /* If this guide has been translated, swap the Swedish text in over
+       the top. Everything downstream then renders without knowing or
+       caring which language it is in. */
+    var untranslated = false;
+    if (AB.lang.get() === 'sv') {
+      if (p.sv) {
+        var merged = {};
+        Object.keys(p).forEach(function (k) { merged[k] = p[k]; });
+        Object.keys(p.sv).forEach(function (k) { merged[k] = p.sv[k]; });
+        p = merged;
+      } else {
+        untranslated = true;
+      }
+    }
+
     document.title = p.title + ' — The Build Book';
     var md = document.querySelector('meta[name="description"]');
     if (md) md.setAttribute('content', p.blurb);
@@ -170,9 +187,17 @@ AB.addProject = function (p) { AB.projects.push(p); };
 
     var head =
       '<div class="proj-head"><div class="wrap">' +
-        '<div class="crumbs"><a href="index.html">Home</a> / <a href="projects.html">Projects</a> / ' +
+        '<div class="crumbs"><a href="index.html">' + AB.esc(AB.t('Home')) + '</a> / <a href="projects.html">' +
+        AB.esc(AB.t('Projects')) + '</a> / ' +
         '<a href="projects.html?cat=' + cat.slug + '">' + AB.esc(cat.name) + '</a></div>' +
         '<h1>' + AB.esc(p.title) + '</h1>' +
+        (untranslated
+          ? '<div class="note warn" style="margin-top:16px"><span class="t">' +
+            AB.esc(AB.t('This guide has not been translated yet')) + '</span><p>' +
+            AB.esc(AB.t('The page furniture is in Swedish but the guide itself is still in English. ' +
+                        'Translating 102 guides is ongoing work and this one has not been reached yet.')) +
+            '</p></div>'
+          : '') +
         '<p class="lede">' + AB.esc(p.blurb) + '</p>' +
         '<div class="spec-row">' +
           '<div class="spec"><span class="k">Cost</span><span class="v">' + AB.usd(cost) + '</span></div>' +

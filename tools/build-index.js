@@ -197,6 +197,27 @@ Object.keys(AB.regions).forEach(regionId => {
 });
 
 /* ==========================================================================
+   Swedish project blocks. A half-translated guide reads worse than an
+   English one, so a `sv` block has to carry at least the parts a reader
+   sees first.
+   ========================================================================== */
+AB.projects.forEach(p => {
+  if (!p.sv) return;
+  const where = `${p.slug}.js: sv block`;
+  ['title', 'blurb'].forEach(k => {
+    if (!p.sv[k]) errors.push(`${where}: missing "${k}" - it is the first thing a reader sees`);
+  });
+  Object.keys(p.sv).forEach(k => {
+    if (!(k in p)) warnings.push(`${where}: translates "${k}", which the English guide does not have`);
+  });
+  /* Code, pin names and part ids are identical in both languages, and
+     translating them would break the sketch or the BOM. */
+  ['build', 'bom', 'tools', 'code', 'slug', 'cat', 'level'].forEach(k => {
+    if (p.sv[k]) errors.push(`${where}: must not translate "${k}"`);
+  });
+});
+
+/* ==========================================================================
    The drone guide. It is reference rather than a project, so the checks
    are lighter - but a class with no downside listed is an advertisement,
    and a pitfall with no fix is just a complaint.
@@ -448,6 +469,7 @@ function writePrecache(projects) {
     './assets/data/news.js',
     './assets/data/boards.js',
     './assets/data/drones.js',
+    './assets/data/i18n.js',
     './assets/data/index.js',
     './assets/favicon.svg',
     './assets/icons/icon-192.png',
@@ -504,5 +526,12 @@ self.AB_PRECACHE = {
     .filter(u => u !== './')
     .reduce((t, u) => t + fs.statSync(path.join(ROOT, u.replace(/^\.\//, ''))).size, 0) / 1024;
   console.log(`News shelf - ${(AB.news || []).length} items, last checked ${AB.newsChecked}.`);
+
+  /* Translation coverage. The UI is fully translated; the guides are
+     400,000 words and are being done in batches, so the remaining count
+     is worth printing on every build rather than being forgotten. */
+  const translated = projects.filter(p => p.sv).length;
+  const pct = Math.round(translated / projects.length * 100);
+  console.log(`Swedish - UI complete, ${translated}/${projects.length} guides (${pct}%).`);
   console.log(`Wrote assets/data/precache.js - ${core.length} core + ${guides.length} guides, ${kb.toFixed(0)} KB, version ${version}.`);
 }

@@ -10,6 +10,75 @@ board: 'Uno',
 tags: ['leds', 'button', 'arrays', 'random', 'no soldering', 'first project', 'board games'],
 blurb: 'Seven LEDs laid out like a real die face, a tumble animation, and a statistics mode that shows whether your random numbers are actually fair.',
 
+/* --- Swedish -----------------------------------------------------------
+   Anything present here replaces the English above when the reader is in
+   Swedish; anything missing falls back to English. Code, part ids and
+   pin names are deliberately NOT translated - they are the same in both
+   languages and translating them would break the sketch.
+   --------------------------------------------------------------------- */
+sv: {
+title: 'Elektronisk tärning',
+blurb: 'Sju lysdioder utlagda som en riktig tärning, en rullande animation, och ett statistikläge som visar om dina slumptal faktiskt är rättvisa.',
+time: '45 minuter',
+
+skills: ['Vektorer och bitmönster', 'Slumptal och fröning', 'Avstudsning', 'Animationstiming', 'EEPROM-räknare'],
+
+intro: `
+<p>Sju lysdioder i tärningens mönster, en knapp och en Arduino. Det låter enkelt, och det är det - men det är
+ett av de bästa andra projekten som finns, eftersom det innehåller fyra saker varje senare projekt behöver:
+bitmönster i vektorer, avstudsning av en knapp, timing utan <code>delay()</code>, och slumptal som faktiskt är
+slumpmässiga.</p>
+<p>Statistikläget är det som gör det intressant. Det räknar varje slag i EEPROM och blinkar tillbaka
+fördelningen. Efter några hundra slag ser du om din tärning är rättvis - och första gången du kör den utan
+ordentlig fröning ser du att den inte är det.</p>`,
+
+what: [
+  'Slå en tärning med ett tryck: en kort rullande animation, sedan ett ansikte som står still.',
+  'Slå två tärningar med ett långt tryck, visade efter varandra med summan på prickarna.',
+  'Räkna varje slag i EEPROM och blinka tillbaka fördelningen på begäran.',
+  'Fröa sig själv från din egen reaktionstid, så att det inte blir samma sekvens vid varje start.',
+  'Drivas från en USB-laddare eller ett batteri och stå på bordet under ett brädspel.'
+],
+
+trouble: [
+  { q: 'En prick tänds aldrig',
+    a: `Lysdioden sitter bakvänd, eller så är motståndet inte anslutet. Det långa benet går mot motståndet och
+    Arduino-stiftet. En bakvänd lysdiod tar ingen skada - den lyser bara inte.` },
+  { q: 'Fel prickar tänds för varje siffra',
+    a: `Bitmönstren i vektorn stämmer inte med hur du kopplade lysdioderna. Enklast är att ändra vektorn
+    snarare än att koppla om - skriv ut vilket stift som styr vilken prick och rätta mönstren mot det.` },
+  { q: 'Alla prickar lyser svagt, och svagare när fler är tända',
+    a: `Du driver dem genom ett gemensamt motstånd. Varje lysdiod behöver sitt eget, annars delar de på
+    strömmen och ljusstyrkan beror på hur många som lyser.` },
+  { q: 'Samma slagsekvens efter varje omstart',
+    a: `<code>random()</code> på en Arduino är förutsägbar om den inte fröas från något oförutsägbart. Att läsa
+    ett oanslutet analogt stift fungerar, men bäst är att fröa från hur länge du höll knappen - det är
+    verkligen slumpmässigt.` },
+  { q: 'Knappen ger två slag per tryck',
+    a: `Kontaktstuds. En mekanisk knapp studsar i någon millisekund och koden ser flera tryck. Ignorera nya
+    tryck inom 25 ms.` },
+  { q: 'Långt tryck registreras aldrig',
+    a: `Tröskeln är för lång, eller så nollställs tidtagningen av studsfiltret. Skriv ut hur länge knappen
+    faktiskt hölls nere och justera därefter.` },
+  { q: 'Statistiken visar 65535 på ett nytt kort',
+    a: `Oskrivet EEPROM är 0xFF överallt, vilket blir 65535 som heltal. Nollställ räknarna första gången, och
+    skriv ett litet magiskt tal bredvid dem så att koden vet att de har initierats.` },
+  { q: 'Summern klickar i stället för att ticka',
+    a: `Aktiv summer i stället för passiv. En aktiv har en egen oscillator, spelar en fast ton och struntar i
+    frekvensen du skickar.` }
+],
+
+next: `
+<ul>
+  <li><strong>Slå tusen gånger och titta på fördelningen.</strong> Det är den verkliga behållningen - du får se
+  med egna ögon om din fröning duger.</li>
+  <li><strong>Fler tärningar</strong>, eller en tjugosidig. Mönstervektorn växer, resten av koden gör det
+  knappt.</li>
+  <li><strong>Bygg in det i en låda</strong> med en stor knapp ovanpå. Det är versionen som faktiskt ligger
+  framme på spelbordet.</li>
+</ul>`
+},
+
 skills: ['Arrays and bit patterns', 'Randomness and seeding', 'Debouncing', 'Animation timing', 'EEPROM counters'],
 
 intro: `
