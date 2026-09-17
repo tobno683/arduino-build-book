@@ -6,7 +6,7 @@
    listed file, so the cache is replaced exactly when the content changes.
    ========================================================================== */
 self.AB_PRECACHE = {
-  version: "bccf496af4dc",
+  version: "c3c004947e44",
   core: [
     "./",
     "./index.html",
@@ -67,6 +67,7 @@ self.AB_PRECACHE = {
     "./assets/data/projects/fridge-freezer-logger.js",
     "./assets/data/projects/gps-bike-computer.js",
     "./assets/data/projects/gps-lora-tracker.js",
+    "./assets/data/projects/greenhouse-frost-alarm.js",
     "./assets/data/projects/gsm-sms-alarm.js",
     "./assets/data/projects/hc05-bluetooth-control.js",
     "./assets/data/projects/infinity-mirror.js",
@@ -92,6 +93,7 @@ self.AB_PRECACHE = {
     "./assets/data/projects/nbiot-field-sensor.js",
     "./assets/data/projects/nfc-jukebox.js",
     "./assets/data/projects/nixie-clock.js",
+    "./assets/data/projects/noise-level-monitor.js",
     "./assets/data/projects/nrf24-sensor-link.js",
     "./assets/data/projects/obstacle-avoiding-robot.js",
     "./assets/data/projects/oled-pong.js",
@@ -100,6 +102,7 @@ self.AB_PRECACHE = {
     "./assets/data/projects/presence-detector.js",
     "./assets/data/projects/qr-scanner.js",
     "./assets/data/projects/quadcopter-flight-controller.js",
+    "./assets/data/projects/rain-wind-station.js",
     "./assets/data/projects/rc-boat.js",
     "./assets/data/projects/rc-receiver-decoder.js",
     "./assets/data/projects/rc-rover-brushless.js",

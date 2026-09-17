@@ -2,7 +2,7 @@
    index.js - GENERATED FILE, do not edit by hand.
    Rebuild with:  node tools/build-index.js
    A summary of every project so the home page and the catalogue can render
-   without loading 91 full build guides.
+   without loading 94 full build guides.
    ========================================================================== */
 window.AB = window.AB || {};
 
@@ -1206,6 +1206,32 @@ AB.index = [
     ]
   },
   {
+    "slug": "greenhouse-frost-alarm",
+    "title": "Greenhouse frost alarm",
+    "cat": "environment",
+    "level": 2,
+    "time": "4 hours",
+    "solder": true,
+    "board": "ESP32",
+    "blurb": "Wakes you at 2 am when the greenhouse is heading for freezing - an hour before it gets there. Reporting frost is useless; by then it has already happened. This predicts it, and the physics for doing that is genuinely interesting.",
+    "tags": [
+      "frost",
+      "greenhouse",
+      "dew point",
+      "radiative cooling",
+      "prediction",
+      "lora",
+      "deep sleep",
+      "ds18b20"
+    ],
+    "feature": false,
+    "cost": 58.42,
+    "boards": [
+      "esp32",
+      "nano"
+    ]
+  },
+  {
     "slug": "fridge-freezer-logger",
     "title": "Fridge and freezer logger",
     "cat": "environment",
@@ -1249,6 +1275,56 @@ AB.index = [
     ],
     "feature": false,
     "cost": 41.95,
+    "boards": [
+      "esp32"
+    ]
+  },
+  {
+    "slug": "noise-level-monitor",
+    "title": "Noise level monitor",
+    "cat": "environment",
+    "level": 3,
+    "time": "5 hours",
+    "solder": true,
+    "board": "ESP32",
+    "blurb": "Logs how loud it actually is, in dB(A), all day. Useful for a noise complaint, a workshop, or a nursery - and it is the clearest lesson in the book that a number with units can still be meaningless.",
+    "tags": [
+      "sound level",
+      "dba",
+      "a-weighting",
+      "i2s",
+      "inmp441",
+      "rms",
+      "calibration",
+      "logging"
+    ],
+    "feature": false,
+    "cost": 25,
+    "boards": [
+      "esp32"
+    ]
+  },
+  {
+    "slug": "rain-wind-station",
+    "title": "Rain gauge and wind station",
+    "cat": "environment",
+    "level": 3,
+    "time": "7 hours",
+    "solder": true,
+    "board": "ESP32",
+    "blurb": "A tipping bucket and a spinning cup, counting pulses in the rain for years at a time. The hardware is two reed switches. Everything difficult is about counting them correctly and surviving outdoors.",
+    "tags": [
+      "weather",
+      "rain gauge",
+      "anemometer",
+      "reed switch",
+      "interrupts",
+      "debounce",
+      "deep sleep",
+      "outdoor"
+    ],
+    "feature": false,
+    "cost": 87.65,
     "boards": [
       "esp32"
     ]
