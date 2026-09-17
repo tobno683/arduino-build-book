@@ -574,6 +574,14 @@ window.AB = window.AB || {};
 
     /* IN-12 nixie: a glass envelope on a small socket board. The cathode
        pins are real - each digit is its own wire back to the driver. */
+    i2sdac: mod({
+      name: 'PCM5102A I2S DAC', w: 34, d: 24, color: C.pcbBlue,
+      rows: [{ names: ['VCC', 'GND', 'BCK', 'DIN', 'LCK', 'SCK'], z: -8, step: 5.2 },
+             { names: ['LOUT', 'ROUT', 'AGND'], z: 9, step: 7 }],
+      deco: [{ t: 'box', x: -4, z: 2, w: 9, h: 2, d: 9, c: C.chip },
+             { t: 'cyl', x: 10, z: 2, r: 3, h: 5, c: '#1b1f26', sides: 12 }]
+    }),
+
     ssr: mod({
       name: 'Solid state relay 25 A', w: 58, d: 45, color: '#0e1114', h: 3,
       rows: [{ names: ['IN+', 'IN-'], z: 17, step: 11, flush: true },

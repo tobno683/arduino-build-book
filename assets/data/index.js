@@ -2,7 +2,7 @@
    index.js - GENERATED FILE, do not edit by hand.
    Rebuild with:  node tools/build-index.js
    A summary of every project so the home page and the catalogue can render
-   without loading 89 full build guides.
+   without loading 91 full build guides.
    ========================================================================== */
 window.AB = window.AB || {};
 
@@ -416,6 +416,56 @@ AB.index = [
     "cost": 25.97,
     "boards": [
       "nano"
+    ]
+  },
+  {
+    "slug": "midi-controller",
+    "title": "USB MIDI control surface",
+    "cat": "audio",
+    "level": 2,
+    "time": "5 hours",
+    "solder": true,
+    "board": "Pro Micro",
+    "blurb": "Eight knobs and eight buttons that any music software recognises the moment you plug them in. No drivers, no configuration - and the real work is stopping cheap potentiometers from sending a stream of nonsense.",
+    "tags": [
+      "midi",
+      "usb hid",
+      "pro micro",
+      "32u4",
+      "potentiometer",
+      "hysteresis",
+      "debounce",
+      "music"
+    ],
+    "feature": false,
+    "cost": 11.91,
+    "boards": [
+      "pro-micro"
+    ]
+  },
+  {
+    "slug": "internet-radio",
+    "title": "Internet radio with a real knob",
+    "cat": "audio",
+    "level": 3,
+    "time": "6 hours",
+    "solder": true,
+    "board": "ESP32",
+    "blurb": "Thousands of stations, one satisfying knob, and no app. The interesting engineering is the buffer: audio has to arrive without gaps forever, on a chip with less RAM than a single second of uncompressed sound.",
+    "tags": [
+      "esp32",
+      "i2s",
+      "streaming",
+      "mp3",
+      "dac",
+      "buffering",
+      "freertos",
+      "psram"
+    ],
+    "feature": false,
+    "cost": 28.85,
+    "boards": [
+      "esp32"
     ]
   },
   {
