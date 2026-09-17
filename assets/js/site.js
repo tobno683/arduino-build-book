@@ -111,10 +111,33 @@ AB.chrome = function (current) {
 
   document.getElementById('ab-theme').addEventListener('click', AB.theme.toggle);
   var burger = document.getElementById('ab-burger');
-  burger.addEventListener('click', function () {
-    var nav = document.getElementById('ab-nav');
-    var open = nav.classList.toggle('open');
+  var nav = document.getElementById('ab-nav');
+
+  function setNav(open) {
+    nav.classList.toggle('open', open);
     burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+
+  burger.addEventListener('click', function (e) {
+    e.stopPropagation();           // or the document handler closes it again
+    setNav(!nav.classList.contains('open'));
+  });
+
+  /* An open menu covers the page, so anything outside it should dismiss it
+     rather than needing a second trip to the burger. Tapping a link inside
+     closes it too: same-page anchors would otherwise leave it hanging open
+     over the thing you just navigated to. */
+  document.addEventListener('click', function (e) {
+    if (!nav.classList.contains('open')) return;
+    if (nav.contains(e.target) && !e.target.closest('a')) return;
+    setNav(false);
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && nav.classList.contains('open')) {
+      setNav(false);
+      burger.focus();
+    }
   });
 
   var foot = document.createElement('footer');
