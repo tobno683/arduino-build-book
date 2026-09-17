@@ -7,7 +7,6 @@ level: 3,
 time: '4 hours',
 solder: true,
 board: 'Uno',
-feature: true,
 tags: ['l298n', 'tt motor', 'hc-sr04', 'servo', 'robot', 'chassis', 'pwm'],
 blurb: 'Drives forward, sweeps its head left and right when something is in the way, and turns towards whichever side has more room.',
 

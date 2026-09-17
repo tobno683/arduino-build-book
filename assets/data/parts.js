@@ -176,6 +176,11 @@ AB.parts = [
 /* --- motion ------------------------------------------------------------- */
 { id:'bldc2207',   name:'2207 brushless motor, 1800-2400 kV',  cat:'Motion', price:13.00, lo:8,  hi:28, unit:'each', q:'2207 brushless motor 2400kv', buy:['ali','amazon'],
   note:'kV is RPM per volt with no load. A 2400 kV motor on a 4S pack spins to roughly 35,000 RPM unloaded - which is why the propeller safety notes in these projects are not padding.' },
+{ id:'reaction-wheel', name:'Reaction wheel, machined 80 mm brass',   cat:'Motion', price:26.00, lo:14, hi:70, unit:'each', q:'reaction wheel flywheel brass 80mm 3mm bore', buy:['ali','amazon'],
+  note:'Or turn your own, or print one with brass slugs pressed into the rim. Mass at the RIM is what matters - a printed disc of the same weight stores a fraction of the momentum. It must be balanced: see the safety section.' },
+{ id:'tca9548',    name:'TCA9548A I2C multiplexer',              cat:'Module', price:3.00, lo:1.5, hi:9, unit:'each', q:'TCA9548A I2C multiplexer breakout', buy:['adafruit','ali','amazon'],
+  local:{se:{electrokit:'TCA9548'}},
+  note:'Every AS5600 answers at 0x36 and the address cannot be changed, so three on one bus is a direct conflict. This puts each on its own branch.' },
 { id:'foc-driver',  name:'3-phase BLDC driver (DRV8313 / SimpleFOC Mini)', cat:'Motion', price:12.00, lo:7, hi:30, unit:'each', q:'SimpleFOC mini DRV8313 BLDC driver', buy:['ali','amazon'],
   note:'Not an ESC. An ESC decides its own commutation from back-EMF and needs the motor spinning; this gives you direct control of all three phases, which is what holding a motor still at a chosen angle requires.' },
 { id:'as5600', local:{se:{electrokit:'AS5600'}},      name:'AS5600 magnetic angle encoder',      cat:'Sensor', price:3.00, lo:1.5, hi:9, unit:'each', q:'AS5600 magnetic encoder module', buy:['ali','amazon'],

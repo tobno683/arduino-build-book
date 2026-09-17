@@ -582,6 +582,30 @@ window.AB = window.AB || {};
              { t: 'cyl', x: 10, z: 2, r: 3, h: 5, c: '#1b1f26', sides: 12 }]
     }),
 
+    flywheel: {
+      name: 'Reaction wheel', w: 80, d: 80, ex: 30,
+      pins: { HUB: [0, 9, 0] },
+      build: function () {
+        var f = G.cyl(0, 0, 0, 40, 8, '#b08d57', { sides: 28 });
+        return f.concat(G.cyl(0, 8, 0, 9, 4, '#8a8f98', { sides: 14 }));
+      }
+    },
+
+    focdrv: mod({
+      name: 'DRV8313 FOC driver', w: 30, d: 26, color: C.pcbBlack,
+      rows: [{ names: ['IN1', 'IN2', 'IN3', 'EN', 'GND', 'VCC'], z: -9, step: 4.6 },
+             { names: ['A', 'B', 'C', 'VM'], z: 9, step: 6 }],
+      deco: [{ t: 'box', x: 0, z: 1, w: 11, h: 2.5, d: 9, c: C.chip },
+             { t: 'cyl', x: 10, z: 2, r: 3.5, h: 6, c: '#1b1f26', sides: 12 }]
+    }),
+
+    tca9548: mod({
+      name: 'TCA9548A I2C mux', w: 36, d: 22, color: C.pcbBlue,
+      rows: [{ names: ['VIN', 'GND', 'SDA', 'SCL'], z: -7.5 },
+             { names: ['SD0', 'SC0', 'SD1', 'SC1', 'SD2', 'SC2'], z: 7.5, step: 5 }],
+      deco: [{ t: 'box', x: 0, z: 0, w: 9, h: 2, d: 7, c: C.chip }]
+    }),
+
     ssr: mod({
       name: 'Solid state relay 25 A', w: 58, d: 45, color: '#0e1114', h: 3,
       rows: [{ names: ['IN+', 'IN-'], z: 17, step: 11, flush: true },

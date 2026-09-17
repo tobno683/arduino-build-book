@@ -120,5 +120,9 @@ AB.levels = [
   { n: 1, name: 'Beginner',     hint: 'No soldering needed. Breadboard and jumper wires. First-week stuff.' },
   { n: 2, name: 'Easy',         hint: 'Some soldering of headers, a handful of modules, a library or two.' },
   { n: 3, name: 'Intermediate', hint: 'Real soldering, power planning, several libraries, a day of work.' },
-  { n: 4, name: 'Advanced',     hint: 'Mains voltage, LiPo, custom boards or fiddly debugging. Know what you are doing.' }
+  { n: 4, name: 'Advanced',     hint: 'Mains voltage, LiPo, custom boards or fiddly debugging. Know what you are doing.' },
+  /* Level 5 is not "level 4 but longer". It is the point where the
+     electronics stop being the hard part and control theory, machining
+     tolerance or weeks of tuning take over. */
+  { n: 5, name: 'Expert',       hint: 'Control theory, machining tolerance and weeks of iteration. Expect it not to work for a long time.' }
 ];

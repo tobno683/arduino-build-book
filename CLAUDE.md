@@ -64,11 +64,14 @@ Largest scene (word clock, 121 LEDs) is ~1,700 faces at ~2 ms/frame. There is pl
 
 Copy any file in `assets/data/projects/`. **Filename must match the `slug`.** Then run `build-index.js`.
 
-Required: `slug, title, cat, level (1-4), time, blurb`. Everything else is optional and its section is
+Required: `slug, title, cat, level (1-5), time, blurb`. Everything else is optional and its section is
 skipped if absent. Full shape is documented in README.md.
 
 House conventions:
 
+- **`build-index.js` actually draws every 3D component** a project uses, calling `build(it.opt || {})` the
+  way the renderer does. Checking pin names alone missed a component whose `build` was written to the wrong
+  contract - it passed every name check and then threw in the browser.
 - **Wire colours mean the same thing everywhere** — red power, black ground, brown load/high-current,
   everything else signal. Defined in `AB.wireColors` / `AB.wireLegend`.
 - **`own: true` on a BOM line** means shared stock you buy once (jumper wires, resistor kits). It is excluded
@@ -76,6 +79,9 @@ House conventions:
 - **Do not reuse a part id with an `as:` relabel** to stand in for a different part. Add the real part. This
   was a bug — three projects used the `18650` id labelled as AA holders, which corrupted analysis and was
   dishonest in the BOM.
+- **Level 5 is not "level 4 but longer".** It is the point where the electronics stop being the hard part
+  and control theory, machining tolerance or weeks of iteration take over. One project has it. If a second
+  ever does, it has to clear the same bar.
 - **`feature: true` — exactly one per theme.** The home page shuffles and shows six, so all fourteen get airtime.
 - **Board parts carry a `short:` name.** The full name is right for a BOM and too long for a dropdown -
   `Arduino Uno R3 (or a clone)` against `Arduino Uno`. `AB.boardName(id)` in site.js is the one accessor;

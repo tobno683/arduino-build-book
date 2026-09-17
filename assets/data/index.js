@@ -2,7 +2,7 @@
    index.js - GENERATED FILE, do not edit by hand.
    Rebuild with:  node tools/build-index.js
    A summary of every project so the home page and the catalogue can render
-   without loading 100 full build guides.
+   without loading 101 full build guides.
    ========================================================================== */
 window.AB = window.AB || {};
 
@@ -2204,7 +2204,7 @@ AB.index = [
       "chassis",
       "pwm"
     ],
-    "feature": true,
+    "feature": false,
     "cost": 39.9,
     "boards": [
       "uno"
@@ -2258,6 +2258,32 @@ AB.index = [
     "cost": 480.45,
     "boards": [
       "uno-q"
+    ]
+  },
+  {
+    "slug": "reaction-wheel-cube",
+    "title": "Cube that balances on its corner",
+    "cat": "robotics",
+    "level": 5,
+    "time": "Weeks. Genuinely.",
+    "solder": true,
+    "board": "ESP32",
+    "blurb": "A cube that stands on one corner, stays there, and can throw itself upright from lying flat by braking a spinning flywheel. It is the hardest thing in this book by a wide margin, and when it works it does not look like it should be possible.",
+    "tags": [
+      "reaction wheel",
+      "cubli",
+      "lqr",
+      "foc",
+      "simplefoc",
+      "inverted pendulum",
+      "state space",
+      "angular momentum",
+      "balance"
+    ],
+    "feature": true,
+    "cost": 217.2,
+    "boards": [
+      "esp32"
     ]
   },
   {

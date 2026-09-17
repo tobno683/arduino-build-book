@@ -84,7 +84,7 @@ for (const p of AB.projects) {
     if (p[k] === undefined) errors.push(`${where}: missing "${k}"`);
   }
   if (!AB.catIndex[p.cat]) errors.push(`${where}: unknown category "${p.cat}"`);
-  if (![1, 2, 3, 4].includes(p.level)) errors.push(`${where}: level must be 1-4`);
+  if (![1, 2, 3, 4, 5].includes(p.level)) errors.push(`${where}: level must be 1-5`);
 
   (p.bom || []).forEach(line => {
     if (!AB.partIndex[line.id]) errors.push(`${where}: BOM references unknown part "${line.id}"`);
@@ -99,6 +99,17 @@ for (const p of AB.projects) {
     const inst = {};
     (p.build.parts || []).forEach(it => {
       if (!AB.comp[it.comp]) { errors.push(`${where}: 3D uses unknown component "${it.comp}"`); return; }
+      /* Actually draw it. Checking pin names only catches half the
+         problem - a component with a broken build() passes every name
+         check and then throws in the browser. */
+      try {
+        const faces = AB.comp[it.comp].build(it.opt || {});
+        if (!Array.isArray(faces)) {
+          errors.push(`${where}: component "${it.comp}" build() did not return faces`);
+        }
+      } catch (e) {
+        errors.push(`${where}: component "${it.comp}" failed to build - ${e.message}`);
+      }
       if (inst[it.id]) errors.push(`${where}: 3D part id "${it.id}" used twice`);
       inst[it.id] = AB.comp[it.comp];
       if (!Array.isArray(it.at) || it.at.length !== 2) errors.push(`${where}: 3D part "${it.id}" needs at:[x,z]`);
