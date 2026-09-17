@@ -42,6 +42,7 @@ function run(ctx, rel) {
 const ctx = sandbox();
 run(ctx, 'assets/data/parts.js');
 run(ctx, 'assets/data/categories.js');
+run(ctx, 'assets/data/news.js');
 run(ctx, 'assets/js/build3d.js');
 run(ctx, 'assets/js/parts3d.js');
 
@@ -135,6 +136,61 @@ for (const p of AB.projects) {
   if (p.solder && !(p.solderSteps || []).length) warnings.push(`${where}: marked as needing soldering but has no soldering steps`);
 }
 
+/* ==========================================================================
+   The news shelf. Same deal as projects: anything that would render a dead
+   link or a wrong badge is an error, not a warning. Staleness is a warning,
+   because the page stays correct - it just stops being news.
+   ========================================================================== */
+const NEWS_STATUS = ['shipping', 'preorder', 'announced', 'rumour'];
+const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
+const today = new Date().toISOString().slice(0, 10);
+
+if (!DATE_RE.test(AB.newsChecked || '')) {
+  errors.push('news.js: AB.newsChecked must be a YYYY-MM-DD date');
+} else {
+  const days = Math.round((Date.parse(today) - Date.parse(AB.newsChecked)) / 86400000);
+  if (days > 45) warnings.push(`news.js: last checked ${days} days ago - news.html will show its stale banner`);
+}
+
+const newsIds = new Set();
+let prevNewsDate = '9999-99-99';
+(AB.news || []).forEach((n, i) => {
+  const where = `news.js: "${n.id || '#' + i}"`;
+  ['id', 'date', 'status', 'vendor', 'title', 'blurb', 'why'].forEach(k => {
+    if (!n[k]) errors.push(`${where}: missing "${k}"`);
+  });
+  if (newsIds.has(n.id)) errors.push(`${where}: duplicate id`);
+  newsIds.add(n.id);
+
+  if (!NEWS_STATUS.includes(n.status)) {
+    errors.push(`${where}: status "${n.status}" is not one of ${NEWS_STATUS.join(', ')}`);
+  }
+  if (!DATE_RE.test(n.date || '')) {
+    errors.push(`${where}: date must be YYYY-MM-DD`);
+  } else {
+    if (n.date > today) errors.push(`${where}: dated in the future (${n.date})`);
+    if (n.date > prevNewsDate) errors.push(`${where}: out of order - the list must be newest first`);
+    prevNewsDate = n.date;
+  }
+  /* Something you cannot buy, with no date on it, is the exact vagueness
+     this page exists to cut through. */
+  if (n.status !== 'shipping' && !n.avail) {
+    warnings.push(`${where}: status is "${n.status}" but no "avail" - readers cannot tell when`);
+  }
+  if (n.part && !AB.partIndex[n.part]) errors.push(`${where}: unknown part "${n.part}"`);
+  if (n.cat && !AB.catIndex[n.cat]) errors.push(`${where}: unknown category "${n.cat}"`);
+  (n.projects || []).forEach(slug => {
+    if (!seen.has(slug)) errors.push(`${where}: links to unknown project "${slug}"`);
+  });
+  if (!(n.src || []).length) {
+    warnings.push(`${where}: no source link - an unsourced claim on a news page is a rumour`);
+  }
+  (n.src || []).forEach(s => {
+    if (!s.t || !s.u) errors.push(`${where}: every src needs both "t" and "u"`);
+    else if (!/^https?:\/\//.test(s.u)) errors.push(`${where}: src "${s.t}" is not an http(s) URL`);
+  });
+});
+
 if (errors.length) {
   console.error('\nRefusing to write the index - fix these first:\n');
   errors.forEach(e => console.error('  x ' + e));
@@ -226,6 +282,7 @@ function writePrecache(projects) {
     './basics/electronics.html',
     './basics/programming.html',
     './basics/glossary.html',
+    './news.html',
     './assets/css/style.css',
     './assets/js/site.js',
     './assets/js/project.js',
@@ -234,6 +291,7 @@ function writePrecache(projects) {
     './assets/data/parts.js',
     './assets/data/categories.js',
     './assets/data/glossary.js',
+    './assets/data/news.js',
     './assets/data/index.js',
     './assets/favicon.svg',
     './assets/icons/icon-192.png',
@@ -289,5 +347,6 @@ self.AB_PRECACHE = {
   const kb = core.concat(guides)
     .filter(u => u !== './')
     .reduce((t, u) => t + fs.statSync(path.join(ROOT, u.replace(/^\.\//, ''))).size, 0) / 1024;
+  console.log(`News shelf - ${(AB.news || []).length} items, last checked ${AB.newsChecked}.`);
   console.log(`Wrote assets/data/precache.js - ${core.length} core + ${guides.length} guides, ${kb.toFixed(0)} KB, version ${version}.`);
 }

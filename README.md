@@ -7,7 +7,7 @@ solder joint in plain words, and the complete sketch with a copy button.
 Static HTML, CSS and vanilla JavaScript. No frameworks, no dependencies, no tracking. One optional Node
 script regenerates a summary index.
 
-**76 projects across 14 themes. 212 parts priced. 5 reference pages.**
+**76 projects across 14 themes. 212 parts priced. 5 reference pages. 13 boards on the news shelf.**
 
 Filterable by the board you already own: `projects.html?board=uno-q`, `?board=esp32`, `?board=jetson-orin`.
 

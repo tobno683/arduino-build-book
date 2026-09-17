@@ -61,6 +61,7 @@ AB.theme = {
 AB.NAV = [
   ['index.html', 'Home'],
   ['projects.html', 'All projects'],
+  ['news.html', 'New boards'],
   ['basics/tools.html', 'Tools & buying'],
   ['basics/soldering.html', 'Soldering'],
   ['basics/electronics.html', 'Electronics'],

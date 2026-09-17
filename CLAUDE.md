@@ -26,6 +26,7 @@ assets/js/project.js     renders one project from its data file
 assets/js/site.js        chrome, theme, syntax highlighting, copy buttons
 assets/data/parts.js     THE SHOP — every price on the site comes from here
 assets/data/projects/*.js  one file per project, one AB.addProject() call each
+assets/data/news.js      the news shelf - new and upcoming boards
 assets/data/index.js     GENERATED. Never hand-edit.
 ```
 
@@ -78,6 +79,11 @@ House conventions:
 - **Board parts carry a `short:` name.** The full name is right for a BOM and too long for a dropdown -
   `Arduino Uno R3 (or a clone)` against `Arduino Uno`. `AB.boardName(id)` in site.js is the one accessor;
   it falls back to the full name.
+- **News entries earn their place with `why`.** Every item in `news.js` must say what it changes for
+  *this book*, and "nothing" is an acceptable and common answer. `status` is one of `shipping`, `preorder`,
+  `announced`, `rumour` - never blur them. `AB.newsChecked` is when a human last looked; `build-index.js`
+  warns past 45 days and the page shows a stale banner past the same threshold. News `src` links are real
+  article URLs, the one deliberate exception to the rule below, because there the link is the claim.
 - **Supplier links are search URLs, never product URLs.** That is what makes it honest to offer a shop
   for every part: the link means "look for it here", not "this is in stock here". It also means links
   never rot.

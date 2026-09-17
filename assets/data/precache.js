@@ -6,7 +6,7 @@
    listed file, so the cache is replaced exactly when the content changes.
    ========================================================================== */
 self.AB_PRECACHE = {
-  version: "53e61ac6d6c9",
+  version: "f7e645c32970",
   core: [
     "./",
     "./index.html",
@@ -19,6 +19,7 @@ self.AB_PRECACHE = {
     "./basics/electronics.html",
     "./basics/programming.html",
     "./basics/glossary.html",
+    "./news.html",
     "./assets/css/style.css",
     "./assets/js/site.js",
     "./assets/js/project.js",
@@ -27,6 +28,7 @@ self.AB_PRECACHE = {
     "./assets/data/parts.js",
     "./assets/data/categories.js",
     "./assets/data/glossary.js",
+    "./assets/data/news.js",
     "./assets/data/index.js",
     "./assets/favicon.svg",
     "./assets/icons/icon-192.png",

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>New boards — The Build Book</title>
+<meta name="description" content="New and upcoming microcontroller and edge AI boards — Arduino, ESP32, Jetson and others — with an honest note on which of them actually changes a project in this book.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+<meta name="theme-color" content="#b4662b">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Build Book">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<script>(function(){try{var t=localStorage.getItem('ab-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){}}());</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<section class="proj-head">
+  <div class="wrap">
+    <div class="crumbs"><a href="index.html">Home</a> / New boards</div>
+    <h1>New boards</h1>
+    <p class="lede">New silicon, new boards, and things announced but not yet buyable. Every entry says which
+    of the projects in this book it actually changes - because most of them change nothing, and a news page
+    that will not say so is just advertising.</p>
+    <p class="checked" id="checked"></p>
+  </div>
+</section>
+
+<main class="wrap" id="main" style="padding-bottom:70px">
+
+  <div id="stale"></div>
+
+  <div class="toolbar">
+    <div class="field" style="flex:2 1 260px">
+      <label for="nq">Search</label>
+      <input id="nq" type="search" placeholder="jetson, wi-fi 6, lora, low power&hellip;" autocomplete="off">
+    </div>
+    <div class="field">
+      <label for="f-status">Can I buy it?</label>
+      <select id="f-status">
+        <option value="">Anything</option>
+        <option value="buyable">Yes, today</option>
+        <option value="shipping">Shipping</option>
+        <option value="preorder">Preorder</option>
+        <option value="announced">Announced only</option>
+        <option value="rumour">Rumour</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="f-rel">Relevance</label>
+      <select id="f-rel">
+        <option value="">Everything</option>
+        <option value="projects">Changes a project here</option>
+      </select>
+    </div>
+  </div>
+
+  <p class="result-count" id="ncount"></p>
+  <div id="nlist"></div>
+
+  <section class="section">
+    <div class="sec-head"><h2>How to read this page</h2></div>
+    <div class="grid grid-2">
+      <div class="card">
+        <h3>The badge is the important part</h3>
+        <p><strong>Shipping</strong> means you can put money down today and a box turns up.
+        <strong>Preorder</strong> means money now, board later, on a date the vendor quoted and may miss.
+        <strong>Announced</strong> means real specs and a real date, but you cannot buy it at any price.
+        <strong>Rumour</strong> means someone saw something behind glass. Treat it as fiction until it
+        moves up a rung.</p>
+      </div>
+      <div class="card">
+        <h3>New is not better</h3>
+        <p>Most of what is on this page will not improve a single project in this book, and several entries
+        say exactly that. A board that is twice as fast does not help a project that spends its life waiting
+        for a sensor. The <em>Changes a project here</em> filter is the short list worth your attention.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script src="assets/data/parts.js"></script>
+<script src="assets/data/categories.js"></script>
+<script src="assets/data/index.js"></script>
+<script src="assets/data/news.js"></script>
+<script src="assets/js/site.js"></script>
+<script>
+(function () {
+  AB.chrome('news.html');
+
+  var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June',
+                'July', 'August', 'September', 'October', 'November', 'December'];
+
+  /* Parsed as UTC on purpose - "2026-09-15" is a date, not a moment, and
+     letting the local timezone shift it can print the day before. */
+  function parts(iso) {
+    var b = iso.split('-');
+    return { y: +b[0], m: +b[1], d: +b[2] };
+  }
+  function fmt(iso, approx) {
+    var p = parts(iso);
+    return approx ? MONTHS[p.m - 1] + ' ' + p.y : p.d + ' ' + MONTHS[p.m - 1] + ' ' + p.y;
+  }
+  function daysSince(iso) {
+    return Math.round((Date.now() - Date.parse(iso + 'T00:00:00Z')) / 86400000);
+  }
+
+  var STATUS = {
+    shipping:  { label: 'Shipping',  cls: 'ok',   hint: 'You can buy this today' },
+    preorder:  { label: 'Preorder',  cls: 'warn', hint: 'Money now, board later' },
+    announced: { label: 'Announced', cls: 'info', hint: 'Real specs, not yet buyable' },
+    rumour:    { label: 'Rumour',    cls: 'dim',  hint: 'Unconfirmed - treat as fiction' }
+  };
+
+  var projIndex = {};
+  (AB.index || []).forEach(function (p) { projIndex[p.slug] = p; });
+
+  /* The page is honest about its own age rather than looking evergreen. */
+  var age = daysSince(AB.newsChecked);
+  document.getElementById('checked').innerHTML =
+    'Last checked ' + AB.esc(fmt(AB.newsChecked)) +
+    (age <= 1 ? '' : ' &middot; ' + age + ' days ago');
+  if (age > 45) {
+    document.getElementById('stale').innerHTML =
+      '<div class="note warn"><strong>This page is ' + age + ' days out of date.</strong> ' +
+      'Nothing below has been re-checked since ' + AB.esc(fmt(AB.newsChecked)) + ', so prices, ' +
+      'availability dates and the source links may all have moved on. Anything marked ' +
+      '<em>Preorder</em> or <em>Announced</em> is the most likely to have changed.</div>';
+  }
+
+  var q = document.getElementById('nq');
+  var fStatus = document.getElementById('f-status');
+  var fRel = document.getElementById('f-rel');
+
+  function card(n) {
+    var st = STATUS[n.status];
+    var out = '<article class="card news-item">';
+
+    out += '<div class="news-top">' +
+             '<span class="pill ' + st.cls + '" title="' + AB.esc(st.hint) + '">' + st.label + '</span>' +
+             '<span class="news-date">' + AB.esc(fmt(n.date, n.approx)) + '</span>' +
+             '<span class="news-vendor">' + AB.esc(n.vendor) + '</span>' +
+             (n.price ? '<span class="news-price">' + AB.esc(n.price) + '</span>' : '') +
+           '</div>';
+
+    out += '<h3>' + AB.esc(n.title) + '</h3>';
+    out += '<p class="news-blurb">' + AB.esc(n.blurb) + '</p>';
+
+    if (n.avail) {
+      out += '<p class="news-avail"><strong>Availability:</strong> ' + AB.esc(n.avail) + '</p>';
+    }
+
+    if ((n.specs || []).length) {
+      out += '<ul class="news-specs">' + n.specs.map(function (s) {
+        return '<li>' + AB.esc(s) + '</li>';
+      }).join('') + '</ul>';
+    }
+
+    out += '<div class="news-why"><h4>What it means here</h4><p>' + AB.esc(n.why) + '</p></div>';
+
+    var links = [];
+    (n.projects || []).forEach(function (slug) {
+      var p = projIndex[slug];
+      if (p) links.push('<a class="chip" href="project.html?p=' + encodeURIComponent(slug) + '">' + AB.esc(p.title) + '</a>');
+    });
+    if (n.part) {
+      links.push('<a class="chip" href="projects.html?board=' + encodeURIComponent(n.part) + '">' +
+                 'All ' + AB.esc(AB.boardName(n.part)) + ' projects</a>');
+    }
+    if (n.cat && AB.catIndex[n.cat]) {
+      links.push('<a class="chip" href="projects.html?cat=' + encodeURIComponent(n.cat) + '">' +
+                 AB.esc(AB.catIndex[n.cat].name) + '</a>');
+    }
+    if (links.length) out += '<div class="news-links">' + links.join('') + '</div>';
+
+    out += '<p class="news-src">Source: ' + (n.src || []).map(function (s) {
+      return '<a href="' + AB.esc(s.u) + '" target="_blank" rel="noopener noreferrer">' + AB.esc(s.t) + '</a>';
+    }).join(', ') + '</p>';
+
+    return out + '</article>';
+  }
+
+  function render() {
+    var term = q.value.trim().toLowerCase();
+    var status = fStatus.value;
+    var rel = fRel.value;
+
+    var list = (AB.news || []).filter(function (n) {
+      if (status === 'buyable') { if (n.status !== 'shipping' && n.status !== 'preorder') return false; }
+      else if (status && n.status !== status) return false;
+
+      if (rel === 'projects' && !(n.projects || []).length) return false;
+
+      if (term) {
+        var hay = [n.title, n.vendor, n.blurb, n.why, (n.specs || []).join(' '),
+                   n.cat && AB.catIndex[n.cat] ? AB.catIndex[n.cat].name : ''].join(' ').toLowerCase();
+        if (hay.indexOf(term) < 0) return false;
+      }
+      return true;
+    });
+
+    var changing = list.filter(function (n) { return (n.projects || []).length; }).length;
+    document.getElementById('ncount').textContent =
+      list.length + (list.length === 1 ? ' item' : ' items') +
+      (changing ? ' · ' + changing + ' of them change a project in this book' : '');
+
+    document.getElementById('nlist').innerHTML = list.map(card).join('') ||
+      '<div class="empty"><h3>Nothing matches that</h3><p>Try a shorter search, or set the filters back to Anything.</p></div>';
+  }
+
+  q.addEventListener('input', render);
+  fStatus.addEventListener('change', render);
+  fRel.addEventListener('change', render);
+  render();
+}());
+</script>
+</body>
+</html>
