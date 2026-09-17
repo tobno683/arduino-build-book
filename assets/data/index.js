@@ -2,7 +2,7 @@
    index.js - GENERATED FILE, do not edit by hand.
    Rebuild with:  node tools/build-index.js
    A summary of every project so the home page and the catalogue can render
-   without loading 86 full build guides.
+   without loading 89 full build guides.
    ========================================================================== */
 window.AB = window.AB || {};
 
@@ -1322,6 +1322,56 @@ AB.index = [
     ]
   },
   {
+    "slug": "espresso-scale",
+    "title": "Espresso scale with flow rate",
+    "cat": "kitchen",
+    "level": 2,
+    "time": "5 hours",
+    "solder": true,
+    "board": "ESP32",
+    "blurb": "Weighs a shot to a tenth of a gram and shows how fast it is pouring. The engineering problem is that accuracy and speed pull in opposite directions, and espresso needs both.",
+    "tags": [
+      "load cell",
+      "hx711",
+      "coffee",
+      "calibration",
+      "drift",
+      "filtering",
+      "latency",
+      "esp32"
+    ],
+    "feature": false,
+    "cost": 32.15,
+    "boards": [
+      "esp32"
+    ]
+  },
+  {
+    "slug": "fermentation-monitor",
+    "title": "Sourdough and fermentation monitor",
+    "cat": "kitchen",
+    "level": 2,
+    "time": "4 hours",
+    "solder": false,
+    "board": "ESP32",
+    "blurb": "A laser rangefinder over a jar of starter, measuring the rise to the millimetre. It tells you when the dough is ready - which is a question about the shape of a curve, not about how many hours have passed.",
+    "tags": [
+      "sourdough",
+      "fermentation",
+      "vl53l0x",
+      "time of flight",
+      "esp32",
+      "logging",
+      "derivative",
+      "q10"
+    ],
+    "feature": false,
+    "cost": 29.5,
+    "boards": [
+      "esp32"
+    ]
+  },
+  {
     "slug": "sous-vide-controller",
     "title": "Sous vide controller",
     "cat": "kitchen",
@@ -1344,6 +1394,32 @@ AB.index = [
     "cost": 35.57,
     "boards": [
       "esp32"
+    ]
+  },
+  {
+    "slug": "bbq-thermometer",
+    "title": "Wireless BBQ and roast thermometer",
+    "cat": "kitchen",
+    "level": 3,
+    "time": "6 hours",
+    "solder": true,
+    "board": "ESP32",
+    "blurb": "One probe in the meat, one in the air, and a radio link that reaches the far end of the garden. It also predicts when dinner will be ready, and explains why that prediction goes badly wrong for two hours in the middle.",
+    "tags": [
+      "thermocouple",
+      "max31855",
+      "lora",
+      "bbq",
+      "cold junction",
+      "the stall",
+      "prediction",
+      "esp32"
+    ],
+    "feature": false,
+    "cost": 88.95,
+    "boards": [
+      "esp32",
+      "nano"
     ]
   },
   {
