@@ -27,6 +27,7 @@ assets/js/site.js        chrome, theme, syntax highlighting, copy buttons
 assets/data/parts.js     THE SHOP — every price on the site comes from here
 assets/data/projects/*.js  one file per project, one AB.addProject() call each
 assets/data/news.js      the news shelf - new and upcoming boards
+assets/data/boards.js    what each board is for - one entry per Board part
 assets/data/index.js     GENERATED. Never hand-edit.
 ```
 
@@ -79,6 +80,11 @@ House conventions:
 - **Board parts carry a `short:` name.** The full name is right for a BOM and too long for a dropdown -
   `Arduino Uno R3 (or a clone)` against `Arduino Uno`. `AB.boardName(id)` in site.js is the one accessor;
   it falls back to the full name.
+- **Every board part needs a write-up in `boards.js`**, and every write-up needs a real Board part -
+  `build-index.js` refuses both ways round, so adding a board to the shop cannot silently leave a hole in
+  `basics/boards.html`. Each entry needs all eight `specs` keys, at least one `goodAt` and at least one
+  `badAt`; a board with no downsides listed is an advertisement, not a guide. Prices and names are never
+  repeated there - they come from `parts.js` - and project counts come from `AB.index`, so neither can drift.
 - **News entries earn their place with `why`.** Every item in `news.js` must say what it changes for
   *this book*, and "nothing" is an acceptable and common answer. `status` is one of `shipping`, `preorder`,
   `announced`, `rumour` - never blur them. `AB.newsChecked` is when a human last looked; `build-index.js`

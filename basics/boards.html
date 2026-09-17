@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Which board — The Build Book</title>
+<meta name="description" content="Every board this site uses, what each is actually good at, what it is bad at, and the specific traps: Arduino Nano, Uno, Mega, ESP32, ESP8266, ESP32-CAM, Pico, Pro Micro, Nano 33 BLE Sense, UNO Q, Ventuno Q and the NVIDIA Jetson Orin Nano.">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../assets/icons/apple-touch-icon.png">
+<meta name="theme-color" content="#b4662b">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Build Book">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/style.css">
+<script>(function(){try{var t=localStorage.getItem('ab-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){}}());</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<section class="proj-head">
+  <div class="wrap">
+    <div class="crumbs"><a href="../index.html">Home</a> / Basics / Which board</div>
+    <h1>Which board</h1>
+    <p class="lede">Thirteen boards, what each one is genuinely for, and the specific ways each will waste an
+    evening of your time. Most projects do not need a fast board - they need the right one, and those are
+    different questions.</p>
+    <p class="checked" id="checked"></p>
+  </div>
+</section>
+
+<main class="wrap" id="main">
+<div class="proj-layout">
+<div class="pbody">
+
+<section id="start">
+  <h2>If you have never bought one</h2>
+  <div id="first-board"></div>
+  <p>That is the whole answer. The rest of this page is for when you have hit a limit and want to know which
+  board removes it.</p>
+
+  <div class="note tip"><span class="t">Buy two of whatever you buy</span>
+  <p>The second board is not a spare. It is a diagnostic tool: when something does not work, swapping the board
+  tells you in thirty seconds whether the fault is your wiring or your hardware. At these prices that is the
+  cheapest test equipment you will ever own.</p></div>
+</section>
+
+<section id="voltage">
+  <h2>The one thing that destroys boards</h2>
+  <p><strong>5 volt and 3.3 volt logic are not interchangeable</strong>, and mixing them is how most dead boards
+  die. It is worth understanding once, properly, because it applies to everything on this page.</p>
+
+  <p>The classic Arduinos - Uno, Nano, Mega, Pro Micro - run at 5&nbsp;V. Everything modern - ESP32, ESP8266,
+  Pico, Nano 33, and all three Linux boards - runs at 3.3&nbsp;V. Two consequences follow, and only one of them
+  is obvious:</p>
+
+  <ul>
+    <li><strong>A 5 V output into a 3.3 V input can destroy it.</strong> This is the dangerous direction.
+    Connecting an Uno's TX pin straight to an ESP32's RX pin is the textbook example, and it sometimes works
+    for weeks before failing.</li>
+    <li><strong>A 3.3 V output into a 5 V input often just does not work</strong>, because 3.3&nbsp;V may not
+    be high enough to read as a logical 1. This direction is usually harmless but confusing - the wire is
+    connected and nothing happens.</li>
+  </ul>
+
+  <p>The fix is a level shifter, which is a dollar. A resistor divider works for one direction. And a few 5&nbsp;V
+  parts are happy being driven at 3.3&nbsp;V - WS2812 LEDs usually are, at the edge of their specification.</p>
+
+  <div class="note danger"><span class="t">The Nano 33 BLE Sense trap</span>
+  <p>It has a Nano's shape, a Nano's pin labels and a Nano's name, and it is <strong>3.3&nbsp;V and not
+  5&nbsp;V tolerant</strong>. Dropping one into an existing Uno-based project as an upgrade is an expensive
+  way to learn this. Same for the Jetson's 40-pin header.</p></div>
+</section>
+
+<section id="table">
+  <h2>All thirteen, side by side</h2>
+  <p>Sorted by price. The columns are the things that actually change a decision - clock speed almost never
+  does.</p>
+  <div class="table-scroll"><table id="cmp"></table></div>
+  <p class="muted" id="cmp-note"></p>
+</section>
+
+<section id="choosing">
+  <h2>Choosing by what you are building</h2>
+  <p>Most of the time the project picks the board rather than the other way round.</p>
+  <div class="grid grid-2" id="usecases"></div>
+</section>
+
+<section id="detail">
+  <h2>Every board in detail</h2>
+  <p>Each one lists what it is good at, what it is bad at, and the gotchas - the specific, concrete things that
+  will cost you an evening if nobody tells you first.</p>
+  <div class="toolbar">
+    <div class="field">
+      <label for="f-tier">Show</label>
+      <select id="f-tier">
+        <option value="">All boards</option>
+        <option value="classic">8-bit classics</option>
+        <option value="wireless">With a radio</option>
+        <option value="special">Special purpose</option>
+        <option value="linux">Runs Linux</option>
+      </select>
+    </div>
+  </div>
+  <div id="boards"></div>
+</section>
+
+<section id="clones">
+  <h2>Clones, and what you actually lose</h2>
+  <p>An official Uno is around $28 and a clone is around $5. The chip is the same, the sketch is the same, and
+  the clone is not a counterfeit - the designs are open hardware and making them is the point.</p>
+  <p>What differs:</p>
+  <ul>
+    <li><strong>The USB chip.</strong> Official boards use an ATmega16U2; clones use a CH340 or CP2102. Both
+    work, but the CH340 needs a driver on Windows and older macOS, and the board looks completely dead until
+    you install it. This is the single most common "my new board does not work".</li>
+    <li><strong>The voltage regulator.</strong> Clones often fit a smaller one. Fine at normal loads, and it
+    will get hot if you draw 500&nbsp;mA through the 5&nbsp;V pin.</li>
+    <li><strong>Headers.</strong> Usually supplied loose. Soldering them is the perfect first soldering job -
+    see the <a href="soldering.html">soldering guide</a>.</li>
+    <li><strong>Quality control.</strong> Occasionally a bad board. At a fifth of the price, buying two is
+    still cheaper.</li>
+  </ul>
+  <p>Buy clones. If you want to support the Arduino project, buy one official board once - that is a reasonable
+  thing to do, and it is a donation rather than a purchase.</p>
+</section>
+
+<section id="outgrow">
+  <h2>How you know you have outgrown a board</h2>
+  <p>There are only about five real limits, and each has an obvious next step.</p>
+  <div class="grid grid-2">
+    <div class="card">
+      <h3>You ran out of RAM</h3>
+      <p>The symptom is not a compiler error. It is a sketch that compiles, runs for a while, then behaves
+      insanely - garbled output, random resets, a variable that changes on its own. That is the stack and the
+      heap colliding.</p>
+      <p><strong>Next:</strong> an ESP32 has 150 times the RAM for less money. Or fix it in place by moving
+      constant strings to flash with <code>F()</code> and <code>PROGMEM</code>, which often buys back
+      hundreds of bytes.</p>
+    </div>
+    <div class="card">
+      <h3>You ran out of pins</h3>
+      <p>Counting the wires and coming up short.</p>
+      <p><strong>Next:</strong> usually not a bigger board. A PCF8574 gives eight more I/O over two I2C wires
+      for under a dollar; a 74HC595 gives eight outputs for three pins; a CD4051 reads eight analog inputs on
+      one. A Mega is the last resort, not the first.</p>
+    </div>
+    <div class="card">
+      <h3>It is too slow</h3>
+      <p>Rarer than people think. If you are reading a sensor and blinking something, 16&nbsp;MHz is not your
+      problem. It becomes real with audio, FFTs, addressable LED strips over a few hundred pixels, or anything
+      using floating point in a loop.</p>
+      <p><strong>Next:</strong> an ESP32 or a Pico. Both are 32-bit with hardware floating point, which is the
+      part that matters - not the clock number.</p>
+    </div>
+    <div class="card">
+      <h3>It needs to talk to something</h3>
+      <p>Wi-Fi, Bluetooth, a phone, an API.</p>
+      <p><strong>Next:</strong> an ESP32, and it costs less than the Nano you are replacing. Bolting a radio
+      module onto an Uno costs more and works worse.</p>
+    </div>
+    <div class="card">
+      <h3>It needs to see or listen</h3>
+      <p>Cameras and real audio processing are where microcontrollers genuinely stop.</p>
+      <p><strong>Next:</strong> an ESP32-CAM for cheap video, a UNO Q for vision with Python libraries, a
+      Jetson when a model will not run anywhere else.</p>
+    </div>
+    <div class="card">
+      <h3>It has to last on a battery</h3>
+      <p>A Nano running flat out is about a week on AAs. Most of that is the power LED and the regulator, not
+      the chip.</p>
+      <p><strong>Next:</strong> often the same board, used properly - deep sleep, the LED removed, the
+      regulator bypassed. Months instead of days, for free. An ESP32 sleeps at 10&nbsp;uA and wakes on a pin.</p>
+    </div>
+  </div>
+</section>
+
+<section id="notbought">
+  <h2>Good boards this site does not use</h2>
+  <p>Not because they are bad - because every project here has to name one board, and covering fewer means
+  covering them properly.</p>
+  <ul>
+    <li><strong>Seeed XIAO family</strong> - thumbnail-sized boards in SAMD21, RP2040, ESP32-C3 and nRF52840
+    flavours. Excellent when size is the constraint, and the newer ones have lithium charging built in.</li>
+    <li><strong>Raspberry Pi 5 and Zero 2 W</strong> - full Linux computers. A Zero 2 W is a genuinely good
+    answer for camera projects, and the Pi ecosystem is enormous. The UNO Q covers similar ground here with a
+    microcontroller attached.</li>
+    <li><strong>STM32 "Blue Pill"</strong> - very cheap 32-bit with excellent peripherals, and a steeper start
+    because the tooling assumes you know what you are doing.</li>
+    <li><strong>Teensy 4.x</strong> - a 600&nbsp;MHz Cortex-M7, by a distance the fastest microcontroller board
+    you can buy, and the standard answer for serious audio work.</li>
+    <li><strong>ESP32-S3 and C6</strong> - newer ESP32 variants with native USB, more AI-friendly instructions,
+    and on the C6, Thread and Zigbee. Everything on this site that runs on an ESP32 runs on an S3.</li>
+  </ul>
+  <p>New boards worth knowing about are on the <a href="../news.html">news shelf</a>, which says which of them
+  change a project here and which change nothing.</p>
+</section>
+
+</div>
+
+<aside class="toc"><div class="t">On this page</div><ol></ol></aside>
+</div>
+</main>
+
+<script src="../assets/data/parts.js"></script>
+<script src="../assets/data/categories.js"></script>
+<script src="../assets/data/index.js"></script>
+<script src="../assets/data/boards.js"></script>
+<script src="../assets/js/site.js"></script>
+<script>
+(function () {
+  AB.chrome('boards.html');
+  AB.autoToc();
+
+  var TIER_NAME = {
+    classic:  '8-bit classic',
+    wireless: 'Has a radio',
+    special:  'Special purpose',
+    linux:    'Runs Linux'
+  };
+
+  /* Project counts come from the generated index, never from a number
+     typed on this page - so they cannot drift as projects are added. */
+  var count = {};
+  (AB.index || []).forEach(function (p) {
+    (p.boards || []).forEach(function (b) { count[b] = (count[b] || 0) + 1; });
+  });
+
+  // "None" and "None as standard - ..." both mean no radio fitted.
+  function hasRadio(b) { return b.specs.wireless && !/^None/.test(b.specs.wireless); }
+
+  function part(id) { return AB.partIndex[id] || {}; }
+  function name(id) { var p = part(id); return p.short || p.name || id; }
+  function price(id) { return part(id).price; }
+
+  document.getElementById('checked').textContent =
+    'Specs checked ' + AB.boardGuide.updated + ' · prices are the same figures used in every bill of materials';
+
+  // ---- the first-board recommendation -------------------------------
+  var fb = AB.boardGuide.firstBoard;
+  document.getElementById('first-board').innerHTML =
+    '<div class="card"><h3>Buy an ' + AB.esc(name(fb)) + ', about ' + AB.usd(price(fb)) + '</h3>' +
+    '<p>' + AB.esc(AB.boardGuide.firstBoardWhy) + '</p>' +
+    '<div class="news-links">' +
+      '<a class="chip" href="../projects.html?board=' + fb + '">' + (count[fb] || 0) + ' projects use one</a>' +
+      '<a class="chip" href="#' + fb + '">Read the detail</a>' +
+      '<a class="chip" href="tools.html">What else to buy</a>' +
+    '</div></div>';
+
+  // ---- comparison table ---------------------------------------------
+  var rows = AB.boards.slice().sort(function (a, b) {
+    return (price(a.id) || 0) - (price(b.id) || 0);
+  });
+
+  var head = '<thead><tr><th>Board</th><th>Price</th><th>Logic</th><th>RAM</th>' +
+             '<th>Radio</th><th>Projects</th></tr></thead>';
+
+  var body = rows.map(function (b) {
+    var radio = b.specs.wireless;
+    var fitted = hasRadio(b);
+    return '<tr>' +
+      '<td><a href="#' + b.id + '">' + AB.esc(name(b.id)) + '</a>' +
+        '<br><span class="muted">' + AB.esc(b.chip) + '</span></td>' +
+      '<td>' + AB.usd(price(b.id)) + '</td>' +
+      '<td>' + (b.specs.logic.indexOf('5 V') === 0 ? '5 V' : '3.3 V') + '</td>' +
+      '<td>' + AB.esc(b.specs.ram.split('(')[0].trim()) + '</td>' +
+      '<td>' + (fitted ? AB.esc(radio.split(',')[0].split(' - ')[0])
+                       : '<span class="muted">none</span>') + '</td>' +
+      '<td>' + (count[b.id]
+                 ? '<a href="../projects.html?board=' + b.id + '">' + count[b.id] + '</a>'
+                 : '<span class="muted">0</span>') + '</td>' +
+      '</tr>';
+  }).join('');
+
+  document.getElementById('cmp').innerHTML = head + '<tbody>' + body + '</tbody>';
+
+  var withRadio = AB.boards.filter(hasRadio).length;
+  document.getElementById('cmp-note').textContent =
+    AB.boards.length + ' boards · ' + withRadio + ' have a radio · ' +
+    AB.boards.filter(function (b) { return b.specs.logic.indexOf('5 V') === 0; }).length +
+    ' are 5 V logic. Project counts include builds where a board is a supporting part, ' +
+    'which is why the Uno appears alongside every Jetson project.';
+
+  // ---- use cases -----------------------------------------------------
+  var USES = [
+    { h: 'Reading sensors, driving outputs', ids: ['nano'],
+      why: 'No network, no camera, nothing exotic. The cheapest board that does it is the right one.' },
+    { h: 'Anything on Wi-Fi or Bluetooth', ids: ['esp32', 'esp8266'],
+      why: 'The ESP32 for almost everything; the ESP8266 when the job is one sensor and you want the smallest cheapest thing.' },
+    { h: 'A camera', ids: ['esp32cam', 'uno-q'],
+      why: 'The ESP32-CAM for cheap video over Wi-Fi. A UNO Q when you need to actually understand what is in the frame.' },
+    { h: 'Exact timing, or an odd protocol', ids: ['pico'],
+      why: 'PIO runs signal generation independently of the CPU. Nothing else at this price can.' },
+    { h: 'Pretending to be a keyboard or MIDI device', ids: ['pro-micro'],
+      why: 'Native USB is the requirement, and nothing else here has the same weight of keyboard firmware behind it.' },
+    { h: 'Machine learning on a battery', ids: ['nano33ble'],
+      why: 'An M4F with DSP instructions, and every sensor you need to collect a dataset already on the board.' },
+    { h: 'Vision, speech, or a language model', ids: ['jetson-orin', 'ventuno-q'],
+      why: 'A real GPU. Expensive, hot, and the only thing that will run the workload at all.' },
+    { h: 'Lots of separate wires', ids: ['mega'],
+      why: 'And only after you have considered a port expander, which is usually the better answer.' }
+  ];
+
+  document.getElementById('usecases').innerHTML = USES.map(function (u) {
+    return '<div class="card"><h3>' + AB.esc(u.h) + '</h3>' +
+      '<p>' + AB.esc(u.why) + '</p>' +
+      '<div class="news-links">' + u.ids.map(function (id) {
+        return '<a class="chip" href="#' + id + '">' + AB.esc(name(id)) + ' ' +
+               AB.usd(price(id)) + '</a>';
+      }).join('') + '</div></div>';
+  }).join('');
+
+  // ---- the detailed cards --------------------------------------------
+  function list(cls, title, items) {
+    if (!items || !items.length) return '';
+    return '<div class="' + cls + '"><h4>' + title + '</h4><ul>' +
+      items.map(function (i) { return '<li>' + AB.esc(i) + '</li>'; }).join('') +
+      '</ul></div>';
+  }
+
+  function specRows(s) {
+    var LABEL = {
+      clock: 'Processor', ram: 'RAM', flash: 'Flash', io: 'Usable I/O',
+      logic: 'Logic level', usb: 'USB', wireless: 'Radio', power: 'Power draw'
+    };
+    return '<table class="spec"><tbody>' + Object.keys(LABEL).map(function (k) {
+      if (!s[k]) return '';
+      return '<tr><th>' + LABEL[k] + '</th><td>' + AB.esc(s[k]) + '</td></tr>';
+    }).join('') + '</tbody></table>';
+  }
+
+  function card(b) {
+    var n = count[b.id] || 0;
+    var out = '<article class="card board-card" id="' + b.id + '">';
+
+    out += '<div class="news-top">' +
+      '<span class="pill ' + (b.tier === 'linux' ? 'info' : b.tier === 'classic' ? 'ok' : 'dim') + '">' +
+        TIER_NAME[b.tier] + '</span>' +
+      '<span class="news-price">' + AB.usd(price(b.id)) + '</span>' +
+      '<span class="news-vendor">' + AB.esc(b.chip) + '</span>' +
+    '</div>';
+
+    out += '<h3>' + AB.esc(name(b.id)) + '</h3>';
+    out += '<p class="news-blurb">' + AB.esc(b.tagline) + '</p>';
+
+    out += specRows(b.specs);
+
+    out += '<div class="grid grid-2 board-pros">' +
+      list('good', 'Good at', b.goodAt) +
+      list('bad', 'Bad at', b.badAt) +
+    '</div>';
+
+    out += '<div class="news-why"><h4>Pick it when</h4><p>' + AB.esc(b.pick) + '</p></div>';
+    out += '<div class="note warn"><span class="t">Do not pick it when</span><p>' + AB.esc(b.avoid) + '</p></div>';
+
+    if (b.gotchas && b.gotchas.length) {
+      out += '<h4 class="gotcha-h">The things that will cost you an evening</h4><ul class="gotchas">' +
+        b.gotchas.map(function (g) { return '<li>' + AB.esc(g) + '</li>'; }).join('') + '</ul>';
+    }
+
+    if (b.note) out += '<p class="board-note">' + AB.esc(b.note) + '</p>';
+
+    out += '<div class="news-links">';
+    if (n) out += '<a class="chip" href="../projects.html?board=' + b.id + '">' + n +
+                  ' project' + (n === 1 ? '' : 's') + '</a>';
+    out += '<a class="chip" href="tools.html#part-index">Where to buy</a>';
+    out += '</div>';
+
+    return out + '</article>';
+  }
+
+  var sel = document.getElementById('f-tier');
+  function render() {
+    var t = sel.value;
+    var list = AB.boards.filter(function (b) { return !t || b.tier === t; });
+    document.getElementById('boards').innerHTML = list.map(card).join('') ||
+      '<div class="empty"><h3>Nothing in that group</h3></div>';
+
+    // A deep link to #esp32 must still work after filtering.
+    if (location.hash) {
+      var el = document.getElementById(location.hash.slice(1));
+      if (el) el.scrollIntoView();
+    }
+  }
+  sel.addEventListener('change', render);
+  render();
+}());
+</script>
+</body>
+</html>

@@ -43,6 +43,7 @@ const ctx = sandbox();
 run(ctx, 'assets/data/parts.js');
 run(ctx, 'assets/data/categories.js');
 run(ctx, 'assets/data/news.js');
+run(ctx, 'assets/data/boards.js');
 run(ctx, 'assets/js/build3d.js');
 run(ctx, 'assets/js/parts3d.js');
 
@@ -182,6 +183,59 @@ Object.keys(AB.regions).forEach(regionId => {
     }
   });
 });
+
+/* ==========================================================================
+   The board guide. Every part in the Board category must be written up,
+   and every write-up must point at a real part - otherwise adding a board
+   to the shop silently leaves a hole in basics/boards.html, or the page
+   describes something nobody can buy.
+   ========================================================================== */
+const BOARD_TIERS = ['classic', 'wireless', 'special', 'linux'];
+const SPEC_KEYS = ['clock', 'ram', 'flash', 'io', 'logic', 'usb', 'wireless', 'power'];
+
+const writtenUp = new Set();
+(AB.boards || []).forEach((b, i) => {
+  const where = `boards.js: "${b.id || '#' + i}"`;
+
+  ['id', 'tier', 'chip', 'tagline', 'pick', 'avoid'].forEach(k => {
+    if (!b[k]) errors.push(`${where}: missing "${k}"`);
+  });
+  if (writtenUp.has(b.id)) errors.push(`${where}: duplicate entry`);
+  writtenUp.add(b.id);
+
+  const part = AB.partIndex[b.id];
+  if (!part) {
+    errors.push(`${where}: no part with this id`);
+  } else if (part.cat !== 'Board') {
+    errors.push(`${where}: "${b.id}" is a ${part.cat}, not a Board`);
+  }
+
+  if (!BOARD_TIERS.includes(b.tier)) {
+    errors.push(`${where}: tier "${b.tier}" is not one of ${BOARD_TIERS.join(', ')}`);
+  }
+
+  SPEC_KEYS.forEach(k => {
+    if (!b.specs || !b.specs[k]) errors.push(`${where}: specs.${k} is missing`);
+  });
+
+  /* The whole point of the page is the honest half. A board with no
+     downsides listed is a advertisement, not a guide. */
+  if (!(b.goodAt || []).length) errors.push(`${where}: no "goodAt" entries`);
+  if (!(b.badAt || []).length)  errors.push(`${where}: no "badAt" entries`);
+  if (!(b.gotchas || []).length) {
+    warnings.push(`${where}: no gotchas - every board has at least one`);
+  }
+});
+
+AB.parts.filter(p => p.cat === 'Board').forEach(p => {
+  if (!writtenUp.has(p.id)) {
+    errors.push(`boards.js: board part "${p.id}" has no write-up - it would be missing from basics/boards.html`);
+  }
+});
+
+if (!AB.boardGuide || !AB.partIndex[AB.boardGuide.firstBoard]) {
+  errors.push('boards.js: AB.boardGuide.firstBoard must name a real part');
+}
 
 /* ==========================================================================
    The news shelf. Same deal as projects: anything that would render a dead
@@ -324,6 +378,7 @@ function writePrecache(projects) {
     './project.html',
     './offline.html',
     './manifest.webmanifest',
+    './basics/boards.html',
     './basics/tools.html',
     './basics/soldering.html',
     './basics/electronics.html',
@@ -339,6 +394,7 @@ function writePrecache(projects) {
     './assets/data/categories.js',
     './assets/data/glossary.js',
     './assets/data/news.js',
+    './assets/data/boards.js',
     './assets/data/index.js',
     './assets/favicon.svg',
     './assets/icons/icon-192.png',
