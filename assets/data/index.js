@@ -2,7 +2,7 @@
    index.js - GENERATED FILE, do not edit by hand.
    Rebuild with:  node tools/build-index.js
    A summary of every project so the home page and the catalogue can render
-   without loading 101 full build guides.
+   without loading 102 full build guides.
    ========================================================================== */
 window.AB = window.AB || {};
 
@@ -761,6 +761,34 @@ AB.index = [
     "feature": false,
     "cost": 61.19,
     "boards": [
+      "esp32"
+    ]
+  },
+  {
+    "slug": "instrumented-gillnet",
+    "title": "Fishing net that tells you where it caught something",
+    "cat": "cellular",
+    "level": 5,
+    "time": "A winter of bench work, then a season of sea trials",
+    "solder": true,
+    "board": "ESP32",
+    "blurb": "Accelerometers every eight metres along the headrope, a buoy with a cellular modem, and a message saying \"something hit panel four, twenty minutes ago\". The physics works. The sea is the problem.",
+    "tags": [
+      "gillnet",
+      "accelerometer",
+      "lis3dh",
+      "rs485",
+      "nb-iot",
+      "lte-m",
+      "marine",
+      "event detection",
+      "localisation",
+      "sea state"
+    ],
+    "feature": false,
+    "cost": 234.24,
+    "boards": [
+      "nano",
       "esp32"
     ]
   },

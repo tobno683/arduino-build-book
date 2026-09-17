@@ -80,8 +80,9 @@ House conventions:
   was a bug — three projects used the `18650` id labelled as AA holders, which corrupted analysis and was
   dishonest in the BOM.
 - **Level 5 is not "level 4 but longer".** It is the point where the electronics stop being the hard part
-  and control theory, machining tolerance or weeks of iteration take over. One project has it. If a second
-  ever does, it has to clear the same bar.
+  and something else takes over: control theory and machining tolerance in the reaction wheel cube, signal-to-noise
+  and a deployment you cannot iterate on quickly in the instrumented gillnet. The test is whether a correct build
+  still fails for weeks for reasons the wiring diagram cannot show.
 - **`feature: true` — exactly one per theme.** The home page shuffles and shows six, so all fourteen get airtime.
 - **Board parts carry a `short:` name.** The full name is right for a BOM and too long for a dropdown -
   `Arduino Uno R3 (or a clone)` against `Arduino Uno`. `AB.boardName(id)` in site.js is the one accessor;

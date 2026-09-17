@@ -582,6 +582,19 @@ window.AB = window.AB || {};
              { t: 'cyl', x: 10, z: 2, r: 3, h: 5, c: '#1b1f26', sides: 12 }]
     }),
 
+    lis3dh: mod({
+      name: 'LIS3DH accelerometer', w: 19, d: 18, color: C.pcbBlack,
+      rows: [{ names: ['VIN', '3V3', 'GND', 'SCL', 'SDA', 'INT'], z: -6, step: 3 }],
+      deco: [{ t: 'box', x: 0, z: 2, w: 3.5, h: 1, d: 3.5, c: C.chip }]
+    }),
+
+    rs485: mod({
+      name: 'MAX485 transceiver', w: 32, d: 16, color: C.pcbGreen,
+      rows: [{ names: ['RO', 'RE', 'DE', 'DI', 'GND', 'VCC'], z: -5, step: 4.4 },
+             { names: ['A', 'B'], z: 5, step: 7 }],
+      deco: [{ t: 'box', x: -2, z: 0, w: 10, h: 2, d: 6.5, c: C.chip }]
+    }),
+
     flywheel: {
       name: 'Reaction wheel', w: 80, d: 80, ex: 30,
       pins: { HUB: [0, 9, 0] },
