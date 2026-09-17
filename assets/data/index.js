@@ -2,7 +2,7 @@
    index.js - GENERATED FILE, do not edit by hand.
    Rebuild with:  node tools/build-index.js
    A summary of every project so the home page and the catalogue can render
-   without loading 76 full build guides.
+   without loading 79 full build guides.
    ========================================================================== */
 window.AB = window.AB || {};
 
@@ -662,6 +662,32 @@ AB.index = [
     ]
   },
   {
+    "slug": "bus-departure-board",
+    "title": "Live bus and train departure board",
+    "cat": "display",
+    "level": 2,
+    "time": "4 hours",
+    "solder": false,
+    "board": "ESP32",
+    "blurb": "The board from the bus stop, on your hallway wall, counting down to the departures you actually catch. It tells you whether to run, which is the only thing you wanted to know.",
+    "tags": [
+      "esp32",
+      "transit",
+      "api",
+      "json",
+      "wifi",
+      "tft",
+      "https",
+      "ntp",
+      "real time"
+    ],
+    "feature": false,
+    "cost": 33.12,
+    "boards": [
+      "esp32"
+    ]
+  },
+  {
     "slug": "led-matrix-sign",
     "title": "Scrolling message sign",
     "cat": "display",
@@ -703,6 +729,56 @@ AB.index = [
     ],
     "feature": false,
     "cost": 43.59,
+    "boards": [
+      "esp32"
+    ]
+  },
+  {
+    "slug": "split-flap-display",
+    "title": "Split-flap message display",
+    "cat": "display",
+    "level": 3,
+    "time": "12 hours, most of it mechanical",
+    "solder": true,
+    "board": "ESP32",
+    "blurb": "Four mechanical character drums that clatter round to spell a word, exactly like an airport board in 1978. The electronics are simple. The mechanism is where the project actually lives.",
+    "tags": [
+      "split flap",
+      "stepper",
+      "28byj-48",
+      "hall sensor",
+      "homing",
+      "mechanical",
+      "esp32",
+      "airport"
+    ],
+    "feature": false,
+    "cost": 138.78,
+    "boards": [
+      "esp32"
+    ]
+  },
+  {
+    "slug": "nixie-clock",
+    "title": "Nixie tube clock",
+    "cat": "display",
+    "level": 4,
+    "time": "10 hours",
+    "solder": true,
+    "board": "ESP32",
+    "blurb": "Four Soviet tubes from the 1970s glowing orange in a dark room. It is the most beautiful display you can build, and the only project here that will hurt you if you are careless.",
+    "tags": [
+      "nixie",
+      "high voltage",
+      "in-12",
+      "k155id1",
+      "rtc",
+      "ntp",
+      "multiplexing",
+      "vintage"
+    ],
+    "feature": false,
+    "cost": 83.17,
     "boards": [
       "esp32"
     ]

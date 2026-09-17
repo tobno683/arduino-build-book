@@ -6,7 +6,7 @@
    listed file, so the cache is replaced exactly when the content changes.
    ========================================================================== */
 self.AB_PRECACHE = {
-  version: "09949a1bc814",
+  version: "9e61458bdf2e",
   core: [
     "./",
     "./index.html",
@@ -46,6 +46,7 @@ self.AB_PRECACHE = {
     "./assets/data/projects/automatic-plant-waterer.js",
     "./assets/data/projects/battery-capacity-tester.js",
     "./assets/data/projects/brushless-thrust-bench.js",
+    "./assets/data/projects/bus-departure-board.js",
     "./assets/data/projects/camera-gimbal.js",
     "./assets/data/projects/co2-monitor.js",
     "./assets/data/projects/desk-clock.js",
@@ -81,6 +82,7 @@ self.AB_PRECACHE = {
     "./assets/data/projects/mp3-doorbell.js",
     "./assets/data/projects/nbiot-field-sensor.js",
     "./assets/data/projects/nfc-jukebox.js",
+    "./assets/data/projects/nixie-clock.js",
     "./assets/data/projects/nrf24-sensor-link.js",
     "./assets/data/projects/obstacle-avoiding-robot.js",
     "./assets/data/projects/oled-pong.js",
@@ -104,6 +106,7 @@ self.AB_PRECACHE = {
     "./assets/data/projects/snake-oled.js",
     "./assets/data/projects/solar-battery-logger.js",
     "./assets/data/projects/sound-reactive-led.js",
+    "./assets/data/projects/split-flap-display.js",
     "./assets/data/projects/thermal-camera.js",
     "./assets/data/projects/timelapse-camera.js",
     "./assets/data/projects/tinyml-gesture-nano.js",

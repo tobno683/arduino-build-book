@@ -572,6 +572,39 @@ window.AB = window.AB || {};
              { t: 'pad', x: 0, z: 3, w: 32, d: 9, c: '#5a1512' }]
     }),
 
+    /* IN-12 nixie: a glass envelope on a small socket board. The cathode
+       pins are real - each digit is its own wire back to the driver. */
+    nixie: mod({
+      name: 'IN-12 nixie tube', w: 30, d: 30, color: C.pcbBlack,
+      rows: [{ names: ['AN', 'K0', 'K1', 'K2', 'K3', 'K4'], z: -12, step: 4.2 },
+             { names: ['K5', 'K6', 'K7', 'K8', 'K9'], z: 12, step: 4.2 }],
+      deco: [{ t: 'cyl', x: 0, z: 0, r: 13, h: 40, c: '#cfd6de', sides: 20 },
+             { t: 'cyl', x: 0, z: 0, r: 9, h: 14, c: '#ff8a3d', sides: 16 }]
+    }),
+
+    nixiehv: mod({
+      name: '170 V nixie supply', w: 40, d: 26, color: C.pcbGreen,
+      rows: [{ names: ['VIN', 'GND'], z: -10, cx: -13 },
+             { names: ['HV+', 'HV-'], z: -10, cx: 13 }],
+      deco: [{ t: 'cyl', x: -8, z: 4, r: 6, h: 11, c: '#1b1f26', sides: 14 },
+             { t: 'box', x: 9, z: 4, w: 12, h: 6, d: 10, c: '#3a2a12' }]
+    }),
+
+    panelmeter: mod({
+      name: 'Analogue panel meter', w: 52, d: 46, color: '#0d0f12', h: 3,
+      rows: [{ names: ['+', '-'], z: 20, step: 12, flush: true }],
+      deco: [{ t: 'box', x: 0, z: -2, w: 46, h: 22, d: 34, c: '#e8e3d6' },
+             { t: 'box', x: 0, z: -2, w: 2, h: 24, d: 22, c: '#b3372d' }]
+    }),
+
+    flapunit: mod({
+      name: 'Split-flap module', w: 60, d: 54, color: C.pcbBlack,
+      rows: [{ names: ['IN1', 'IN2', 'IN3', 'IN4'], z: -22 },
+             { names: ['VCC', 'GND', 'HALL'], z: 22, cx: -8 }],
+      deco: [{ t: 'cyl', x: 0, z: 2, r: 20, h: 26, c: '#f3efe6', sides: 18 },
+             { t: 'box', x: -24, z: 2, w: 10, h: 18, d: 18, c: '#2a2f38' }]
+    }),
+
     max7219: mod({
       name: 'MAX7219 8x8 matrix, 4-in-1', w: 128, d: 32, color: C.pcbBlack,
       rows: [{ names: ['VCC', 'GND', 'DIN', 'CS', 'CLK'], z: -13, cx: -48 }],
