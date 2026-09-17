@@ -6,7 +6,7 @@
    listed file, so the cache is replaced exactly when the content changes.
    ========================================================================== */
 self.AB_PRECACHE = {
-  version: "c3c004947e44",
+  version: "b5877752fbe4",
   core: [
     "./",
     "./index.html",
@@ -92,6 +92,7 @@ self.AB_PRECACHE = {
     "./assets/data/projects/mp3-doorbell.js",
     "./assets/data/projects/nbiot-field-sensor.js",
     "./assets/data/projects/nfc-jukebox.js",
+    "./assets/data/projects/nfc-tag-automation.js",
     "./assets/data/projects/nixie-clock.js",
     "./assets/data/projects/noise-level-monitor.js",
     "./assets/data/projects/nrf24-sensor-link.js",
@@ -99,6 +100,7 @@ self.AB_PRECACHE = {
     "./assets/data/projects/oled-pong.js",
     "./assets/data/projects/pan-tilt-camera.js",
     "./assets/data/projects/parking-sensor.js",
+    "./assets/data/projects/pet-feeder.js",
     "./assets/data/projects/presence-detector.js",
     "./assets/data/projects/qr-scanner.js",
     "./assets/data/projects/quadcopter-flight-controller.js",
@@ -109,6 +111,7 @@ self.AB_PRECACHE = {
     "./assets/data/projects/reaction-timer.js",
     "./assets/data/projects/rfid-attendance-logger.js",
     "./assets/data/projects/rfid-door-lock.js",
+    "./assets/data/projects/rfid-tool-board.js",
     "./assets/data/projects/rgb-mood-lamp.js",
     "./assets/data/projects/robot-arm.js",
     "./assets/data/projects/simon-says.js",
@@ -120,7 +123,10 @@ self.AB_PRECACHE = {
     "./assets/data/projects/sound-reactive-led.js",
     "./assets/data/projects/sous-vide-controller.js",
     "./assets/data/projects/split-flap-display.js",
+    "./assets/data/projects/stair-lights.js",
+    "./assets/data/projects/sunrise-lamp.js",
     "./assets/data/projects/thermal-camera.js",
+    "./assets/data/projects/tilt-maze.js",
     "./assets/data/projects/timelapse-camera.js",
     "./assets/data/projects/tinyml-gesture-nano.js",
     "./assets/data/projects/tinyml-machine-listener.js",

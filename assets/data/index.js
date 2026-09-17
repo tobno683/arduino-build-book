@@ -2,7 +2,7 @@
    index.js - GENERATED FILE, do not edit by hand.
    Rebuild with:  node tools/build-index.js
    A summary of every project so the home page and the catalogue can render
-   without loading 94 full build guides.
+   without loading 100 full build guides.
    ========================================================================== */
 window.AB = window.AB || {};
 
@@ -1448,6 +1448,31 @@ AB.index = [
     ]
   },
   {
+    "slug": "tilt-maze",
+    "title": "Tilt maze in your hands",
+    "cat": "games",
+    "level": 2,
+    "time": "3 hours",
+    "solder": false,
+    "board": "Nano",
+    "blurb": "Tilt the box and a ball rolls through a maze on the screen. Simple to build, and the moment it goes from \"moves when tilted\" to \"feels like a real ball\" is one line of physics.",
+    "tags": [
+      "game",
+      "mpu6050",
+      "physics",
+      "collision",
+      "oled",
+      "accelerometer",
+      "integration",
+      "no soldering"
+    ],
+    "feature": false,
+    "cost": 16.2,
+    "boards": [
+      "nano"
+    ]
+  },
+  {
     "slug": "espresso-scale",
     "title": "Espresso scale with flow rate",
     "cat": "kitchen",
@@ -1569,6 +1594,56 @@ AB.index = [
     "cost": 16.52,
     "boards": [
       "nano"
+    ]
+  },
+  {
+    "slug": "stair-lights",
+    "title": "Stair lights that follow you up",
+    "cat": "light",
+    "level": 2,
+    "time": "6 hours",
+    "solder": true,
+    "board": "ESP32",
+    "blurb": "Steps light one after another as you climb, and go out behind you. It works out which way you are going from two sensors, which is the only part of this with any real thinking in it.",
+    "tags": [
+      "stairs",
+      "ws2812",
+      "pir",
+      "tof",
+      "direction",
+      "animation",
+      "night light",
+      "esp32"
+    ],
+    "feature": false,
+    "cost": 49.39,
+    "boards": [
+      "esp32"
+    ]
+  },
+  {
+    "slug": "sunrise-lamp",
+    "title": "Sunrise alarm lamp",
+    "cat": "light",
+    "level": 2,
+    "time": "4 hours",
+    "solder": true,
+    "board": "ESP32",
+    "blurb": "Brightens over thirty minutes from a dim red to full daylight, so you wake up before the alarm goes off. Getting the fade to look natural is a lesson in the difference between what a number says and what an eye sees.",
+    "tags": [
+      "wake light",
+      "gamma correction",
+      "pwm",
+      "colour temperature",
+      "circadian",
+      "ntp",
+      "ws2812",
+      "esp32"
+    ],
+    "feature": false,
+    "cost": 32.52,
+    "boards": [
+      "esp32"
     ]
   },
   {
@@ -1894,6 +1969,31 @@ AB.index = [
     ]
   },
   {
+    "slug": "nfc-tag-automation",
+    "title": "NFC tags that run your house",
+    "cat": "rfid",
+    "level": 2,
+    "time": "4 hours",
+    "solder": false,
+    "board": "ESP32",
+    "blurb": "A tag by the door that sets the house to \"out\", one by the bed for \"goodnight\", one on a jar that adds it to the shopping list. The tags carry the instruction themselves, so adding one needs no code change.",
+    "tags": [
+      "nfc",
+      "ndef",
+      "pn532",
+      "mqtt",
+      "home assistant",
+      "ntag215",
+      "automation",
+      "esp32"
+    ],
+    "feature": false,
+    "cost": 27.57,
+    "boards": [
+      "esp32"
+    ]
+  },
+  {
     "slug": "rfid-attendance-logger",
     "title": "RFID attendance logger",
     "cat": "rfid",
@@ -1966,6 +2066,31 @@ AB.index = [
     ]
   },
   {
+    "slug": "rfid-tool-board",
+    "title": "Tool board that knows what is missing",
+    "cat": "rfid",
+    "level": 3,
+    "time": "7 hours",
+    "solder": true,
+    "board": "ESP32",
+    "blurb": "A shadow board with a reader behind every outline. It shows at a glance what is out and who has it, which is the difference between a workshop and a search party.",
+    "tags": [
+      "rfid",
+      "rc522",
+      "spi",
+      "shadow board",
+      "workshop",
+      "presence",
+      "multiple readers",
+      "antenna"
+    ],
+    "feature": false,
+    "cost": 30.87,
+    "boards": [
+      "esp32"
+    ]
+  },
+  {
     "slug": "parking-sensor",
     "title": "Garage parking sensor",
     "cat": "robotics",
@@ -2011,6 +2136,31 @@ AB.index = [
     "boards": [
       "nano",
       "esp32cam"
+    ]
+  },
+  {
+    "slug": "pet-feeder",
+    "title": "Automatic pet feeder",
+    "cat": "robotics",
+    "level": 3,
+    "time": "8 hours",
+    "solder": true,
+    "board": "ESP32",
+    "blurb": "Dispenses a weighed portion twice a day, and tells you when it did not. The interesting design constraint is that the thing it feeds cannot tell you it went hungry, so every failure has to announce itself.",
+    "tags": [
+      "auger",
+      "stepper",
+      "load cell",
+      "jam detection",
+      "rtc",
+      "fail safe",
+      "portion control",
+      "esp32"
+    ],
+    "feature": false,
+    "cost": 30.52,
+    "boards": [
+      "esp32"
     ]
   },
   {
