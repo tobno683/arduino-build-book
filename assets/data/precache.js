@@ -6,7 +6,7 @@
    listed file, so the cache is replaced exactly when the content changes.
    ========================================================================== */
 self.AB_PRECACHE = {
-  version: "9e61458bdf2e",
+  version: "b032badc14e0",
   core: [
     "./",
     "./index.html",
@@ -42,6 +42,7 @@ self.AB_PRECACHE = {
     "./assets/data/projects/5g-teleoperated-rover.js",
     "./assets/data/projects/air-quality-monitor.js",
     "./assets/data/projects/ambient-tv-backlight.js",
+    "./assets/data/projects/analog-gauge-panel.js",
     "./assets/data/projects/arduino-theremin.js",
     "./assets/data/projects/automatic-plant-waterer.js",
     "./assets/data/projects/battery-capacity-tester.js",
@@ -57,6 +58,7 @@ self.AB_PRECACHE = {
     "./assets/data/projects/esp32cam-motion-trap.js",
     "./assets/data/projects/esp32cam-wifi-camera.js",
     "./assets/data/projects/fan-thermostat.js",
+    "./assets/data/projects/flight-tracker-display.js",
     "./assets/data/projects/fridge-freezer-logger.js",
     "./assets/data/projects/gps-bike-computer.js",
     "./assets/data/projects/gps-lora-tracker.js",
@@ -111,6 +113,8 @@ self.AB_PRECACHE = {
     "./assets/data/projects/timelapse-camera.js",
     "./assets/data/projects/tinyml-gesture-nano.js",
     "./assets/data/projects/tinyml-machine-listener.js",
+    "./assets/data/projects/tinyml-vibration-monitor.js",
+    "./assets/data/projects/tinyml-wake-word.js",
     "./assets/data/projects/uno-q-object-detection.js",
     "./assets/data/projects/uno-q-voice-control.js",
     "./assets/data/projects/usb-power-meter.js",

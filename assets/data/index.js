@@ -2,7 +2,7 @@
    index.js - GENERATED FILE, do not edit by hand.
    Rebuild with:  node tools/build-index.js
    A summary of every project so the home page and the catalogue can render
-   without loading 79 full build guides.
+   without loading 83 full build guides.
    ========================================================================== */
 window.AB = window.AB || {};
 
@@ -84,6 +84,31 @@ AB.index = [
     ]
   },
   {
+    "slug": "tinyml-vibration-monitor",
+    "title": "Motor fault detection from vibration",
+    "cat": "ai",
+    "level": 3,
+    "time": "5 hours, plus a week of baselining",
+    "solder": true,
+    "board": "ESP32",
+    "blurb": "Bolt an accelerometer to a motor and it learns what healthy sounds like. When a bearing starts to go, the frequency signature changes weeks before you could hear it - and the frequency it changes at tells you which part is failing.",
+    "tags": [
+      "vibration",
+      "fft",
+      "mpu6050",
+      "predictive maintenance",
+      "anomaly detection",
+      "esp32",
+      "mqtt",
+      "bearings"
+    ],
+    "feature": false,
+    "cost": 25.25,
+    "boards": [
+      "esp32"
+    ]
+  },
+  {
     "slug": "uno-q-object-detection",
     "title": "Object detection that follows you",
     "cat": "ai",
@@ -160,6 +185,31 @@ AB.index = [
     "boards": [
       "jetson-orin",
       "uno"
+    ]
+  },
+  {
+    "slug": "tinyml-wake-word",
+    "title": "Wake word on a coin-cell budget",
+    "cat": "ai",
+    "level": 3,
+    "time": "6 hours, plus recording time",
+    "solder": false,
+    "board": "Nano 33 BLE Sense",
+    "blurb": "Say one word and a board the size of a stick of gum wakes up. No network, no cloud, no Linux - a neural network running in 256 KB of RAM on a microcontroller that sips microamps between words.",
+    "tags": [
+      "tinyml",
+      "wake word",
+      "keyword spotting",
+      "mfcc",
+      "edge impulse",
+      "nano 33",
+      "low power",
+      "quantisation"
+    ],
+    "feature": false,
+    "cost": 59.64,
+    "boards": [
+      "nano33ble"
     ]
   },
   {
@@ -638,6 +688,30 @@ AB.index = [
     ]
   },
   {
+    "slug": "analog-gauge-panel",
+    "title": "Analogue gauge panel",
+    "cat": "display",
+    "level": 2,
+    "time": "5 hours",
+    "solder": true,
+    "board": "ESP32",
+    "blurb": "Four moving-coil needles twitching away on a walnut panel, showing CPU load, the weather, unread email, whatever you like. Physical dials are readable from across a room in a way a screen never is.",
+    "tags": [
+      "analog meter",
+      "pwm",
+      "rc filter",
+      "mqtt",
+      "esp32",
+      "dashboard",
+      "retro"
+    ],
+    "feature": false,
+    "cost": 41.55,
+    "boards": [
+      "esp32"
+    ]
+  },
+  {
     "slug": "desk-clock",
     "title": "Desk clock that dims itself",
     "cat": "display",
@@ -708,6 +782,31 @@ AB.index = [
     "cost": 16.5,
     "boards": [
       "esp8266"
+    ]
+  },
+  {
+    "slug": "flight-tracker-display",
+    "title": "What is that plane overhead",
+    "cat": "display",
+    "level": 2,
+    "time": "4 hours",
+    "solder": false,
+    "board": "ESP32",
+    "blurb": "Points at whatever aircraft is closest to directly above your house and tells you what it is, where it came from and how high it is. Answers a question you have had a hundred times and never looked up.",
+    "tags": [
+      "esp32",
+      "adsb",
+      "opensky",
+      "api",
+      "geometry",
+      "oled",
+      "aviation",
+      "json"
+    ],
+    "feature": false,
+    "cost": 20.55,
+    "boards": [
+      "esp32"
     ]
   },
   {
