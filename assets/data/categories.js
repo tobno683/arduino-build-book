@@ -98,6 +98,13 @@ AB.categories = [
     icon: '<rect x="6.5" y="6.5" width="11" height="11" rx="2.5"/><circle cx="12" cy="12" r="2.2"/><path d="M9.5 3v3.5M14.5 3v3.5M9.5 17.5V21M14.5 17.5V21M3 9.5h3.5M3 14.5h3.5M17.5 9.5H21M17.5 14.5H21"/>'
   },
   {
+    slug: 'kitchen',
+    name: 'Kitchen & Food',
+    blurb: 'Cooking is process control with a deadline. Holding water at 54.5 degrees for two hours, weighing a shot of espresso to a tenth of a gram, watching a dough rise overnight - all of it is the same PID loops and load cells as the rest of this book, pointed at dinner.',
+    learn: 'PID control, thermal lag, food-safe probes, load cells and drift, mains switching, calibration.',
+    icon: '<path d="M6 3v7a3 3 0 0 0 6 0V3"/><path d="M9 10v11"/><path d="M17 3c-1.5 2-2 4-2 6s.5 3 2 3 2-1 2-3-.5-4-2-6z"/><path d="M17 12v9"/>'
+  },
+  {
     slug: 'power',
     name: 'Power, Energy & Measurement',
     blurb: 'Battery monitors, solar loggers, mains energy meters, bench supplies and the deep-sleep tricks that turn a three-day battery life into a nine-month one.',

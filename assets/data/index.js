@@ -2,7 +2,7 @@
    index.js - GENERATED FILE, do not edit by hand.
    Rebuild with:  node tools/build-index.js
    A summary of every project so the home page and the catalogue can render
-   without loading 83 full build guides.
+   without loading 86 full build guides.
    ========================================================================== */
 window.AB = window.AB || {};
 
@@ -163,6 +163,30 @@ AB.index = [
     ]
   },
   {
+    "slug": "ai-plant-doctor",
+    "title": "Plant disease classifier",
+    "cat": "ai",
+    "level": 3,
+    "time": "7 hours, plus a season of photographs",
+    "solder": true,
+    "board": "Arduino UNO Q",
+    "blurb": "Hold a leaf up to a camera and it tells you what is wrong with it. It also shows, more clearly than any other project here, why a model that scores 99% in testing can be useless in your greenhouse.",
+    "tags": [
+      "uno q",
+      "classification",
+      "plantvillage",
+      "domain shift",
+      "macro",
+      "greenhouse",
+      "transfer learning"
+    ],
+    "feature": false,
+    "cost": 96.67,
+    "boards": [
+      "uno-q"
+    ]
+  },
+  {
     "slug": "jetson-pose-coach",
     "title": "Pose estimation exercise coach",
     "cat": "ai",
@@ -233,6 +257,33 @@ AB.index = [
     ],
     "feature": false,
     "cost": 383.7,
+    "boards": [
+      "jetson-orin",
+      "uno"
+    ]
+  },
+  {
+    "slug": "ai-plate-gate",
+    "title": "Number plate recognition gate opener",
+    "cat": "ai",
+    "level": 4,
+    "time": "10 hours",
+    "solder": true,
+    "board": "Jetson Orin Nano",
+    "blurb": "Your own car pulls up and the gate opens. Nobody else’s does. It works well, it is genuinely useful, and it is the one project here where the law has an opinion about what you build.",
+    "tags": [
+      "jetson",
+      "anpr",
+      "ocr",
+      "privacy",
+      "gdpr",
+      "gate",
+      "allowlist",
+      "hashing",
+      "motion gating"
+    ],
+    "feature": false,
+    "cost": 348.43,
     "boards": [
       "jetson-orin",
       "uno"
@@ -1268,6 +1319,31 @@ AB.index = [
     "cost": 8.73,
     "boards": [
       "nano"
+    ]
+  },
+  {
+    "slug": "sous-vide-controller",
+    "title": "Sous vide controller",
+    "cat": "kitchen",
+    "level": 3,
+    "time": "6 hours",
+    "solder": true,
+    "board": "ESP32",
+    "blurb": "Holds a pot of water at 54.5 degrees for three hours without drifting. It is the clearest demonstration of PID control you can build, and the only one whose output you can eat.",
+    "tags": [
+      "pid",
+      "sous vide",
+      "ssr",
+      "mains",
+      "ds18b20",
+      "thermal lag",
+      "autotune",
+      "cooking"
+    ],
+    "feature": true,
+    "cost": 35.57,
+    "boards": [
+      "esp32"
     ]
   },
   {

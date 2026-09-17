@@ -231,6 +231,15 @@ AB.parts = [
 { id:'fan40',            name:'40 mm 5 V fan',                     cat:'Motion', price:2.00, lo:1,   hi:7,   unit:'each', q:'40mm 5V fan',               buy:['ali','amazon'] },
 
 /* --- control / power ---------------------------------------------------- */
+{ id:'ssr25',      name:'Solid state relay, 25 A with heatsink',  cat:'Power', price:9.00, lo:5, hi:22, unit:'each', q:'SSR-25DA solid state relay heatsink', buy:['ali','amazon'],
+  local:{se:{electrokit:'halvledarrela'}},
+  note:'Switches mains silently and has no contacts to weld shut. It MUST have a heatsink - 25 A rated means 25 A bolted to metal, and nearer 5 A bare.' },
+{ id:'max31855',   name:'MAX31855 K-type thermocouple amplifier',  cat:'Module', price:9.00, lo:6, hi:20, unit:'each', q:'MAX31855 thermocouple amplifier breakout', buy:['adafruit','ali','amazon'],
+  note:'Cold-junction compensated and SPI. The cheaper MAX6675 works too but is 12-bit and cannot read below zero.' },
+{ id:'thermo-k',   name:'K-type thermocouple probe, stainless',    cat:'Sensor', price:7.00, lo:4, hi:20, unit:'each', q:'K type thermocouple probe stainless steel food', buy:['ali','amazon'],
+  note:'For food, buy one sold as food-grade with a sealed stainless sheath. The cheap glass-braid ones wick liquid up the insulation and are not washable.' },
+{ id:'loadcell1k', name:'Load cell, 1 kg with HX711',              cat:'Sensor', price:5.00, lo:3, hi:12, unit:'set', q:'1kg load cell HX711 kitchen scale', buy:['ali','amazon'],
+  note:'1 kg, not the 5 kg one used elsewhere in this book. A scale is only as fine as its full range, and 1 kg gives you a tenth of a gram where 5 kg gives you half.' },
 { id:'relay1', local:{se:{electrokit:'relämodul'}},     name:'1-channel relay module, opto-isolated',cat:'Power',price:1.50,lo:0.8, hi:6,   unit:'each', q:'1 channel relay module 5V opto', buy:['ali','amazon','adafruit'] },
 { id:'relay4',     name:'4-channel relay module',            cat:'Power',  price:3.50, lo:2,   hi:12,  unit:'each', q:'4 channel relay module 5V', buy:['ali','amazon'] },
 { id:'mosfet', local:{se:{electrokit:'IRLZ44N'}},     name:'IRLZ44N logic-level MOSFET',        cat:'Power',  price:0.60, lo:0.3, hi:2.5, unit:'each', q:'IRLZ44N MOSFET',            buy:['ali','digikey','amazon'],

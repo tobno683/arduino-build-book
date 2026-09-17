@@ -574,6 +574,22 @@ window.AB = window.AB || {};
 
     /* IN-12 nixie: a glass envelope on a small socket board. The cathode
        pins are real - each digit is its own wire back to the driver. */
+    ssr: mod({
+      name: 'Solid state relay 25 A', w: 58, d: 45, color: '#0e1114', h: 3,
+      rows: [{ names: ['IN+', 'IN-'], z: 17, step: 11, flush: true },
+             { names: ['L1', 'T1'], z: -17, step: 16, flush: true }],
+      deco: [{ t: 'box', x: 0, z: 0, w: 52, h: 22, d: 36, c: '#15181d' },
+             { t: 'pad', x: 0, z: 4, w: 30, d: 12, c: '#c9c4b6' }]
+    }),
+
+    max31855: mod({
+      name: 'MAX31855 thermocouple amp', w: 26, d: 20, color: C.pcbBlack,
+      rows: [{ names: ['VIN', '3V3', 'GND', 'DO', 'CS', 'CLK'], z: -7 }],
+      deco: [{ t: 'box', x: 0, z: 3, w: 8, h: 2, d: 6, c: C.chip },
+             { t: 'pad', x: -8, z: 4, w: 6, d: 8, c: '#b8860b' },
+             { t: 'pad', x: 8, z: 4, w: 6, d: 8, c: '#b8860b' }]
+    }),
+
     nixie: mod({
       name: 'IN-12 nixie tube', w: 30, d: 30, color: C.pcbBlack,
       rows: [{ names: ['AN', 'K0', 'K1', 'K2', 'K3', 'K4'], z: -12, step: 4.2 },
