@@ -114,7 +114,7 @@ AB.news = [
     src: [{ t: 'CNX Software', u: 'https://www.cnx-software.com/2026/07/14/meet-moddo-pinch-the-world-smallest-arduino-compatible-board-2026-edition/' }] },
 
   { id: 'esp32-s31',
-    date: '2026-04-08', status: 'announced',
+    date: '2026-04-08', status: 'announced', avail: 'No ship date announced',
     vendor: 'Espressif', title: 'ESP32-S31',
     blurb: 'Dual-core RISC-V with Wi-Fi 6 and gigabit Ethernet on the chip itself.',
     specs: ['Dual-core RISC-V', 'Wi-Fi 6', 'Gigabit Ethernet on-chip'],
@@ -131,7 +131,7 @@ AB.news = [
     src: [{ t: 'Arduino Blog', u: 'https://blog.arduino.cc/2026/03/27/we-just-announced-seven-new-products-ready-to-expand-your-arduino-uno-q-board/' }] },
 
   { id: 'ventuno-q',
-    date: '2026-03-10', status: 'preorder', price: '$299',
+    date: '2026-03-10', status: 'preorder', price: '$299', avail: 'Roughly four weeks from order, as quoted by the vendor',
     vendor: 'Arduino', title: 'VENTUNO Q',
     blurb: 'Arduino edge AI board pairing a Qualcomm Dragonwing IQ8 with an STM32H5. The big brother to the UNO Q.',
     specs: ['Qualcomm Dragonwing IQ8 plus an STM32H5 microcontroller', '16 GB RAM',
@@ -142,7 +142,7 @@ AB.news = [
           { t: 'Arduino Store', u: 'https://store-usa.arduino.cc/products/ventuno-q' }] },
 
   { id: 'esp32-e22-h21',
-    date: '2026-01-07', status: 'announced',
+    date: '2026-01-07', status: 'announced', avail: 'No ship date announced - shown at CES as silicon, not boards',
     vendor: 'Espressif', title: 'ESP32-E22 and ESP32-H21',
     blurb: 'Shown at CES: a Wi-Fi 6E co-processor, and an ultra-low-power BLE and Thread microcontroller.',
     specs: ['E22: dual-core RISC-V to 500 MHz, 1 MB on-chip memory, tri-band 2.4/5/6 GHz Wi-Fi 6E, 160 MHz channels, 2x2 MIMO, Bluetooth 6.0, PCIe/USB/SDIO',

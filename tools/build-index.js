@@ -137,6 +137,53 @@ for (const p of AB.projects) {
 }
 
 /* ==========================================================================
+   Local shop links are opt-in per part and have to be checked against the
+   shop before they go in. A link to a shop that does not stock the thing is
+   worse than no link, because the reader spends the click to find out.
+   ========================================================================== */
+const localShopCount = {};
+AB.parts.forEach(p => {
+  const where = `parts.js: "${p.id}"`;
+  Object.keys(p.local || {}).forEach(regionId => {
+    const region = AB.regions[regionId];
+    if (!region) {
+      errors.push(`${where}: local shops listed for unknown region "${regionId}"`);
+      return;
+    }
+    const allowed = region.shops || [];
+    const shops = p.local[regionId];
+    if (!shops || typeof shops !== 'object') {
+      errors.push(`${where}: local.${regionId} must be an object of shopId -> search term`);
+      return;
+    }
+    Object.keys(shops).forEach(shopId => {
+      if (!AB.suppliers[shopId]) {
+        errors.push(`${where}: local.${regionId} names unknown shop "${shopId}"`);
+      } else if (!allowed.includes(shopId)) {
+        errors.push(`${where}: "${shopId}" is not one of the ${regionId} shops (${allowed.join(', ') || 'none'})`);
+      }
+      const term = shops[shopId];
+      if (term !== true && (typeof term !== 'string' || !term.trim())) {
+        errors.push(`${where}: local.${regionId}.${shopId} must be true or a non-empty search term`);
+      }
+      const key = regionId + '/' + shopId;
+      localShopCount[key] = (localShopCount[key] || 0) + 1;
+    });
+  });
+});
+
+/* A region whose shops stock nothing is a dead option in the picker. */
+Object.keys(AB.regions).forEach(regionId => {
+  (AB.regions[regionId].shops || []).forEach(shopId => {
+    if (!AB.suppliers[shopId]) {
+      errors.push(`parts.js: region "${regionId}" lists unknown shop "${shopId}"`);
+    } else if (!localShopCount[regionId + '/' + shopId]) {
+      warnings.push(`parts.js: no part is marked as stocked at "${shopId}" - it will never appear`);
+    }
+  });
+});
+
+/* ==========================================================================
    The news shelf. Same deal as projects: anything that would render a dead
    link or a wrong badge is an error, not a warning. Staleness is a warning,
    because the page stays correct - it just stops being news.

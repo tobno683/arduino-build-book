@@ -307,7 +307,19 @@ AB.region = {
   }
 };
 
-/* The supplier ids to offer for one part, in the current region. */
+/* The supplier ids to offer for one part, in the current region.
+
+   Local shops are opt-in per part via `local: { se: { electrokit: 'query' } }`,
+   never blanket-added to the region. They used to be: every part carried an
+   Electrokit and a Kjell link whether or not those shops had ever stocked
+   the thing, so clicking through for a Jetson landed you in an empty search.
+   A shop link now means "this shop has this, and here is the search that
+   finds it", which is the only version of the link worth having. */
+AB.localShops = function (part) {
+  var byRegion = part.local || {};
+  return byRegion[AB.region.get()] || {};
+};
+
 AB.suppliersFor = function (part) {
   var region = AB.regions[AB.region.get()] || AB.regions.intl;
   var swap = region.swap || {};
@@ -318,10 +330,10 @@ AB.suppliersFor = function (part) {
     if (AB.suppliers[mapped] && out.indexOf(mapped) < 0) out.push(mapped);
   });
 
-  // Local shops go first - they are the ones a reader here can actually
-  // get by Tuesday. Prepend as a block so the declared order survives;
-  // unshifting one at a time would reverse them.
-  var local = (region.extra || []).filter(function (id) {
+  // Verified local shops go first - they are the ones a reader here can
+  // actually get by Tuesday. Prepend as a block so the declared order
+  // survives; unshifting one at a time would reverse them.
+  var local = Object.keys(AB.localShops(part)).filter(function (id) {
     return AB.suppliers[id] && out.indexOf(id) < 0;
   });
 
@@ -329,10 +341,13 @@ AB.suppliersFor = function (part) {
 };
 
 AB.buyLinks = function (part, query) {
-  var q = encodeURIComponent(query || part.q);
+  // A local shop carries its own search string, because the term that finds
+  // the part internationally often finds only accessories in a Swedish shop.
+  var local = AB.localShops(part);
   return AB.suppliersFor(part).map(function (id) {
     var s = AB.suppliers[id];
-    return '<a href="' + s.url + q + '" target="_blank" rel="noopener noreferrer">' +
+    var term = typeof local[id] === 'string' ? local[id] : (query || part.q);
+    return '<a href="' + s.url + encodeURIComponent(term) + '" target="_blank" rel="noopener noreferrer">' +
            AB.esc(s.name) + '</a>';
   }).join(' &middot; ');
 };

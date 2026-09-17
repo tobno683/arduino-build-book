@@ -87,6 +87,15 @@ House conventions:
 - **Supplier links are search URLs, never product URLs.** That is what makes it honest to offer a shop
   for every part: the link means "look for it here", not "this is in stock here". It also means links
   never rot.
+- **A local shop link must be checked against that shop first.** Local shops are opt-in per part via
+  `local: { se: { electrokit: 'search term' } }`; a region's `shops` list only says which are *eligible*.
+  This replaced an `extra` list that was prepended to all 212 parts regardless, so every part offered
+  Electrokit and Kjell whether or not they had ever stocked it. Two things to know before adding one:
+  the international `q` usually finds the wrong thing (Electrokit's own search for `Arduino Uno R3`
+  returns four shields and a clone, so each link carries its own term, often Swedish - `kopplingsdäck`,
+  `motstånd`, `lödstation`), and a search that returns *something* is not a match - `2004` finds a
+  TDA2004 audio amp, `30A` finds a blade fuse. Read the results, not the count. `build-index.js`
+  rejects a shop that is not eligible in its region and warns about one that ends up on no parts.
 - **Regions live in `AB.regions`** (`assets/data/parts.js`). A region can `swap` an international supplier
   for its local arm (amazon → amazon.se) and add `extra` local shops to every part. `AB.buyLinks()` in
   site.js is the single implementation, used by both the project BOM and the tools catalogue. Default is
