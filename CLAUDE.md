@@ -28,6 +28,7 @@ assets/data/parts.js     THE SHOP — every price on the site comes from here
 assets/data/projects/*.js  one file per project, one AB.addProject() call each
 assets/data/news.js      the news shelf - new and upcoming boards
 assets/data/boards.js    what each board is for - one entry per Board part
+assets/data/drones.js    drone reference - classes, frames, pitfalls. Not projects.
 assets/data/index.js     GENERATED. Never hand-edit.
 ```
 

@@ -44,6 +44,7 @@ run(ctx, 'assets/data/parts.js');
 run(ctx, 'assets/data/categories.js');
 run(ctx, 'assets/data/news.js');
 run(ctx, 'assets/data/boards.js');
+run(ctx, 'assets/data/drones.js');
 run(ctx, 'assets/js/build3d.js');
 run(ctx, 'assets/js/parts3d.js');
 
@@ -194,6 +195,45 @@ Object.keys(AB.regions).forEach(regionId => {
     }
   });
 });
+
+/* ==========================================================================
+   The drone guide. It is reference rather than a project, so the checks
+   are lighter - but a class with no downside listed is an advertisement,
+   and a pitfall with no fix is just a complaint.
+   ========================================================================== */
+const droneIds = new Set();
+(AB.droneClasses || []).forEach((c, i) => {
+  const where = `drones.js: class "${c.id || '#' + i}"`;
+  ['id', 'name', 'prop', 'cells', 'motor', 'auw', 'flight', 'cost', 'avoid', 'note'].forEach(k => {
+    if (!c[k]) errors.push(`${where}: missing "${k}"`);
+  });
+  if (droneIds.has(c.id)) errors.push(`${where}: duplicate id`);
+  droneIds.add(c.id);
+  if (!(c.useFor || []).length) errors.push(`${where}: no "useFor" entries`);
+});
+
+(AB.droneFrames || []).forEach((f, i) => {
+  const where = `drones.js: frame "${f.id || '#' + i}"`;
+  ['id', 'name', 'shape', 'goodFor', 'badFor', 'note'].forEach(k => {
+    if (!f[k]) errors.push(`${where}: missing "${k}"`);
+  });
+});
+
+(AB.dronePitfalls || []).forEach((p, i) => {
+  const where = `drones.js: pitfall #${i}`;
+  ['h', 'symptom', 'cause', 'fix'].forEach(k => {
+    if (!p[k]) errors.push(`${where}: missing "${k}" - a pitfall without a fix is just a complaint`);
+  });
+});
+
+if (!AB.droneGuide || !droneIds.has(AB.droneGuide.firstBuild)) {
+  errors.push('drones.js: AB.droneGuide.firstBuild must name a class defined above');
+}
+/* The page lists the drone projects straight from the index, so the
+   theme has to exist or the last section renders empty. */
+if (!AB.catIndex['drones']) {
+  errors.push('drones.js: the "drones" category is gone - basics/drones.html links to it');
+}
 
 /* ==========================================================================
    The board guide. Every part in the Board category must be written up,
@@ -390,6 +430,7 @@ function writePrecache(projects) {
     './offline.html',
     './manifest.webmanifest',
     './basics/boards.html',
+    './basics/drones.html',
     './basics/tools.html',
     './basics/soldering.html',
     './basics/electronics.html',
@@ -406,6 +447,7 @@ function writePrecache(projects) {
     './assets/data/glossary.js',
     './assets/data/news.js',
     './assets/data/boards.js',
+    './assets/data/drones.js',
     './assets/data/index.js',
     './assets/favicon.svg',
     './assets/icons/icon-192.png',

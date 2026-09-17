@@ -63,6 +63,7 @@ AB.NAV = [
   ['projects.html', 'All projects'],
   ['news.html', 'New boards'],
   ['basics/boards.html', 'Which board'],
+  ['basics/drones.html', 'Drones'],
   ['basics/tools.html', 'Tools & buying'],
   ['basics/soldering.html', 'Soldering'],
   ['basics/electronics.html', 'Electronics'],

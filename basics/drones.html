@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Building a drone — The Build Book</title>
+<meta name="description" content="Everything you need before building a quadcopter: the classes, how to dimension motors, propellers and batteries, thrust-to-weight, ESCs and flight controllers, frame geometry, LiPo safety, the rules, and the specific pitfalls that ruin builds.">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../assets/icons/apple-touch-icon.png">
+<meta name="theme-color" content="#b4662b">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Build Book">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/style.css">
+<script>(function(){try{var t=localStorage.getItem('ab-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){}}());</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<section class="proj-head">
+  <div class="wrap">
+    <div class="crumbs"><a href="../index.html">Home</a> / Basics / Building a drone</div>
+    <h1>Building a drone</h1>
+    <p class="lede">The background the drone projects assume you already have. What the classes are, how to
+    size a power system so the numbers agree with each other, and the specific mistakes that turn a $300 build
+    into a box of broken parts.</p>
+    <p class="checked" id="checked"></p>
+  </div>
+</section>
+
+<main class="wrap" id="main">
+<div class="proj-layout">
+<div class="pbody">
+
+<section id="start">
+  <h2>Start here, whatever you eventually want</h2>
+  <div id="first-build"></div>
+
+  <div class="note warn"><span class="t">Learn to fly before you learn to build</span>
+  <p>Buy a simulator - Liftoff, Velocidrone or DRL, about $20 - and a decent radio. Spend ten hours in it
+  before you order a single part.</p>
+  <p>This is not optional advice and it is not gatekeeping. Ten hours of simulator costs nothing to crash and
+  will save you several hundred dollars of real parts. Every experienced pilot will tell you the same thing and
+  almost every beginner ignores it.</p></div>
+
+  <p>Then get a cheap ready-to-fly whoop and learn indoors. Only after that does building your own make sense,
+  because you will know what you are trying to build and you will be able to tell a flying problem from a build
+  problem.</p>
+</section>
+
+<section id="classes">
+  <h2>The classes, and what each is for</h2>
+  <p>Almost every decision downstream follows from this one. A 7 inch long-range build and a 5 inch racer share
+  almost no parts and almost no design thinking.</p>
+  <div id="classes"></div>
+</section>
+
+<section id="thrust">
+  <h2>Thrust to weight: the number everything else serves</h2>
+  <p>Total thrust from all four motors at full throttle, divided by the all-up weight of the finished quad with
+  its battery. Every other choice in the power system exists to hit a target here.</p>
+  <div class="table-scroll"><table id="thrust-table"></table></div>
+
+  <p><strong>Work backwards from it.</strong> Suppose you want a 5 inch freestyle quad at 5:1:</p>
+  <ol>
+    <li>Estimate all-up weight. A 5 inch build is around <strong>650 g</strong> with a 6S 1300 mAh pack.</li>
+    <li>Required total thrust = 650 g &times; 5 = <strong>3,250 g</strong>.</li>
+    <li>Per motor = 3,250 &divide; 4 = <strong>813 g</strong>.</li>
+    <li>Find a motor and prop combination that produces at least that. Every reputable motor manufacturer
+    publishes thrust tables per prop and per cell count - use them rather than guessing.</li>
+    <li>Read the <strong>current</strong> off the same row. If each motor pulls 30 A at full throttle, the
+    quad pulls 120 A, and now you know what the ESC and the battery must survive.</li>
+  </ol>
+  <p>That last step is the one people skip, and it is where builds go wrong. The thrust number picks the motor;
+  the current number picks the ESC and the battery.</p>
+</section>
+
+<section id="motors">
+  <h2>Motors: stator size and KV</h2>
+  <p>A brushless motor is described by two numbers, and both matter more than the brand.</p>
+
+  <h3 id="h-stator">Stator size</h3>
+  <p>A motor called <strong>2207</strong> has a stator 22&nbsp;mm across and 7&nbsp;mm tall. Bigger means more
+  torque, which means it can swing a bigger or more aggressive prop without overheating. It also means more
+  weight and more rotating inertia, so it responds slightly more slowly.</p>
+  <ul>
+    <li><strong>Width</strong> (the first two digits) buys torque efficiently.</li>
+    <li><strong>Height</strong> (the second two) buys torque at more cost in weight and responsiveness.</li>
+  </ul>
+  <p>Match it to the prop. A 5 inch prop wants a 2207 class motor; a 7 inch wants a 2806 or 2807; a 3 inch
+  wants a 1404 to 1507. Putting a big prop on a small motor is the most common cause of motors you cannot
+  hold.</p>
+
+  <h3 id="h-kv">KV</h3>
+  <p>KV is revolutions per minute per volt, <strong>unloaded</strong>. A 1900&nbsp;KV motor on a fully charged
+  6S pack (25.2&nbsp;V) spins at about 47,000&nbsp;rpm with nothing attached. With a prop on it, far less -
+  but the number still tells you what you need to know relative to other motors.</p>
+  <p><strong>The rule that matters:</strong> KV and cell count trade against each other. Going from 4S to 6S is
+  a 50% voltage increase, so drop KV by about a third to keep the same rpm:</p>
+  <ul>
+    <li>4S at 2400&nbsp;KV &asymp; 6S at 1600&nbsp;KV</li>
+    <li>4S at 2600&nbsp;KV &asymp; 6S at 1750&nbsp;KV</li>
+  </ul>
+  <p>Fit a 4S-rated high-KV motor to a 6S pack and it will spin far too fast for the prop, draw enormous
+  current, and cook itself within a couple of flights.</p>
+
+  <div class="note tip"><span class="t">Why 6S has largely won</span>
+  <p>The same power at higher voltage means lower current. Lower current means thinner wire, cooler ESCs, less
+  loss in the connectors and less voltage sag. A 6S build at the same power is measurably more efficient than
+  the 4S equivalent, and the parts are no more expensive.</p>
+  <p>4S is still fine, and it is what most sub-250&nbsp;g and 3 inch builds use.</p></div>
+</section>
+
+<section id="props">
+  <h2>Propellers: diameter, pitch, blades</h2>
+  <p>A prop marked <strong>5143</strong> is 5.1 inches across with a 4.3 inch pitch. Pitch is the distance it
+  would advance in one rotation through a solid, which is a useful fiction - it tells you how aggressive the
+  blade angle is.</p>
+
+  <div class="grid grid-2">
+    <div class="card">
+      <h3>Diameter</h3>
+      <p>More diameter moves more air, so more thrust and more efficiency - but it needs more torque, so a
+      bigger motor, and it accelerates and decelerates more slowly.</p>
+      <p>Diameter is the main lever for efficiency. It is why long-range builds are 7 inch and racers are not.</p>
+    </div>
+    <div class="card">
+      <h3>Pitch</h3>
+      <p>More pitch is a steeper blade: higher top speed, much more current, and less thrust at low throttle
+      because the blade stalls.</p>
+      <p>If your motors run hot, reducing pitch is usually the first thing to try.</p>
+    </div>
+    <div class="card">
+      <h3>Blade count</h3>
+      <p>Two blades are the most efficient. Three give more thrust and much better grip in hard manoeuvres for
+      noticeably more current. Four and five are for ducted builds and pure thrust.</p>
+      <p>Tri-blade is the freestyle default; bi-blade is for racing and range.</p>
+    </div>
+    <div class="card">
+      <h3>The practical approach</h3>
+      <p>Props are a dollar each. Buy three or four combinations, fly the same pack on each, and land after
+      one minute to feel the motors. The one that gives the flight you want without hot motors is the right
+      one.</p>
+      <p>This is cheaper and more reliable than any amount of calculation.</p>
+    </div>
+  </div>
+</section>
+
+<section id="battery">
+  <h2>Batteries: cells, capacity and the C rating lie</h2>
+  <p>A LiPo is described as, say, <strong>6S 1300 mAh 100C</strong>. Three numbers, and one of them is fiction.</p>
+
+  <ul>
+    <li><strong>S is cells in series.</strong> Each cell is 3.7&nbsp;V nominal, 4.2&nbsp;V fully charged and
+    3.0&nbsp;V damaged. A 6S pack is 22.2&nbsp;V nominal and 25.2&nbsp;V charged.</li>
+    <li><strong>mAh is capacity.</strong> More capacity means more flight time and more weight, and the two
+    fight each other - past a point the extra weight eats the extra energy. For a 5 inch build, 1300 mAh on 6S
+    is the sweet spot; for a 7 inch, 3000-5000 mAh.</li>
+    <li><strong>C is the claimed continuous discharge.</strong> Capacity &times; C = amps. A 1300&nbsp;mAh 100C
+    pack claims 130&nbsp;A.</li>
+  </ul>
+
+  <div class="note warn"><span class="t">Halve every C rating you read</span>
+  <p>C ratings are marketing numbers and have been for twenty years. A pack sold as 100C will typically deliver
+  something like 50C continuously without sagging badly or getting hot.</p>
+  <p>Size for half the printed number, and judge packs by how much they sag under load rather than by what is
+  on the label.</p></div>
+
+  <p><strong>Voltage under load is the real measurement.</strong> A healthy pack sags perhaps 0.3&nbsp;V per
+  cell at full throttle and recovers immediately. A tired one sags a volt and stays down. Judge by resting
+  voltage after landing - if it recovers above 3.7&nbsp;V per cell you landed earlier than you needed to, and
+  below 3.5&nbsp;V you are shortening the pack's life.</p>
+</section>
+
+<section id="electronics">
+  <h2>ESCs, flight controllers and the radio link</h2>
+
+  <h3 id="h-esc">ESCs</h3>
+  <p>Size by the current you calculated from the thrust table, with headroom. If the quad pulls 120&nbsp;A at
+  full throttle, a 4-in-1 rated 45&nbsp;A per motor is comfortable and a 35&nbsp;A one is not.</p>
+  <ul>
+    <li><strong>4-in-1 is the default.</strong> One board, one set of power wires, far less soldering.</li>
+    <li><strong>Firmware:</strong> BLHeli_32 was the standard and is now effectively replaced by
+    <strong>AM32</strong>, which is open source and actively developed. BLHeli_S boards can usually run
+    Bluejay.</li>
+    <li><strong>Protocol:</strong> DShot600 for 5 inch, DShot300 for larger. Use bidirectional DShot if the
+    firmware supports it - it feeds real motor rpm back to the flight controller and enables RPM filtering,
+    which is the single biggest tuning improvement of the last decade.</li>
+  </ul>
+
+  <h3 id="h-fc">Flight controllers</h3>
+  <p>F4 is cheap and adequate, F7 gives headroom, H7 is for running everything at once. For most builds the
+  processor is not the limit.</p>
+  <p>What matters more:</p>
+  <ul>
+    <li><strong>The gyro.</strong> ICM-42688P is the current standard and is excellent. The old MPU6000 is
+    slower but famously smooth and still fine.</li>
+    <li><strong>Soft mounting.</strong> Rubber grommets in the stack. This affects flight quality more than the
+    choice of chip does.</li>
+    <li><strong>UART count.</strong> Receiver, video system, GPS, telemetry - you run out faster than you
+    expect.</li>
+  </ul>
+  <p>Betaflight for freestyle and racing, INAV for GPS-heavy and fixed-wing, ArduPilot for autonomous work.</p>
+
+  <h3 id="h-radio">The radio link</h3>
+  <p><strong>ExpressLRS</strong> at 2.4&nbsp;GHz or 915/868&nbsp;MHz is the answer for new builds - open
+  source, extremely long range, low latency, and cheap. TBS Crossfire is the established commercial
+  alternative.</p>
+  <p>Whatever you use, <strong>configure and test the failsafe</strong>. See the pitfalls below.</p>
+
+  <h3 id="h-video">Video</h3>
+  <ul>
+    <li><strong>Analogue</strong> - cheap, universally compatible, degrades gracefully as it gets weak. Still
+    entirely viable and it is what most people learn on.</li>
+    <li><strong>Digital</strong> - DJI, Walksnail and HDZero. Enormously better image, more expensive, heavier,
+    and it can cut out abruptly where analogue would just get noisy.</li>
+  </ul>
+</section>
+
+<section id="frames">
+  <h2>Frame geometry</h2>
+  <p>The frame decides how it flies and how it survives crashing. Arm thickness matters most - 5&nbsp;mm carbon
+  for a 5 inch build, 4&nbsp;mm if you are chasing weight and are prepared to break arms.</p>
+  <div id="frames"></div>
+</section>
+
+<section id="pitfalls">
+  <h2>The pitfalls, specifically</h2>
+  <p>These are the things that actually ruin builds. Most of them cost nothing to avoid and a lot to fix.</p>
+  <div id="pitfalls"></div>
+</section>
+
+<section id="safety">
+  <h2>Safety</h2>
+
+  <div class="note danger"><span class="t">Propellers cut. This is the whole safety section in one line.</span>
+  <p>A 5 inch tri-blade at 30,000&nbsp;rpm will go through to the bone. This is not a theoretical risk - it is
+  the most common serious injury in the hobby and it nearly always happens on a bench, not in flight.</p>
+  <ul>
+    <li><strong>Props off for every bench test.</strong> Every single one, including the one where you are
+    certain nothing can go wrong. Motor direction checks, ESC configuration, receiver binding - all props
+    off.</li>
+    <li><strong>Props on last</strong>, outdoors, with the quad pointing away from you and everybody else.</li>
+    <li><strong>Disarm before you approach it.</strong> Then put the transmitter down before you pick the quad
+    up, so you cannot arm it with your knee.</li>
+    <li><strong>Eye protection</strong> when working on a powered quad. Props shed blades.</li>
+    <li><strong>Never fly over people.</strong> Not low, not high, not "just past them".</li>
+  </ul></div>
+
+  <div class="note danger"><span class="t">Lithium polymer batteries</span>
+  <p>Consistent with every other lithium project on this site, plus the things specific to high-discharge
+  packs:</p>
+  <ul>
+    <li><strong>Charge in a bag or an ammo tin</strong>, on a non-flammable surface, never unattended and never
+    overnight.</li>
+    <li><strong>Never charge a puffed, damaged or crashed pack.</strong> A hard crash can cause internal damage
+    that shows up hours later - set a crashed pack aside somewhere safe and watch it.</li>
+    <li><strong>Never charge below 0&nbsp;&deg;C.</strong> It plates lithium onto the anode permanently and can
+    cause an internal short later.</li>
+    <li><strong>Storage charge</strong> - about 3.8&nbsp;V per cell - for anything not being flown within a day
+    or two. Leaving packs fully charged is the fastest way to kill them.</li>
+    <li><strong>Do not discharge below 3.5&nbsp;V per cell</strong> under load, or 3.0&nbsp;V ever.</li>
+    <li><strong>A LiPo fire cannot be put out with water.</strong> It supplies its own oxidiser. Sand, or let it
+    burn somewhere it cannot set anything else alight.</li>
+  </ul></div>
+
+  <div class="note warn"><span class="t">Use a smoke stopper for the first power-up</span>
+  <p>A mains lamp or a car bulb in series with the battery lead. A solder bridge on the ESC pads - the most
+  common build fault there is - then makes the bulb glow instead of destroying the stack and possibly starting
+  a fire.</p>
+  <p>It costs about five dollars to make and it pays for itself the first time.</p></div>
+</section>
+
+<section id="rules">
+  <h2>The rules, in outline</h2>
+  <p>Drone regulation is national, changes regularly, and is enforced. What follows is the shape of it in
+  Europe and the UK as of late 2026 - <strong>check your own authority before flying</strong>, because the
+  detail differs and this page will go stale.</p>
+
+  <ul>
+    <li><strong>Operator registration.</strong> Required for anything over 250&nbsp;g, and for any drone with a
+    camera regardless of weight - which is every FPV quad. You get an operator number that goes on the
+    aircraft.</li>
+    <li><strong>Class marks.</strong> Drones sold in the EU carry a C0 to C6 label setting where they may be
+    flown. <strong>Self-built aircraft are exempt from class marking</strong>, which is a genuine advantage of
+    building your own, though the other rules still apply.</li>
+    <li><strong>Remote ID.</strong> Required for C1, C2 and C3 class drones - broadcasting operator ID and
+    position over Wi-Fi or Bluetooth. <strong>C0, under 250&nbsp;g, is exempt</strong> in the Open category,
+    which is a real reason to consider a sub-250&nbsp;g build.</li>
+    <li><strong>Visual line of sight.</strong> The default requirement almost everywhere. FPV flying is
+    generally permitted only with a competent spotter beside you maintaining that line of sight.</li>
+    <li><strong>Where you cannot fly.</strong> Airports and their approaches, over crowds, and a long list of
+    restricted areas. Use your national airspace app - they are free and they are the authoritative
+    answer.</li>
+    <li><strong>Insurance.</strong> Required in some countries, sensible everywhere. National model flying
+    associations usually include it in membership and it is cheap.</li>
+  </ul>
+
+  <div class="note tip"><span class="t">Sub-250 g is worth considering seriously</span>
+  <p>Staying under 250&nbsp;g all-up sidesteps a meaningful amount of regulation in most jurisdictions, and
+  modern 3 inch and toothpick builds are genuinely capable. If you are choosing a first build and the rules
+  where you live are strict, this is a real option rather than a compromise.</p></div>
+</section>
+
+<section id="projects">
+  <h2>Then build something</h2>
+  <p>The drone projects on this site assume everything on this page.</p>
+  <div id="proj-links"></div>
+</section>
+
+</div>
+
+<aside class="toc"><div class="t">On this page</div><ol></ol></aside>
+</div>
+</main>
+
+<script src="../assets/data/parts.js"></script>
+<script src="../assets/data/categories.js"></script>
+<script src="../assets/data/index.js"></script>
+<script src="../assets/data/drones.js"></script>
+<script src="../assets/js/site.js"></script>
+<script>
+(function () {
+  AB.chrome('drones.html');
+  AB.autoToc();
+
+  document.getElementById('checked').textContent =
+    'Written ' + AB.droneGuide.updated + ' · regulations change, so treat that section as a starting point';
+
+  // ---- first build ---------------------------------------------------
+  var fb = AB.droneClasses.filter(function (c) { return c.id === AB.droneGuide.firstBuild; })[0];
+  document.getElementById('first-build').innerHTML =
+    '<div class="card"><h3>Build a ' + AB.esc(fb.name) + ' first</h3>' +
+    '<p>' + AB.esc(AB.droneGuide.firstBuildWhy) + '</p>' +
+    '<div class="news-links">' +
+      '<a class="chip" href="#classes">See all the classes</a>' +
+      '<a class="chip" href="#thrust">How to size it</a>' +
+      '<a class="chip" href="../projects.html?cat=drones">The drone projects</a>' +
+    '</div></div>';
+
+  // ---- thrust table ---------------------------------------------------
+  document.getElementById('thrust-table').innerHTML =
+    '<thead><tr><th>Thrust to weight</th><th>What it feels like</th></tr></thead><tbody>' +
+    AB.droneGuide.thrustRule.map(function (r) {
+      return '<tr><td><strong>' + AB.esc(r.ratio) + '</strong></td><td>' + AB.esc(r.verdict) + '</td></tr>';
+    }).join('') + '</tbody>';
+
+  // ---- classes --------------------------------------------------------
+  var SPECS = [
+    ['prop', 'Propeller'], ['cells', 'Battery'], ['motor', 'Motor'],
+    ['auw', 'All-up weight'], ['flight', 'Flight time'], ['cost', 'Typical cost']
+  ];
+
+  document.getElementById('classes').innerHTML = AB.droneClasses.map(function (c) {
+    var out = '<article class="card board-card" id="' + c.id + '">';
+    out += '<h3>' + AB.esc(c.name) + '</h3>';
+
+    out += '<table class="spec"><tbody>' + SPECS.map(function (s) {
+      return '<tr><th>' + s[1] + '</th><td>' + AB.esc(c[s[0]]) + '</td></tr>';
+    }).join('') + '</tbody></table>';
+
+    out += '<div class="grid grid-2 board-pros">' +
+      '<div class="good"><h4>Use it for</h4><ul>' +
+        c.useFor.map(function (u) { return '<li>' + AB.esc(u) + '</li>'; }).join('') +
+      '</ul></div>' +
+      '<div class="bad"><h4>Not for</h4><ul><li>' + AB.esc(c.avoid) + '</li></ul></div>' +
+    '</div>';
+
+    out += '<p class="board-note">' + AB.esc(c.note) + '</p>';
+    return out + '</article>';
+  }).join('');
+
+  // ---- frames ---------------------------------------------------------
+  document.getElementById('frames').innerHTML =
+    '<div class="grid grid-2">' + AB.droneFrames.map(function (f) {
+      return '<div class="card"><h3>' + AB.esc(f.name) + '</h3>' +
+        '<p>' + AB.esc(f.shape) + '</p>' +
+        '<p><strong>Good for:</strong> ' + AB.esc(f.goodFor) + '</p>' +
+        '<p><strong>Bad for:</strong> ' + AB.esc(f.badFor) + '</p>' +
+        '<p class="board-note">' + AB.esc(f.note) + '</p></div>';
+    }).join('') + '</div>';
+
+  // ---- pitfalls -------------------------------------------------------
+  document.getElementById('pitfalls').innerHTML = AB.dronePitfalls.map(function (p) {
+    return '<article class="card board-card">' +
+      '<h3>' + AB.esc(p.h) + '</h3>' +
+      '<table class="spec"><tbody>' +
+        '<tr><th>Symptom</th><td>' + AB.esc(p.symptom) + '</td></tr>' +
+        '<tr><th>Cause</th><td>' + AB.esc(p.cause) + '</td></tr>' +
+      '</tbody></table>' +
+      '<div class="news-why"><h4>Fix</h4><p>' + AB.esc(p.fix) + '</p></div>' +
+    '</article>';
+  }).join('');
+
+  // ---- the projects, straight from the index --------------------------
+  var drone = (AB.index || []).filter(function (p) { return p.cat === 'drones'; })
+    .sort(function (a, b) { return a.level - b.level; });
+
+  document.getElementById('proj-links').innerHTML =
+    '<div class="grid grid-2">' + drone.map(function (p) {
+      var lvl = AB.levels[p.level - 1];
+      return '<a class="card" style="text-decoration:none;display:block" ' +
+        'href="../project.html?p=' + encodeURIComponent(p.slug) + '">' +
+        '<div class="news-top"><span class="chip d' + p.level + '">' + AB.esc(lvl.name) + '</span>' +
+        '<span class="news-price">' + AB.usd(p.cost) + '</span></div>' +
+        '<h3>' + AB.esc(p.title) + '</h3>' +
+        '<p class="news-blurb">' + AB.esc(p.blurb) + '</p></a>';
+    }).join('') + '</div>';
+}());
+</script>
+</body>
+</html>
