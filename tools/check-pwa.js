@@ -174,9 +174,13 @@ try {
 }
 
 /* --- 5. every page is wired up ------------------------------------------ */
-const pages = ['index.html', 'projects.html', 'project.html'].concat(
-  fs.readdirSync(path.join(ROOT, 'basics')).filter(f => f.endsWith('.html')).map(f => 'basics/' + f)
-);
+/* Discovered, not listed. The root list used to be hardcoded, so news.html
+   - added later - was never checked at all. offline.html is the service
+   worker's fallback page and deliberately does not link the manifest. */
+const NO_MANIFEST = ['offline.html'];
+const pages = fs.readdirSync(ROOT)
+  .filter(f => f.endsWith('.html') && !NO_MANIFEST.includes(f))
+  .concat(fs.readdirSync(path.join(ROOT, 'basics')).filter(f => f.endsWith('.html')).map(f => 'basics/' + f));
 
 pages.forEach(p => {
   const s = read(p);
