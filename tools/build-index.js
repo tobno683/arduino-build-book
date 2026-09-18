@@ -196,6 +196,16 @@ Object.keys(AB.regions).forEach(regionId => {
   });
 });
 
+/* A printed project must name a filament in its BOM. The material is a
+   temperature decision, and leaving it out invites PLA near a hot board. */
+const FILAMENTS = ['pla', 'petg', 'asa', 'tpu'];
+AB.projects.forEach(p => {
+  if (!p.printed || p.cat !== 'printing') return;
+  if (!(p.bom || []).some(l => FILAMENTS.includes(l.id))) {
+    warnings.push(`${p.slug}.js: a printing project with no filament in its BOM - say which material, because it matters`);
+  }
+});
+
 /* ==========================================================================
    Swedish project blocks. A half-translated guide reads worse than an
    English one, so a `sv` block has to carry at least the parts a reader
@@ -293,6 +303,12 @@ const writtenUp = new Set();
   /* The whole point of the page is the honest half. A board with no
      downsides listed is a advertisement, not a guide. */
   if (!(b.goodAt || []).length) errors.push(`${where}: no "goodAt" entries`);
+  /* Case data feeds basics/printing.html. `source` is required because
+     knowing WHERE a dimension came from matters as much as the number -
+     the Jetson's hole positions are not public, and saying so is the point. */
+  ['size', 'mount', 'source'].forEach(k => {
+    if (!b.case || !b.case[k]) errors.push(`${where}: case.${k} is missing`);
+  });
   if (!(b.badAt || []).length)  errors.push(`${where}: no "badAt" entries`);
   if (!(b.gotchas || []).length) {
     warnings.push(`${where}: no gotchas - every board has at least one`);
@@ -401,6 +417,9 @@ const index = AB.projects.map(p => ({
   tags: p.tags || [],
   feature: !!p.feature,
   cost: Math.round(cost(p) * 100) / 100,
+  /* True when the build genuinely needs printed parts, so the 3D printing
+     guide can list every project where a printer earns its place. */
+  printed: !!p.printed,
   boards: boardsOf(p)
 })).sort((a, b) => a.cat.localeCompare(b.cat) || a.level - b.level || a.title.localeCompare(b.title));
 
@@ -452,6 +471,7 @@ function writePrecache(projects) {
     './manifest.webmanifest',
     './basics/boards.html',
     './basics/drones.html',
+    './basics/printing.html',
     './basics/tools.html',
     './basics/soldering.html',
     './basics/electronics.html',

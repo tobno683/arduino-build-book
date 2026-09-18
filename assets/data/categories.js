@@ -147,6 +147,16 @@ AB.categories = [
     icon: '<path d="M6 3v7a3 3 0 0 0 6 0V3"/><path d="M9 10v11"/><path d="M17 3c-1.5 2-2 4-2 6s.5 3 2 3 2-1 2-3-.5-4-2-6z"/><path d="M17 12v9"/>'
   },
   {
+    slug: 'printing',
+    sv: { name: '3D-utskrift och kapslingar',
+          blurb: 'Där elektronik möter en skrivare. Kapslingar som faktiskt passar, fästen, fixturer - och elektronik som gör utskrifterna bättre och säkrare.',
+          learn: 'Toleranser, materialval mot temperatur, gängbussningar, ventilation, tätning, brandsäkerhet.' },
+    name: '3D Printing & Enclosures',
+    blurb: 'Where electronics meets a printer. Cases that actually fit the board, mounts, fixtures and jigs - and electronics that make the printing better and safer. Most projects on this site end up needing a printed part eventually.',
+    learn: 'Tolerances, choosing material by temperature, heat-set inserts, airflow, sealing, printer fire safety.',
+    icon: '<path d="M4 20h16"/><path d="M6 20V9l6-5 6 5v11"/><path d="M9 20v-5h6v5"/><path d="M12 4v3"/>'
+  },
+  {
     slug: 'power',
     sv: { name: 'Ström, energi och mätning',
           blurb: 'Mät vad saker drar, ladda saker säkert, och få reda på var elen tar vägen. Mindre glamoröst än resten och mer använt.',

@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3D printing for electronics — The Build Book</title>
+<meta name="description" content="3D printing for Arduino, ESP32, UNO Q and Jetson projects: choosing filament by temperature, designing a case that fits a real board, tolerances, heat-set inserts, airflow, and the printer safety that matters. With case dimensions for every board on the site.">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../assets/icons/apple-touch-icon.png">
+<meta name="theme-color" content="#b4662b">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Build Book">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/style.css">
+<script>(function(){try{var t=localStorage.getItem('ab-theme')||'dark';document.documentElement.setAttribute('data-theme',t);}catch(e){}}());</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<section class="proj-head">
+  <div class="wrap">
+    <div class="crumbs"><a href="../index.html">Home</a> / Basics / 3D printing</div>
+    <h1>3D printing for electronics</h1>
+    <p class="lede">Almost every project on this site ends up needing a printed part: a case, a mount, a bracket,
+    a jig. And a printer is itself a machine that electronics can make better and safer. This is how the two
+    fit together - and how to print a case that actually fits the board, first time.</p>
+  </div>
+</section>
+
+<main class="wrap" id="main">
+<div class="proj-layout">
+<div class="pbody">
+
+<section id="why">
+  <h2>Why these belong together</h2>
+  <p>A breadboard project works on a desk. A finished project has to live somewhere - on a wall, in a car, in a
+  greenhouse, on a shelf in the sun. The gap between those two is almost always an enclosure, and a printer is
+  what closes it.</p>
+  <p>It runs the other way as well. A printer is a stepper-driven, heated, sensor-laden machine, and several
+  projects here exist to make printing better - drying filament properly - or safer, by watching an unattended
+  print for fire.</p>
+  <div id="both-ways"></div>
+</section>
+
+<section id="material">
+  <h2>Choose the material by temperature, not by habit</h2>
+  <p>This is the single most important decision in printing for electronics, and the one most often got wrong,
+  because PLA prints so easily and looks perfect on the day.</p>
+  <div class="table-scroll"><table id="materials"></table></div>
+  <div class="note warn"><span class="t">PLA and anything warm</span>
+  <p>PLA starts to soften around 55&nbsp;&deg;C. That is below the air temperature near a working Jetson, inside
+  a car on a summer day, or in a box on a sunny windowsill. It does not melt - it creeps, slowly, wherever a
+  screw is pulling on it, and weeks later the case has warped and the lid no longer closes.</p>
+  <p>For anything that runs warm or lives somewhere warm, use <strong>PETG</strong>. It prints almost as easily
+  and holds to about 80&nbsp;&deg;C. It is the right default for electronics enclosures.</p></div>
+</section>
+
+<section id="cases">
+  <h2>Case dimensions for every board here</h2>
+  <p>What each board needs from a case, and - just as important - <strong>where the numbers come from</strong>.
+  Some boards have an exact published drawing. Some have none, and a few have mounting holes whose positions are
+  not published at all. The table says which, so you know when to trust a drawing and when to reach for the
+  calipers.</p>
+  <div id="case-table"></div>
+  <div class="note tip"><span class="t">Print a test plate before the case</span>
+  <p>A flat plate a few millimetres thick with nothing on it but the mounting posts, at the positions you
+  measured. Print it, screw the board to it, and check every post lines up. It takes forty minutes and it is the
+  difference between a case that fits and one you print three times.</p>
+  <p>Do it even for boards with a perfect published drawing. It also checks your printer.</p></div>
+</section>
+
+<section id="design">
+  <h2>Designing around a real board</h2>
+
+  <h3 id="h-tol">Tolerances: holes shrink, pegs grow</h3>
+  <p>An FDM printer squashes each layer slightly as it lays it down, so every printed feature grows by a fraction
+  of a millimetre. A modelled 3.2&nbsp;mm hole prints nearer 3.0; a 3.2&nbsp;mm peg prints nearer 3.4.</p>
+  <ul>
+    <li><strong>Holes for screws:</strong> add 0.2-0.3&nbsp;mm.</li>
+    <li><strong>Parts that slide together:</strong> 0.2-0.4&nbsp;mm clearance per side.</li>
+    <li><strong>Connector cut-outs:</strong> size for the <em>plug</em>, not the socket, and add 0.5&nbsp;mm. A
+    USB-C socket is small; the moulded body of the cable that plugs into it is much bigger. A case sized to the
+    socket works with one particular cable and nothing else.</li>
+  </ul>
+  <p>The exact figures depend on your printer, which is why the test plate matters more than any rule.</p>
+
+  <h3 id="h-clear">Clearance, above and below</h3>
+  <p>Measure the tallest thing on each side of the board. Through-hole leads stick out underneath. Capacitors,
+  headers and connectors stand up on top. Leave at least 3&nbsp;mm between any component and a wall, and more
+  above anything that gets hot or has a fan.</p>
+
+  <h3 id="h-inserts">Heat-set inserts, not screws into plastic</h3>
+  <p>A screw driven straight into a printed hole cuts its own thread, and after about ten openings that thread
+  is gone. A brass heat-set insert, pressed in with a soldering iron, gives a real metal thread that survives
+  hundreds.</p>
+  <ul>
+    <li>Model the hole about 0.2&nbsp;mm smaller than the insert's outer diameter.</li>
+    <li>Iron at roughly 220&nbsp;&deg;C for PETG, a little lower for PLA.</li>
+    <li>Rest the insert on the hole and let the iron's own weight sink it. Do not push - forcing it tips it,
+    and a crooked insert means a screw that never goes in straight.</li>
+    <li>A dedicated insert tip for your iron costs a few dollars and makes this far easier.</li>
+  </ul>
+
+  <h3 id="h-orient">Orientation decides strength</h3>
+  <p>A print is strong along its layers and weak between them - the layers can peel apart. So:</p>
+  <ul>
+    <li>Do not load screw posts across their layer lines, or they snap off at the base.</li>
+    <li>Make clips and snap-fits flex <em>along</em> the layers, not across them.</li>
+    <li>A thin wall printed flat is stronger than the same wall printed standing up.</li>
+  </ul>
+</section>
+
+<section id="heat">
+  <h2>Airflow is a path, not a number of holes</h2>
+  <p>Anything that gets warm needs air to move <em>through</em> the case on a deliberate route. Scatter vents
+  everywhere and a fan simply pulls air through the nearest hole, short-circuiting the path.</p>
+  <ul>
+    <li><strong>In low, out high.</strong> Hot air rises; work with it.</li>
+    <li><strong>Across the hot thing, not around it.</strong> Place the inlet and outlet so the only path goes
+    past the heatsink.</li>
+    <li><strong>Inlet area at least as large as the fan.</strong> A fan starved by small holes moves a fraction of
+    its rated air and gets loud doing it.</li>
+    <li><strong>Exhaust nowhere near intake,</strong> or the case breathes its own exhaust.</li>
+  </ul>
+  <p>For a board that draws a few watts, slots top and bottom and natural convection are enough. For a Jetson at
+  twenty-five, you need a fan and a planned path - see the <a href="../project.html?p=jetson-orin-case">Jetson
+  case</a>, which also controls that fan from an independent Nano.</p>
+</section>
+
+<section id="outdoor">
+  <h2>Outdoors and wet</h2>
+  <p><strong>A 3D print is not waterproof by default.</strong> The gaps between layers are tiny channels, and
+  water finds them - a printed box left in rain will have water inside within days, even with every seam
+  sealed.</p>
+  <ul>
+    <li><strong>ASA</strong> rather than PLA or PETG for anything in sunlight. It is UV-stable; the others go
+    brittle and chalky.</li>
+    <li><strong>More perimeters</strong> - four or five walls instead of two - closes most of the layer
+    channels.</li>
+    <li><strong>A TPU gasket</strong> in a groove around the lid, printed in flexible filament, seals the joint
+    the way a rubber O-ring would.</li>
+    <li><strong>Cable entries from below</strong>, with a drip loop. A cable entering from the top is a funnel.</li>
+    <li><strong>A small vent on the underside.</strong> A perfectly sealed box heats in the sun, cools at night,
+    and pulls moist air in as it contracts - sealed boxes end up wetter inside than vented ones.</li>
+  </ul>
+  <p>For anything that genuinely has to be submerged, print a mould and pot the electronics in epoxy instead, as
+  the <a href="../project.html?p=instrumented-gillnet">gillnet</a> nodes are.</p>
+</section>
+
+<section id="printers">
+  <h2>If you are choosing a printer</h2>
+  <p>Any current mid-range printer will print everything on this page. What matters for electronics work:</p>
+  <ul>
+    <li><strong>An enclosure</strong>, if you want ASA or other materials that warp in a draught. PLA and PETG
+    print fine without one.</li>
+    <li><strong>A hardened nozzle</strong> only if you plan to print carbon-fibre or glow-in-the-dark filaments,
+    which wear a brass nozzle out quickly.</li>
+    <li><strong>Reliability over speed.</strong> A case that takes three hours and fits beats one that takes one
+    hour and does not.</li>
+  </ul>
+  <p>Designs are freely shared on Printables and Thingiverse, and many parts for the boards here already exist.
+  Check them against your own board with the calipers before trusting them - a model measured from someone
+  else's clone may be a millimetre out for yours.</p>
+</section>
+
+<section id="safety">
+  <h2>Printer safety</h2>
+  <div class="note danger"><span class="t">Do not leave a printer running unattended</span>
+  <p>A printer runs a hot end at around 250&nbsp;&deg;C and a heated bed drawing ten amps or more, for hours.
+  Printers occasionally catch fire - most often at the heated bed's power connector, where a loose or badly
+  crimped joint heats, darkens and burns.</p>
+  <ul>
+    <li><strong>Check thermal runaway protection is enabled</strong> in your printer's firmware. Some older and
+    cheaper printers ship with it off.</li>
+    <li><strong>Inspect the bed connector</strong> periodically for darkening, and replace it at the first sign of
+    heat.</li>
+    <li><strong>A certified smoke alarm</strong> in the room, and a suitable extinguisher within reach.</li>
+    <li><strong>Do not print overnight or while out</strong> until you trust the machine - and the
+    <a href="../project.html?p=printer-fire-guard">fire guard</a> is an extra layer, not a replacement for any of
+    these.</li>
+  </ul></div>
+
+  <div class="note warn"><span class="t">Fumes and particles</span>
+  <p>All filaments release ultrafine particles while printing. PLA is the mildest. ABS and ASA also release
+  styrene, which you can smell and should not be breathing for hours in a closed room.</p>
+  <p>Print in a ventilated room, and enclose and vent the printer if you print ABS or ASA regularly. Do not print
+  in a bedroom.</p></div>
+
+  <div class="note warn"><span class="t">Burns and heat-set inserts</span>
+  <p>The hot end, the bed and a freshly printed part are all hot enough to burn. When setting inserts, the
+  insert and the plastic around it stay hot for a while after the iron comes away.</p></div>
+</section>
+
+<section id="printed-projects">
+  <h2>Every project here that uses printed parts</h2>
+  <p>Pulled straight from the project data, so it stays current as projects are added.</p>
+  <div id="printed-list"></div>
+</section>
+
+</div>
+
+<aside class="toc"><div class="t">On this page</div><ol></ol></aside>
+</div>
+</main>
+
+<script src="../assets/data/parts.js"></script>
+<script src="../assets/data/categories.js"></script>
+<script src="../assets/data/index.js"></script>
+<script src="../assets/data/boards.js"></script>
+<script src="../assets/data/i18n.js"></script>
+<script src="../assets/js/site.js"></script>
+<script>
+(function () {
+  AB.chrome('printing.html');
+  AB.autoToc();
+
+  function name(id) { var p = AB.partIndex[id] || {}; return p.short || p.name || id; }
+
+  // ---- the two-way connection ---------------------------------------
+  var WAYS = [
+    { h: 'Printing for electronics', slugs: ['jetson-orin-case', 'uno-q-enclosure'],
+      why: 'Cases that fit a real board and keep it cool. The part of the project that turns a desk prototype into something that lives on a shelf.' },
+    { h: 'Electronics for printing', slugs: ['filament-dry-box', 'printer-fire-guard'],
+      why: 'Arduino projects that make the printer better or safer: drying filament properly, and watching an unattended print for fire.' }
+  ];
+  var bySlug = {};
+  (AB.index || []).forEach(function (p) { bySlug[p.slug] = p; });
+
+  document.getElementById('both-ways').innerHTML = '<div class="grid grid-2">' + WAYS.map(function (w) {
+    return '<div class="card"><h3>' + AB.esc(w.h) + '</h3><p>' + AB.esc(w.why) + '</p>' +
+      '<div class="news-links">' + w.slugs.filter(function (s) { return bySlug[s]; }).map(function (s) {
+        return '<a class="chip" href="../project.html?p=' + s + '">' + AB.esc(bySlug[s].title) + '</a>';
+      }).join('') + '</div></div>';
+  }).join('') + '</div>';
+
+  // ---- material table, from the filament parts in the shop ------------
+  var MAT = [
+    { id: 'pla',  soft: 'about 55 C',  use: 'Indoor cases for cool boards, jigs, prototypes, and test plates.', avoid: 'Anything warm, anything in a car, anything in sun.' },
+    { id: 'petg', soft: 'about 80 C',  use: 'The default for electronics enclosures. Tough, and prints almost as easily as PLA.', avoid: 'Long outdoor exposure - it is not UV-stable.' },
+    { id: 'asa',  soft: 'about 95 C',  use: 'Outdoors, in sunlight, or near real heat. UV-stable.', avoid: 'Printers without an enclosure, and unventilated rooms - it releases styrene.' },
+    { id: 'tpu',  soft: 'flexible',     use: 'Gaskets, bumpers, feet, cable strain reliefs.', avoid: 'Anything structural. Print it slowly.' }
+  ];
+  document.getElementById('materials').innerHTML =
+    '<thead><tr><th>Filament</th><th>Softens at</th><th>Use it for</th><th>Avoid</th><th>Price</th></tr></thead><tbody>' +
+    MAT.map(function (m) {
+      var p = AB.partIndex[m.id] || {};
+      return '<tr><td><strong>' + AB.esc(m.id.toUpperCase()) + '</strong></td><td>' + AB.esc(m.soft) + '</td>' +
+        '<td>' + AB.esc(m.use) + '</td><td>' + AB.esc(m.avoid) + '</td>' +
+        '<td>' + (p.price ? AB.usd(p.price) + ' / ' + AB.esc(p.unit) : '') + '</td></tr>';
+    }).join('') + '</tbody>';
+
+  // ---- case table, straight from boards.js ----------------------------
+  document.getElementById('case-table').innerHTML = AB.boards.filter(function (b) { return b.case; })
+    .map(function (b) {
+      return '<article class="card board-card" id="case-' + b.id + '">' +
+        '<h3>' + AB.esc(name(b.id)) + '</h3>' +
+        '<table class="spec"><tbody>' +
+          '<tr><th>Size</th><td>' + AB.esc(b.case.size) + '</td></tr>' +
+          '<tr><th>Mounting</th><td>' + AB.esc(b.case.mount) + '</td></tr>' +
+          '<tr><th>Where the numbers come from</th><td>' + AB.esc(b.case.source) + '</td></tr>' +
+        '</tbody></table>' +
+        '<p class="board-note">' + AB.esc(b.case.note) + '</p>' +
+      '</article>';
+    }).join('');
+
+  // ---- printed projects, from the index --------------------------------
+  var printed = (AB.index || []).filter(function (p) { return p.printed; })
+    .sort(function (a, b) { return a.level - b.level || a.title.localeCompare(b.title); });
+
+  document.getElementById('printed-list').innerHTML = '<div class="grid grid-2">' + printed.map(function (p) {
+    var lvl = AB.levels[p.level - 1] || AB.levels[0];
+    return '<a class="card" style="text-decoration:none;display:block" href="../project.html?p=' +
+      encodeURIComponent(p.slug) + '">' +
+      '<div class="news-top"><span class="chip d' + p.level + '">' + AB.esc(lvl.name) + '</span>' +
+      '<span class="news-price">' + AB.usd(p.cost) + '</span></div>' +
+      '<h3>' + AB.esc(p.title) + '</h3><p class="news-blurb">' + AB.esc(p.blurb) + '</p></a>';
+  }).join('') + '</div>';
+}());
+</script>
+</body>
+</html>

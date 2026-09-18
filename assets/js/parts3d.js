@@ -584,6 +584,27 @@ window.AB = window.AB || {};
 
     /* A piezo disc scored into quadrants: the scanner. The gold ring is
        the ceramic, the quadrant lines are where it is scored. */
+    flame: mod({
+      name: 'IR flame sensor', w: 30, d: 15, color: C.pcbBlue,
+      rows: [{ names: ['VCC', 'GND', 'DO', 'AO'], z: -5 }],
+      deco: [{ t: 'cyl', x: 11, z: 3, r: 2.5, h: 5, c: '#101114', sides: 12 },
+             { t: 'box', x: -4, z: 3, w: 6, h: 5, d: 6, c: '#2f5fb5' }]
+    }),
+
+    fanpwm: mod({
+      name: '60 mm PWM fan', w: 60, d: 60, color: '#15181d', h: 4,
+      rows: [{ names: ['GND', '+', 'TACH', 'PWM'], z: 26, step: 3, flush: true }],
+      deco: [{ t: 'cyl', x: 0, z: 0, r: 27, h: 14, c: '#1e2127', sides: 24 },
+             { t: 'cyl', x: 0, z: 0, r: 9, h: 16, c: '#2c3038', sides: 16 }]
+    }),
+
+    ptcheater: mod({
+      name: 'PTC heater element', w: 50, d: 22, color: '#5a5f66', h: 5,
+      rows: [{ names: ['A', 'B'], z: 9, step: 20, flush: true }],
+      deco: [{ t: 'box', x: 0, z: -2, w: 44, h: 8, d: 14, c: '#9ea3aa' },
+             { t: 'box', x: 0, z: -2, w: 40, h: 9, d: 2, c: '#c9ccd1' }]
+    }),
+
     piezo: {
       name: 'Piezo scanner disc', w: 27, d: 27, ex: 22,
       pins: { X: [-9, 1, -9], Y: [9, 1, -9], Z: [0, 1, 9], GND: [0, 1, 0] },

@@ -33,6 +33,10 @@ AB.boards = [
 /* --- 8-bit classics ---------------------------------------------------- */
 {
   id: 'nano',
+  case: { size: '45 x 18 mm',
+          mount: 'Usually no mounting holes on clones. Mount it on its own header pins into a strip of female headers glued into the case, which also makes it removable.',
+          source: 'Measure your board - clones vary by up to a millimetre.',
+          note: 'Leave a slot at the USB end wide enough for the plug body, not just the socket.' },
   tier: 'classic',
   chip: 'ATmega328P',
   tagline: 'The default first board, and still the right answer for most small projects.',
@@ -73,6 +77,10 @@ AB.boards = [
 
 {
   id: 'uno',
+  case: { size: '68.6 x 53.4 mm',
+          mount: 'Four 3.2 mm holes for M3, in the irregular pattern dating back to the Arduino NG.',
+          source: 'Adafruit\'s Arduino hole drawing is the usual reference, and it is exact.',
+          note: 'The USB and barrel jacks overhang the board edge by about 11.5 mm, and a shield adds height. Allow at least 25 mm of clearance above the board.' },
   tier: 'classic',
   chip: 'ATmega328P',
   tagline: 'The same board as the Nano in a bigger, sturdier, more expensive package.',
@@ -110,6 +118,10 @@ AB.boards = [
 
 {
   id: 'nano-every',
+  case: { size: '45 x 18 mm',
+          mount: 'Nano footprint. Mount by the header pins, as for a Nano.',
+          source: 'Arduino\'s own documentation page for the board.',
+          note: 'Pin-compatible with a Nano, so a Nano case fits it.' },
   tier: 'classic',
   chip: 'ATmega4809',
   tagline: 'A Nano with three times the RAM, at the cost of some library compatibility.',
@@ -143,6 +155,10 @@ AB.boards = [
 
 {
   id: 'mega',
+  case: { size: '101.6 x 53.3 mm',
+          mount: 'M3 holes on the Uno pattern plus extras along the longer board.',
+          source: 'Adafruit\'s drawing covers the Mega as well as the Uno.',
+          note: 'The long double header at the end needs clearance for whatever plugs into it - usually a ribbon or a shield.' },
   tier: 'classic',
   chip: 'ATmega2560',
   tagline: 'Buy this only when you have literally run out of pins.',
@@ -178,6 +194,10 @@ AB.boards = [
 /* --- wireless ---------------------------------------------------------- */
 {
   id: 'esp32',
+  case: { size: 'About 51-55 x 28 mm, and it varies',
+          mount: 'Many DevKit clones have no mounting holes at all, and the ones that do disagree on where.',
+          source: 'Measure your own. Design a cradle with a slot rather than posts, so a slightly different clone still fits.',
+          note: 'Keep the antenna end clear of metal and of any thick wall. A case around the antenna costs you range.' },
   tier: 'wireless',
   chip: 'ESP32-WROOM-32',
   tagline: 'The default modern answer. Cheaper than a Nano and vastly more capable.',
@@ -218,6 +238,10 @@ AB.boards = [
 
 {
   id: 'esp8266',
+  case: { size: 'About 34 x 26 mm (Wemos D1 Mini)',
+          mount: 'No holes. A snug pocket, or on its header pins.',
+          source: 'Measure your board.',
+          note: 'Same antenna rule as the ESP32: nothing metal near the PCB antenna.' },
   tier: 'wireless',
   chip: 'ESP8266 (Wemos D1 Mini)',
   tagline: 'The cheapest way to put something on Wi-Fi, and still perfectly good at it.',
@@ -255,6 +279,10 @@ AB.boards = [
 
 {
   id: 'esp32cam',
+  case: { size: 'About 40 x 27 mm',
+          mount: 'No mounting holes. A clip or cradle that holds it by its edges.',
+          source: 'Measure your board - the AI-Thinker and clone layouts differ.',
+          note: 'Leave the lens exposed through a round hole, reach to the microSD slot, and a vent: it runs warm while streaming and a sealed box makes the brownouts worse.' },
   tier: 'wireless',
   chip: 'ESP32-S with OV2640 camera',
   tagline: 'A $7 board with a lens on it. Extraordinary value, genuinely annoying to use.',
@@ -293,6 +321,10 @@ AB.boards = [
 
 {
   id: 'pico',
+  case: { size: '51 x 21 mm',
+          mount: 'Four 2.1 mm holes at 11.4 mm by 47 mm centres - M2 screws.',
+          source: 'The Raspberry Pi Pico datasheet gives the exact mechanical drawing.',
+          note: 'The best-documented board here, which makes it the easiest to design a case for from the drawing alone.' },
   tier: 'wireless',
   chip: 'RP2350 (Raspberry Pi Pico 2 W)',
   tagline: 'The best-documented board here, and the only one with programmable I/O hardware.',
@@ -331,6 +363,10 @@ AB.boards = [
 /* --- special purpose --------------------------------------------------- */
 {
   id: 'pro-micro',
+  case: { size: 'About 33 x 18 mm',
+          mount: 'No holes. Usually mounted on its header pins.',
+          source: 'Measure your board.',
+          note: 'Support the micro-USB connector from below. It is famous for tearing off the pads, and a case that lets the board flex when you plug in makes it worse.' },
   tier: 'special',
   chip: 'ATmega32U4',
   tagline: 'Native USB, so it can pretend to be a keyboard, a mouse or a MIDI device.',
@@ -367,6 +403,10 @@ AB.boards = [
 
 {
   id: 'nano33ble',
+  case: { size: '45 x 18 mm',
+          mount: 'Nano footprint. Mount by the header pins.',
+          source: 'Arduino\'s documentation page for the board.',
+          note: 'If you want the on-board microphone and environmental sensors to work, the case needs openings near them - a sealed case measures the case, not the room.' },
   tier: 'special',
   chip: 'nRF52840 (Nano 33 BLE Sense Rev2)',
   tagline: 'A sensor laboratory on a Nano footprint, built for machine learning on a microcontroller.',
@@ -406,6 +446,10 @@ AB.boards = [
 /* --- Linux boards ------------------------------------------------------ */
 {
   id: 'uno-q',
+  case: { size: '68.6 x 53.4 mm (Uno form factor)',
+          mount: 'The Uno hole pattern: four 3.2 mm holes for M3.',
+          source: 'Adafruit\'s Uno drawing applies. Check against the board before printing the full case.',
+          note: 'A Linux board - allow ventilation, and design the Media Carrier in from the start. See the UNO Q enclosure project.' },
   tier: 'linux',
   chip: 'Qualcomm Dragonwing QRB2210 + STM32U585',
   tagline: 'Linux and a microcontroller on one board, in an Uno shape. Two computers, one PCB.',
@@ -443,6 +487,10 @@ AB.boards = [
 
 {
   id: 'ventuno-q',
+  case: { size: 'Larger than the UNO Q - take the figures from Arduino\'s mechanical drawing.',
+          mount: 'Per Arduino\'s drawing for the board.',
+          source: 'Arduino\'s official product documentation. Do not design from photos.',
+          note: 'Needs real airflow and a 65 W supply. Treat its thermal design more like the Jetson than the UNO Q.' },
   tier: 'linux',
   chip: 'Qualcomm Dragonwing IQ8 + STM32H5',
   tagline: 'The UNO Q scaled up for robotics and vision, at six times the price.',
@@ -478,6 +526,10 @@ AB.boards = [
 
 {
   id: 'jetson-orin',
+  case: { size: 'About 100 x 79 x 21 mm overall, with heatsink and feet',
+          mount: 'The mounting hole positions are NOT in NVIDIA\'s public carrier specification.',
+          source: 'Measure your own board with calipers, or work from NVIDIA\'s carrier board design files. Any case file claiming exact hole positions measured one board.',
+          note: 'Needs active airflow and PETG or ASA - PLA softens near it under load. See the Jetson case project.' },
   tier: 'linux',
   chip: 'NVIDIA Jetson Orin Nano Super',
   tagline: 'A real CUDA GPU in a small box. The only board here that runs a language model.',

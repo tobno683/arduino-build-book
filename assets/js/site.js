@@ -113,17 +113,23 @@ AB.theme = {
 };
 
 /* --- page chrome -------------------------------------------------------- */
+/* Top-level items, then one group for the reference guides. Eleven flat
+   items stopped fitting at laptop widths and pushed the theme and language
+   buttons off the edge, and the guides are the part that keeps growing. */
 AB.NAV = [
   ['index.html', 'Home'],
   ['projects.html', 'All projects'],
   ['news.html', 'New boards'],
-  ['basics/boards.html', 'Which board'],
-  ['basics/drones.html', 'Drones'],
-  ['basics/tools.html', 'Tools & buying'],
-  ['basics/soldering.html', 'Soldering'],
-  ['basics/electronics.html', 'Electronics'],
-  ['basics/programming.html', 'Programming'],
-  ['basics/glossary.html', 'Glossary']
+  { group: 'Guides', items: [
+    ['basics/boards.html', 'Which board'],
+    ['basics/drones.html', 'Drones'],
+    ['basics/printing.html', '3D printing'],
+    ['basics/tools.html', 'Tools & buying'],
+    ['basics/soldering.html', 'Soldering'],
+    ['basics/electronics.html', 'Electronics'],
+    ['basics/programming.html', 'Programming'],
+    ['basics/glossary.html', 'Glossary']
+  ]}
 ];
 
 AB.chrome = function (current) {
@@ -144,9 +150,18 @@ AB.chrome = function (current) {
       '</a>' +
       '<nav class="nav" id="ab-nav">' +
         AB.NAV.map(function (n) {
-          var on = current && n[0].indexOf(current) > -1;
-          return '<a href="' + r + n[0] + '"' + (on ? ' aria-current="page"' : '') + '>' +
-                 AB.esc(AB.t(n[1])) + '</a>';
+          function link(item) {
+            var on = current && item[0].indexOf(current) > -1;
+            return '<a href="' + r + item[0] + '"' + (on ? ' aria-current="page"' : '') + '>' +
+                   AB.esc(AB.t(item[1])) + '</a>';
+          }
+          if (!n.group) return link(n);
+          // Mark the group itself current when you are on one of its pages.
+          var inside = current && n.items.some(function (i) { return i[0].indexOf(current) > -1; });
+          return '<details class="nav-group"' + (inside ? ' data-current="1"' : '') + '>' +
+                   '<summary>' + AB.esc(AB.t(n.group)) + '</summary>' +
+                   '<div class="nav-menu">' + n.items.map(link).join('') + '</div>' +
+                 '</details>';
         }).join('') +
       '</nav>' +
       '<button class="icon-btn nav-toggle" id="ab-burger" aria-label="' + AB.esc(AB.t('Menu')) + '" aria-expanded="false">' +
@@ -203,12 +218,18 @@ AB.chrome = function (current) {
      closes it too: same-page anchors would otherwise leave it hanging open
      over the thing you just navigated to. */
   document.addEventListener('click', function (e) {
+    document.querySelectorAll('.nav-group[open]').forEach(function (g) {
+      if (!g.contains(e.target) || e.target.closest('a')) g.removeAttribute('open');
+    });
     if (!nav.classList.contains('open')) return;
     if (nav.contains(e.target) && !e.target.closest('a')) return;
     setNav(false);
   });
 
   document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.nav-group[open]').forEach(function (g) { g.removeAttribute('open'); });
+    }
     if (e.key === 'Escape' && nav.classList.contains('open')) {
       setNav(false);
       burger.focus();

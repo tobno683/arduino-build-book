@@ -96,6 +96,15 @@ House conventions:
 - **Board parts carry a `short:` name.** The full name is right for a BOM and too long for a dropdown -
   `Arduino Uno R3 (or a clone)` against `Arduino Uno`. `AB.boardName(id)` in site.js is the one accessor;
   it falls back to the full name.
+- **`printed: true` means the build genuinely needs printed parts**, and it is what lists a project on
+  `basics/printing.html`. Set it only where a printer earns its place - a mention of `Serial.print` is not a
+  printed part. A project in the `printing` theme must name a filament in its BOM, because the material is a
+  temperature decision and leaving it out invites PLA next to a hot board.
+- **Every board carries a `case` block** in `boards.js` - size, mounting, and `source`, which says where the
+  numbers came from. `source` is required because it matters as much as the dimension: the Jetson's hole
+  positions are not in NVIDIA's public spec, and the entry says so rather than inventing coordinates.
+- **The nav has four top-level items and a Guides group.** Eleven flat items pushed the theme and language
+  buttons off the edge at 1280 px. New reference pages go inside the group, not beside it.
 - **Every board part needs a write-up in `boards.js`**, and every write-up needs a real Board part -
   `build-index.js` refuses both ways round, so adding a board to the shop cannot silently leave a hole in
   `basics/boards.html`. Each entry needs all eight `specs` keys, at least one `goodAt` and at least one

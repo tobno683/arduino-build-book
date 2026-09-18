@@ -6,7 +6,7 @@
    listed file, so the cache is replaced exactly when the content changes.
    ========================================================================== */
 self.AB_PRECACHE = {
-  version: "8f863b41b1bb",
+  version: "33b21c7a2608",
   core: [
     "./",
     "./index.html",
@@ -16,6 +16,7 @@ self.AB_PRECACHE = {
     "./manifest.webmanifest",
     "./basics/boards.html",
     "./basics/drones.html",
+    "./basics/printing.html",
     "./basics/tools.html",
     "./basics/soldering.html",
     "./basics/electronics.html",
@@ -68,6 +69,7 @@ self.AB_PRECACHE = {
     "./assets/data/projects/espresso-scale.js",
     "./assets/data/projects/fan-thermostat.js",
     "./assets/data/projects/fermentation-monitor.js",
+    "./assets/data/projects/filament-dry-box.js",
     "./assets/data/projects/flight-tracker-display.js",
     "./assets/data/projects/fridge-freezer-logger.js",
     "./assets/data/projects/gps-bike-computer.js",
@@ -81,6 +83,7 @@ self.AB_PRECACHE = {
     "./assets/data/projects/jetson-bird-classifier.js",
     "./assets/data/projects/jetson-depth-nav.js",
     "./assets/data/projects/jetson-local-llm.js",
+    "./assets/data/projects/jetson-orin-case.js",
     "./assets/data/projects/jetson-orin-vision.js",
     "./assets/data/projects/jetson-pose-coach.js",
     "./assets/data/projects/kitchen-timer.js",
@@ -108,6 +111,7 @@ self.AB_PRECACHE = {
     "./assets/data/projects/parking-sensor.js",
     "./assets/data/projects/pet-feeder.js",
     "./assets/data/projects/presence-detector.js",
+    "./assets/data/projects/printer-fire-guard.js",
     "./assets/data/projects/qr-scanner.js",
     "./assets/data/projects/quadcopter-flight-controller.js",
     "./assets/data/projects/rain-wind-station.js",
@@ -140,6 +144,7 @@ self.AB_PRECACHE = {
     "./assets/data/projects/tinyml-machine-listener.js",
     "./assets/data/projects/tinyml-vibration-monitor.js",
     "./assets/data/projects/tinyml-wake-word.js",
+    "./assets/data/projects/uno-q-enclosure.js",
     "./assets/data/projects/uno-q-object-detection.js",
     "./assets/data/projects/uno-q-voice-control.js",
     "./assets/data/projects/usb-power-meter.js",

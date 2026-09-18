@@ -2,7 +2,7 @@
    index.js - GENERATED FILE, do not edit by hand.
    Rebuild with:  node tools/build-index.js
    A summary of every project so the home page and the catalogue can render
-   without loading 103 full build guides.
+   without loading 107 full build guides.
    ========================================================================== */
 window.AB = window.AB || {};
 
@@ -28,6 +28,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 69.78,
+    "printed": false,
     "boards": [
       "nano33ble"
     ]
@@ -53,6 +54,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 353.24,
+    "printed": false,
     "boards": [
       "jetson-orin",
       "uno"
@@ -79,6 +81,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 75.96,
+    "printed": false,
     "boards": [
       "nano33ble"
     ]
@@ -104,6 +107,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 25.25,
+    "printed": false,
     "boards": [
       "esp32"
     ]
@@ -131,6 +135,7 @@ AB.index = [
     ],
     "feature": true,
     "cost": 121.15,
+    "printed": false,
     "boards": [
       "uno-q"
     ]
@@ -158,6 +163,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 108.49,
+    "printed": false,
     "boards": [
       "uno-q"
     ]
@@ -182,6 +188,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 96.67,
+    "printed": false,
     "boards": [
       "uno-q"
     ]
@@ -206,6 +213,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 361.35,
+    "printed": false,
     "boards": [
       "jetson-orin",
       "uno"
@@ -232,6 +240,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 59.64,
+    "printed": false,
     "boards": [
       "nano33ble"
     ]
@@ -257,6 +266,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 383.7,
+    "printed": false,
     "boards": [
       "jetson-orin",
       "uno"
@@ -284,6 +294,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 348.43,
+    "printed": false,
     "boards": [
       "jetson-orin",
       "uno"
@@ -311,6 +322,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 345.05,
+    "printed": false,
     "boards": [
       "jetson-orin",
       "uno"
@@ -339,6 +351,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 360.59,
+    "printed": false,
     "boards": [
       "jetson-orin",
       "uno"
@@ -367,6 +380,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 367.72,
+    "printed": true,
     "boards": [
       "ventuno-q"
     ]
@@ -391,6 +405,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 14.79,
+    "printed": false,
     "boards": [
       "uno"
     ]
@@ -414,6 +429,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 25.97,
+    "printed": false,
     "boards": [
       "nano"
     ]
@@ -439,6 +455,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 11.91,
+    "printed": false,
     "boards": [
       "pro-micro"
     ]
@@ -464,6 +481,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 28.85,
+    "printed": false,
     "boards": [
       "esp32"
     ]
@@ -488,6 +506,7 @@ AB.index = [
     ],
     "feature": true,
     "cost": 22.7,
+    "printed": false,
     "boards": [
       "nano"
     ]
@@ -512,6 +531,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 45,
+    "printed": false,
     "boards": [
       "esp32"
     ]
@@ -535,6 +555,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 26.9,
+    "printed": false,
     "boards": [
       "esp32cam"
     ]
@@ -558,6 +579,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 21.5,
+    "printed": false,
     "boards": [
       "esp32cam"
     ]
@@ -582,6 +604,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 28.94,
+    "printed": false,
     "boards": [
       "esp32cam"
     ]
@@ -605,6 +628,7 @@ AB.index = [
     ],
     "feature": true,
     "cost": 24,
+    "printed": false,
     "boards": [
       "esp32cam"
     ]
@@ -630,6 +654,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 34.1,
+    "printed": false,
     "boards": [
       "nano"
     ]
@@ -655,6 +680,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 99.35,
+    "printed": false,
     "boards": [
       "esp32cam"
     ]
@@ -681,6 +707,7 @@ AB.index = [
     ],
     "feature": true,
     "cost": 66.25,
+    "printed": false,
     "boards": [
       "esp32"
     ]
@@ -709,6 +736,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 469,
+    "printed": false,
     "boards": [
       "uno-q"
     ]
@@ -735,6 +763,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 79.85,
+    "printed": false,
     "boards": [
       "esp32"
     ]
@@ -760,6 +789,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 61.19,
+    "printed": false,
     "boards": [
       "esp32"
     ]
@@ -787,6 +817,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 234.24,
+    "printed": false,
     "boards": [
       "nano",
       "esp32"
@@ -812,6 +843,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 11.3,
+    "printed": false,
     "boards": [
       "nano"
     ]
@@ -836,6 +868,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 41.55,
+    "printed": false,
     "boards": [
       "esp32"
     ]
@@ -860,6 +893,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 11.22,
+    "printed": false,
     "boards": [
       "nano"
     ]
@@ -886,6 +920,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 33.12,
+    "printed": false,
     "boards": [
       "esp32"
     ]
@@ -909,6 +944,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 16.5,
+    "printed": false,
     "boards": [
       "esp8266"
     ]
@@ -934,6 +970,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 20.55,
+    "printed": false,
     "boards": [
       "esp32"
     ]
@@ -957,6 +994,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 43.59,
+    "printed": false,
     "boards": [
       "esp32"
     ]
@@ -982,6 +1020,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 138.78,
+    "printed": true,
     "boards": [
       "esp32"
     ]
@@ -1007,6 +1046,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 83.17,
+    "printed": false,
     "boards": [
       "esp32"
     ]
@@ -1030,6 +1070,7 @@ AB.index = [
     ],
     "feature": true,
     "cost": 63.84,
+    "printed": false,
     "boards": [
       "nano"
     ]
@@ -1055,6 +1096,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 131.65,
+    "printed": false,
     "boards": [
       "nano"
     ]
@@ -1080,6 +1122,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 83.14,
+    "printed": false,
     "boards": [
       "esp32"
     ]
@@ -1105,6 +1148,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 194.4,
+    "printed": false,
     "boards": [
       "esp32"
     ]
@@ -1130,6 +1174,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 189.27,
+    "printed": false,
     "boards": [
       "esp32"
     ]
@@ -1155,6 +1200,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 102.25,
+    "printed": false,
     "boards": [
       "esp32"
     ]
@@ -1181,6 +1227,7 @@ AB.index = [
     ],
     "feature": true,
     "cost": 323.24,
+    "printed": false,
     "boards": [
       "esp32"
     ]
@@ -1205,6 +1252,7 @@ AB.index = [
     ],
     "feature": true,
     "cost": 18,
+    "printed": false,
     "boards": [
       "uno"
     ]
@@ -1229,6 +1277,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 34.85,
+    "printed": false,
     "boards": [
       "nano"
     ]
@@ -1254,6 +1303,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 58.42,
+    "printed": false,
     "boards": [
       "esp32",
       "nano"
@@ -1279,6 +1329,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 33.32,
+    "printed": false,
     "boards": [
       "uno"
     ]
@@ -1303,6 +1354,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 41.95,
+    "printed": false,
     "boards": [
       "esp32"
     ]
@@ -1328,6 +1380,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 25,
+    "printed": false,
     "boards": [
       "esp32"
     ]
@@ -1353,6 +1406,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 87.65,
+    "printed": false,
     "boards": [
       "esp32"
     ]
@@ -1377,6 +1431,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 15.84,
+    "printed": false,
     "boards": [
       "uno"
     ]
@@ -1401,6 +1456,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 13,
+    "printed": false,
     "boards": [
       "nano"
     ]
@@ -1425,6 +1481,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 13.81,
+    "printed": false,
     "boards": [
       "uno"
     ]
@@ -1448,6 +1505,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 10.45,
+    "printed": false,
     "boards": [
       "nano"
     ]
@@ -1471,6 +1529,7 @@ AB.index = [
     ],
     "feature": true,
     "cost": 8.73,
+    "printed": false,
     "boards": [
       "nano"
     ]
@@ -1496,6 +1555,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 16.2,
+    "printed": false,
     "boards": [
       "nano"
     ]
@@ -1521,6 +1581,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 32.15,
+    "printed": false,
     "boards": [
       "esp32"
     ]
@@ -1546,6 +1607,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 29.5,
+    "printed": false,
     "boards": [
       "esp32"
     ]
@@ -1571,6 +1633,7 @@ AB.index = [
     ],
     "feature": true,
     "cost": 35.57,
+    "printed": false,
     "boards": [
       "esp32"
     ]
@@ -1596,6 +1659,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 88.95,
+    "printed": false,
     "boards": [
       "esp32",
       "nano"
@@ -1620,6 +1684,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 16.52,
+    "printed": false,
     "boards": [
       "nano"
     ]
@@ -1645,6 +1710,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 49.39,
+    "printed": false,
     "boards": [
       "esp32"
     ]
@@ -1670,6 +1736,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 32.52,
+    "printed": false,
     "boards": [
       "esp32"
     ]
@@ -1693,6 +1760,7 @@ AB.index = [
     ],
     "feature": true,
     "cost": 31.62,
+    "printed": false,
     "boards": [
       "esp32"
     ]
@@ -1716,6 +1784,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 40.92,
+    "printed": false,
     "boards": [
       "nano"
     ]
@@ -1740,6 +1809,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 34.96,
+    "printed": false,
     "boards": [
       "nano"
     ]
@@ -1764,6 +1834,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 18.69,
+    "printed": false,
     "boards": [
       "nano"
     ]
@@ -1788,6 +1859,7 @@ AB.index = [
     ],
     "feature": true,
     "cost": 13.5,
+    "printed": false,
     "boards": [
       "nano"
     ]
@@ -1812,6 +1884,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 37.33,
+    "printed": false,
     "boards": [
       "esp32"
     ]
@@ -1836,6 +1909,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 27.82,
+    "printed": false,
     "boards": [
       "esp32"
     ]
@@ -1861,8 +1935,118 @@ AB.index = [
     ],
     "feature": false,
     "cost": 151.8,
+    "printed": false,
     "boards": [
       "esp32"
+    ]
+  },
+  {
+    "slug": "filament-dry-box",
+    "title": "Filament dryer that knows when it is actually working",
+    "cat": "printing",
+    "level": 2,
+    "time": "4 hours",
+    "solder": true,
+    "board": "Nano",
+    "blurb": "Wet filament strings, pops and prints weak parts. This dries it - and unlike most dryers, it can tell whether water is really leaving, because the humidity number on every other dryer is misleading you the moment it turns the heater on.",
+    "tags": [
+      "3d printing",
+      "filament",
+      "humidity",
+      "absolute humidity",
+      "dew point",
+      "ptc heater",
+      "mosfet",
+      "petg",
+      "tpu"
+    ],
+    "feature": false,
+    "cost": 51.09,
+    "printed": true,
+    "boards": [
+      "nano"
+    ]
+  },
+  {
+    "slug": "uno-q-enclosure",
+    "title": "UNO Q enclosure with a safe-shutdown button",
+    "cat": "printing",
+    "level": 2,
+    "time": "6 hours, plus print time",
+    "solder": true,
+    "board": "Arduino UNO Q",
+    "blurb": "A printed case and camera mount for the UNO Q, with one button that does something no case usually does: shuts the Linux side down cleanly and tells you when it is actually safe to pull the plug.",
+    "tags": [
+      "3d printing",
+      "enclosure",
+      "uno q",
+      "linux",
+      "safe shutdown",
+      "emmc",
+      "camera mount",
+      "media carrier",
+      "petg"
+    ],
+    "feature": false,
+    "cost": 146.47,
+    "printed": true,
+    "boards": [
+      "uno-q"
+    ]
+  },
+  {
+    "slug": "printer-fire-guard",
+    "title": "3D printer fire guard",
+    "cat": "printing",
+    "level": 3,
+    "time": "5 hours",
+    "solder": true,
+    "board": "ESP32",
+    "blurb": "Watches an unattended print for smoke, flame and overheating, and cuts the printer’s power through a certified smart plug. It does not build its own mains switching, on purpose - and it says plainly what it cannot replace.",
+    "tags": [
+      "3d printing",
+      "fire safety",
+      "thermal runaway",
+      "smoke",
+      "mq-2",
+      "flame sensor",
+      "smart plug",
+      "mqtt",
+      "fail safe"
+    ],
+    "feature": false,
+    "cost": 56.42,
+    "printed": true,
+    "boards": [
+      "esp32"
+    ]
+  },
+  {
+    "slug": "jetson-orin-case",
+    "title": "Printed case for the Jetson Orin Nano, with its own cooling",
+    "cat": "printing",
+    "level": 3,
+    "time": "A weekend, plus print time",
+    "solder": true,
+    "board": "Nano + Jetson Orin Nano",
+    "blurb": "A case for a 25-watt board that does not cook it. The printing is the easy half; the real design is an airflow path, a material that survives the heat, and a fan controller that keeps working when the Jetson itself has crashed.",
+    "tags": [
+      "3d printing",
+      "enclosure",
+      "jetson",
+      "thermal",
+      "pwm fan",
+      "25 khz",
+      "petg",
+      "heat-set inserts",
+      "airflow"
+    ],
+    "feature": true,
+    "cost": 64.99,
+    "printed": true,
+    "boards": [
+      "nano",
+      "jetson-orin"
     ]
   },
   {
@@ -1887,6 +2071,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 18.73,
+    "printed": false,
     "boards": [
       "nano"
     ]
@@ -1913,6 +2098,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 31.49,
+    "printed": false,
     "boards": [
       "nano"
     ]
@@ -1938,6 +2124,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 27.16,
+    "printed": false,
     "boards": [
       "nano"
     ]
@@ -1965,6 +2152,7 @@ AB.index = [
     ],
     "feature": true,
     "cost": 65.81,
+    "printed": false,
     "boards": [
       "esp32"
     ]
@@ -1991,6 +2179,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 65.9,
+    "printed": false,
     "boards": [
       "esp32"
     ]
@@ -2017,6 +2206,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 71.6,
+    "printed": false,
     "boards": [
       "esp32"
     ]
@@ -2042,6 +2232,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 27.57,
+    "printed": false,
     "boards": [
       "esp32"
     ]
@@ -2066,6 +2257,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 29.89,
+    "printed": false,
     "boards": [
       "uno"
     ]
@@ -2090,6 +2282,7 @@ AB.index = [
     ],
     "feature": true,
     "cost": 33.39,
+    "printed": false,
     "boards": [
       "uno"
     ]
@@ -2114,6 +2307,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 30.59,
+    "printed": false,
     "boards": [
       "nano"
     ]
@@ -2139,6 +2333,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 30.87,
+    "printed": false,
     "boards": [
       "esp32"
     ]
@@ -2163,6 +2358,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 17.01,
+    "printed": false,
     "boards": [
       "uno"
     ]
@@ -2186,6 +2382,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 19.85,
+    "printed": false,
     "boards": [
       "nano",
       "esp32cam"
@@ -2212,6 +2409,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 30.52,
+    "printed": true,
     "boards": [
       "esp32"
     ]
@@ -2235,6 +2433,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 34.08,
+    "printed": false,
     "boards": [
       "nano"
     ]
@@ -2259,6 +2458,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 39.9,
+    "printed": false,
     "boards": [
       "uno"
     ]
@@ -2283,6 +2483,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 35.19,
+    "printed": true,
     "boards": [
       "nano"
     ]
@@ -2309,6 +2510,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 480.45,
+    "printed": false,
     "boards": [
       "uno-q"
     ]
@@ -2335,6 +2537,7 @@ AB.index = [
     ],
     "feature": true,
     "cost": 217.2,
+    "printed": true,
     "boards": [
       "esp32"
     ]
@@ -2358,6 +2561,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 26.28,
+    "printed": false,
     "boards": [
       "nano"
     ]
@@ -2382,6 +2586,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 15.64,
+    "printed": false,
     "boards": [
       "esp8266"
     ]
@@ -2407,6 +2612,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 12.07,
+    "printed": false,
     "boards": [
       "esp8266"
     ]
@@ -2431,6 +2637,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 21.71,
+    "printed": false,
     "boards": [
       "nano"
     ]
@@ -2455,6 +2662,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 22.67,
+    "printed": false,
     "boards": [
       "nano"
     ]
@@ -2478,6 +2686,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 10.14,
+    "printed": false,
     "boards": [
       "esp8266"
     ]
@@ -2503,6 +2712,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 28.41,
+    "printed": false,
     "boards": [
       "esp32"
     ]
@@ -2527,6 +2737,7 @@ AB.index = [
     ],
     "feature": false,
     "cost": 42.62,
+    "printed": false,
     "boards": [
       "esp32"
     ]
@@ -2551,6 +2762,7 @@ AB.index = [
     ],
     "feature": true,
     "cost": 17.57,
+    "printed": false,
     "boards": [
       "esp32"
     ]

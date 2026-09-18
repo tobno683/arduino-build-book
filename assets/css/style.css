@@ -103,10 +103,34 @@ small{font-size:.86em}
 .brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700;font-size:1.02rem;letter-spacing:-.02em;color:var(--ink);text-decoration:none;white-space:nowrap}
 .brand:hover{color:var(--copper)}
 .brand svg{flex:0 0 auto;display:block}
+/* On a phone the bar holds the brand plus five buttons. At the desktop
+   18 px gap that is wider than the screen, and the header clips rather than
+   scrolls - so the last button, the theme toggle, simply vanished. */
+@media (max-width:620px){
+  .site-head .bar{gap:6px;padding:0 12px}
+  .brand{gap:7px;font-size:.95rem;margin-right:auto}
+  .lang-btn{padding:0 6px}
+}
 .nav{display:flex;gap:2px;margin-left:auto;align-items:center}
 .nav a{font-size:.9rem;color:var(--ink-2);text-decoration:none;padding:7px 11px;border-radius:8px}
 .nav a:hover{background:var(--rule-2);color:var(--ink)}
 .nav a[aria-current="page"]{color:var(--copper);font-weight:600}
+
+/* The Guides group: a native <details> dropdown on desktop, an inline
+   expanding section inside the burger panel on mobile. */
+.nav-group{position:relative}
+.nav-group>summary{list-style:none;cursor:pointer;font-size:.9rem;color:var(--ink-2);
+  padding:7px 11px;border-radius:8px;user-select:none;display:flex;align-items:center;gap:5px}
+.nav-group>summary::-webkit-details-marker{display:none}
+.nav-group>summary::after{content:'';width:6px;height:6px;border:solid currentColor;border-width:0 1.5px 1.5px 0;
+  transform:rotate(45deg) translateY(-2px);opacity:.7;transition:transform .15s}
+.nav-group[open]>summary::after{transform:rotate(-135deg) translateY(-1px)}
+.nav-group>summary:hover{background:var(--rule-2);color:var(--ink)}
+.nav-group[data-current]>summary{color:var(--copper);font-weight:600}
+.nav-menu{position:absolute;right:0;top:calc(100% + 6px);min-width:200px;z-index:60;
+  display:flex;flex-direction:column;padding:6px;gap:1px;
+  background:var(--card);border:1px solid var(--rule);border-radius:10px;box-shadow:var(--shadow-lg)}
+.nav-menu a{padding:8px 11px;white-space:nowrap}
 .icon-btn{
   display:inline-grid;place-items:center;width:36px;height:36px;border-radius:9px;
   border:1px solid var(--rule);background:var(--card);color:var(--ink-2);cursor:pointer;
@@ -121,6 +145,9 @@ small{font-size:.86em}
   }
   .nav.open{display:flex}
   .nav a{padding:11px 13px;font-size:.98rem}
+  /* Inside the burger panel the Guides group expands in place. */
+  .nav-group>summary{padding:11px 13px;font-size:.98rem}
+  .nav-menu{position:static;box-shadow:none;border:0;background:transparent;padding:0 0 0 12px;min-width:0}
   .nav-toggle{display:inline-grid}
 }
 
@@ -215,6 +242,9 @@ a.chip:hover .n{color:inherit}
   color:var(--copper);margin:0 0 5px;font-weight:600}
 .news-why p{margin:0;font-size:.94rem}
 .news-links{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:11px}
+/* Link chips often carry a full project title, which nowrap pushes out of
+   its card. Tags stay nowrap; these wrap. */
+.news-links .chip{white-space:normal;text-align:left;line-height:1.35}
 .news-src{font-size:.8rem;color:var(--ink-3);margin:0}
 .news-src a{color:var(--ink-3);text-decoration:underline;text-underline-offset:2px}
 .news-src a:hover{color:var(--copper)}
