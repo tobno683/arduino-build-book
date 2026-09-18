@@ -582,6 +582,33 @@ window.AB = window.AB || {};
              { t: 'cyl', x: 10, z: 2, r: 3, h: 5, c: '#1b1f26', sides: 12 }]
     }),
 
+    /* A piezo disc scored into quadrants: the scanner. The gold ring is
+       the ceramic, the quadrant lines are where it is scored. */
+    piezo: {
+      name: 'Piezo scanner disc', w: 27, d: 27, ex: 22,
+      pins: { X: [-9, 1, -9], Y: [9, 1, -9], Z: [0, 1, 9], GND: [0, 1, 0] },
+      build: function () {
+        var f = G.cyl(0, 0, 0, 13.5, 0.4, '#c8b273', { sides: 24 });
+        f = f.concat(G.cyl(0, 0.4, 0, 10, 0.3, '#8d8f94', { sides: 24 }));
+        return f.concat(G.box(0, 0.7, 0, 1.2, 0.2, 20, '#5a5c60'));
+      }
+    },
+
+    electrometer: mod({
+      name: 'Electrometer preamp', w: 26, d: 22, color: C.pcbGreen,
+      rows: [{ names: ['IN', 'GND', 'V+', 'V-', 'OUT'], z: -7.5, step: 4.4 }],
+      deco: [{ t: 'box', x: 0, z: 2, w: 8, h: 2, d: 6, c: C.chip },
+             { t: 'box', x: 0, z: -1, w: 14, h: 1.4, d: 3, c: '#3b2f1a' }]
+    }),
+
+    hvpiezo: mod({
+      name: 'HV piezo driver', w: 42, d: 30, color: C.pcbBlack,
+      rows: [{ names: ['XIN', 'YIN', 'ZIN', 'GND', 'VCC'], z: -10, step: 5.2 },
+             { names: ['XO', 'YO', 'ZO', 'AGND'], z: 10, step: 8 }],
+      deco: [{ t: 'cyl', x: -12, z: 2, r: 5, h: 10, c: '#1b1f26', sides: 14 },
+             { t: 'box', x: 8, z: 2, w: 14, h: 4, d: 10, c: '#2a2f38' }]
+    }),
+
     lis3dh: mod({
       name: 'LIS3DH accelerometer', w: 19, d: 18, color: C.pcbBlack,
       rows: [{ names: ['VIN', '3V3', 'GND', 'SCL', 'SDA', 'INT'], z: -6, step: 3 }],

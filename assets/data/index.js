@@ -2,7 +2,7 @@
    index.js - GENERATED FILE, do not edit by hand.
    Rebuild with:  node tools/build-index.js
    A summary of every project so the home page and the catalogue can render
-   without loading 102 full build guides.
+   without loading 103 full build guides.
    ========================================================================== */
 window.AB = window.AB || {};
 
@@ -1836,6 +1836,31 @@ AB.index = [
     ],
     "feature": false,
     "cost": 27.82,
+    "boards": [
+      "esp32"
+    ]
+  },
+  {
+    "slug": "scanning-tunnelling-microscope",
+    "title": "Scanning tunnelling microscope",
+    "cat": "power",
+    "level": 5,
+    "time": "Months. The electronics take a weekend.",
+    "solder": true,
+    "board": "ESP32",
+    "blurb": "Images individual carbon atoms, on a table, in air, for about $150. Nothing else you can build is this far outside ordinary experience - and nothing else fails for so many weeks before it works.",
+    "tags": [
+      "stm",
+      "tunnelling",
+      "piezo",
+      "transimpedance",
+      "femtoamp",
+      "vibration isolation",
+      "hopg",
+      "atoms"
+    ],
+    "feature": false,
+    "cost": 151.8,
     "boards": [
       "esp32"
     ]
