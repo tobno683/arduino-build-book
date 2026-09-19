@@ -278,6 +278,32 @@ a.chip:hover .n{color:inherit}
   color:var(--copper);margin:16px 0 7px;font-weight:600}
 ul.gotchas{margin:0 0 14px;padding-left:18px;font-size:.92rem;color:var(--ink-2)}
 ul.gotchas li{margin-bottom:6px}
+/* --- downloadable prints (basics/printing.html) ------------------------- */
+.print-grid{margin-top:18px}
+.print-card{display:flex;flex-direction:column;gap:10px}
+.print-card h3{margin:2px 0 0}
+.print-view{position:relative;margin:-4px -4px 2px;border-radius:10px;overflow:hidden;
+  background:var(--paper-2);border:1px solid var(--rule-2)}
+.print-view canvas{display:block;width:100%;aspect-ratio:4/3;cursor:grab;touch-action:pan-y}
+.print-view canvas:active{cursor:grabbing}
+.print-hint{position:absolute;right:10px;bottom:8px;pointer-events:none;
+  font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+.print-variants{position:absolute;left:8px;top:8px;display:flex;flex-wrap:wrap;gap:6px}
+.print-none{display:grid;place-items:center;aspect-ratio:4/3;padding:24px;text-align:center}
+.print-none p{color:var(--ink-3);font-size:.9rem;max-width:32ch;margin:0}
+.print-failed::after{content:'The picture could not be loaded.';position:absolute;inset:0;display:grid;
+  place-items:center;color:var(--ink-3);font-size:.9rem}
+.print-flag{align-self:flex-start;background:var(--copper);border-color:var(--copper);color:#fff}
+.print-use{margin:0;padding-left:1.1em;font-size:.9rem;color:var(--ink-2)}
+.print-use li{margin:.35em 0}
+.print-spec{width:100%;font-size:.86rem;border-collapse:collapse;margin:2px 0}
+.print-spec th{text-align:left;width:24%;padding:5px 10px 5px 0;vertical-align:top;color:var(--ink-3);font-weight:500}
+.print-spec td{padding:5px 0;color:var(--ink-2)}
+.print-spec tr+tr th,.print-spec tr+tr td{border-top:1px solid var(--rule-2)}
+.print-dl{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:6px}
+.dl-size{font-family:var(--mono);font-size:.72rem;opacity:.85}
+.print-foot{font-size:.88rem;color:var(--ink-3);margin-top:18px}
+
 .board-note{font-size:.92rem;color:var(--ink-3);border-top:1px solid var(--rule-2);
   padding-top:11px;margin:14px 0 12px}
 @media (max-width:620px){

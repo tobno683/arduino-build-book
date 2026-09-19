@@ -194,6 +194,17 @@ sv: {
 'Power draw': 'Strömförbrukning',
 'none': 'ingen',
 
+/* --- prints to download ----------------------------------------------------- */
+'drag to turn': 'dra för att vrida',
+'No picture and no STL: the hole positions are the whole part, and they are yours to measure.':
+  'Ingen bild och ingen STL: hålpositionerna är hela delen, och det är du som mäter dem.',
+'Size': 'Storlek',
+'Filament': 'Filament',
+'at most': 'högst',
+'Printing': 'Utskrift',
+'OpenSCAD source': 'OpenSCAD-källfil',
+'Print this first': 'Skriv ut den här först',
+
 /* --- the untranslated-guide notice ----------------------------------------- */
 'This guide has not been translated yet':
   'Den här guiden är inte översatt än',

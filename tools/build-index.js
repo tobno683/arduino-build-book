@@ -45,6 +45,7 @@ run(ctx, 'assets/data/categories.js');
 run(ctx, 'assets/data/news.js');
 run(ctx, 'assets/data/boards.js');
 run(ctx, 'assets/data/drones.js');
+run(ctx, 'assets/data/prints.js');
 run(ctx, 'assets/js/build3d.js');
 run(ctx, 'assets/js/parts3d.js');
 
@@ -326,6 +327,44 @@ if (!AB.boardGuide || !AB.partIndex[AB.boardGuide.firstBoard]) {
 }
 
 /* ==========================================================================
+   The prints on basics/printing.html. The STL, the .scad source and the
+   picture are all generated from prints.js by tools/make-prints.js, which
+   also refuses to write a mesh that is not a closed solid. Here we check
+   the descriptions, then regenerate everything in memory and compare it
+   with what is on disk - so a hole position edited in prints.js without
+   re-running the generator cannot ship as a picture that disagrees with
+   the file.
+   ========================================================================== */
+const PRINT_KINDS = ['plate', 'tray', 'carrier', 'fittest', 'measured'];
+const printIds = new Set();
+(AB.prints || []).forEach((p, i) => {
+  const where = `prints.js: "${p.id || '#' + i}"`;
+  ['id', 'title', 'kind', 'blurb', 'printing', 'params'].forEach(k => {
+    if (!p[k]) errors.push(`${where}: missing "${k}"`);
+  });
+  if (printIds.has(p.id)) errors.push(`${where}: duplicate id`);
+  printIds.add(p.id);
+  if (!PRINT_KINDS.includes(p.kind)) errors.push(`${where}: kind "${p.kind}" is not one of ${PRINT_KINDS.join(', ')}`);
+  if (!(p.use || []).length) errors.push(`${where}: no "use" notes - say how to fit it`);
+  (p.fits || []).forEach(id => {
+    if (!writtenUp.has(id)) errors.push(`${where}: fits "${id}", which has no entry in boards.js`);
+  });
+  // A measured plate exists precisely because nobody publishes the holes.
+  if (p.kind === 'measured' && (p.params.holes || []).length) {
+    errors.push(`${where}: a measured plate must ship with no holes filled in`);
+  }
+  if (p.sv && (!p.sv.title || !p.sv.blurb)) errors.push(`${where}: an sv block needs title and blurb`);
+});
+if ((AB.prints || []).length) {
+  try {
+    const stale = require('./make-prints.js').check();
+    stale.forEach(m => errors.push(`prints: ${m} - run node tools/make-prints.js`));
+  } catch (e) {
+    errors.push(`prints: the generator refused - ${e.message}`);
+  }
+}
+
+/* ==========================================================================
    The news shelf. Same deal as projects: anything that would render a dead
    link or a wrong badge is an error, not a warning. Staleness is a warning,
    because the page stays correct - it just stops being news.
@@ -483,12 +522,15 @@ function writePrecache(projects) {
     './assets/js/project.js',
     './assets/js/build3d.js',
     './assets/js/parts3d.js',
+    './assets/js/meshview.js',
     './assets/data/parts.js',
     './assets/data/categories.js',
     './assets/data/glossary.js',
     './assets/data/news.js',
     './assets/data/boards.js',
     './assets/data/drones.js',
+    './assets/data/prints.js',
+    './assets/prints/index.js',
     './assets/data/i18n.js',
     './assets/data/index.js',
     './assets/favicon.svg',

@@ -3,3 +3,4 @@
 
 # Binary - never touch these.
 *.png binary
+*.stl binary

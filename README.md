@@ -7,7 +7,8 @@ solder joint in plain words, and the complete sketch with a copy button.
 Static HTML, CSS and vanilla JavaScript. No frameworks, no dependencies, no tracking. One optional Node
 script regenerates a summary index.
 
-**107 projects across 16 themes. 246 parts priced. 8 reference pages. 13 boards written up, with case dimensions.**
+**107 projects across 16 themes. 246 parts priced. 8 reference pages. 13 boards written up, with case dimensions.
+7 prints to download, as STL and OpenSCAD.**
 
 Filterable by the board you already own: `projects.html?board=uno-q`, `?board=esp32`, `?board=jetson-orin`.
 
@@ -20,6 +21,7 @@ node tools/serve.js        # preview on http://localhost:5178
 node tools/build-index.js  # regenerate the index + service worker list, and validate
 node tools/check-pwa.js    # validate the manifest, icons and worker
 node tools/make-icons.js   # re-render the PNG icon set (only if the artwork changes)
+node tools/make-prints.js  # regenerate the downloadable prints after editing assets/data/prints.js
 ```
 
 Or just open `index.html` — everything works from a `file://` URL too, apart from the
@@ -80,8 +82,12 @@ assets/
   data/glossary.js       glossary entries
   data/index.js          GENERATED summary, see below
   data/projects/*.js     one file per project
+  data/prints.js         the downloadable prints: parameters and descriptions
+  prints/                GENERATED: STL, OpenSCAD source and preview mesh per print
+  js/meshview.js         depth-buffer renderer for the print previews
 tools/
   build-index.js         regenerates data/index.js, and validates everything
+  make-prints.js         builds the prints - no CSG library, checks every mesh is a closed solid
   serve.js               40-line static server
 ```
 
@@ -97,6 +103,15 @@ breadboard's holes are on a real 2.54 mm grid with its four separate power rails
 
 **The wiring table and the 3D view are generated from the same `build.wires` array.** They cannot disagree,
 because they are the same data.
+
+### The prints
+
+`basics/printing.html` has mounting plates, a bumper tray, header carriers and an M3 fit test to download.
+They are built only from published hole drawings, and each comes as an STL and an OpenSCAD source written
+from the same numbers. The picture on the page is drawn from the same mesh as the STL, by a small
+depth-buffer renderer, so what you see is what you download. `tools/make-prints.js` builds them without a
+CSG library and refuses to write any mesh that is not a closed solid. They have not been test-printed, and
+the page says so.
 
 ### Adding or editing a project
 

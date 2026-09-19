@@ -755,6 +755,7 @@ AB.loc = function (o) {
   }
   if (AB.levels) AB.levels = AB.levels.map(AB.loc);
   if (AB.boards) AB.boards = AB.boards.map(AB.loc);
+  if (AB.prints) AB.prints = AB.prints.map(AB.loc);
 }());
 
 AB.theme.init();
